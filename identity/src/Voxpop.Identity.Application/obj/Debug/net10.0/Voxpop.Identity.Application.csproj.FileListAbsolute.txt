@@ -1,0 +1,15 @@
+C:\Users\osaka\Projects\Voxpop\identity\src\Voxpop.Identity.Application\bin\Debug\net10.0\Voxpop.Identity.Application.deps.json
+C:\Users\osaka\Projects\Voxpop\identity\src\Voxpop.Identity.Application\bin\Debug\net10.0\Voxpop.Identity.Application.dll
+C:\Users\osaka\Projects\Voxpop\identity\src\Voxpop.Identity.Application\bin\Debug\net10.0\Voxpop.Identity.Application.pdb
+C:\Users\osaka\Projects\Voxpop\identity\src\Voxpop.Identity.Application\obj\Debug\net10.0\Voxpop.Identity.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\osaka\Projects\Voxpop\identity\src\Voxpop.Identity.Application\obj\Debug\net10.0\Voxpop.Identity.Application.AssemblyInfoInputs.cache
+C:\Users\osaka\Projects\Voxpop\identity\src\Voxpop.Identity.Application\obj\Debug\net10.0\Voxpop.Identity.Application.AssemblyInfo.cs
+C:\Users\osaka\Projects\Voxpop\identity\src\Voxpop.Identity.Application\obj\Debug\net10.0\Voxpop.Identity.Application.csproj.CoreCompileInputs.cache
+C:\Users\osaka\Projects\Voxpop\identity\src\Voxpop.Identity.Application\obj\Debug\net10.0\Voxpop.Identity.Application.dll
+C:\Users\osaka\Projects\Voxpop\identity\src\Voxpop.Identity.Application\obj\Debug\net10.0\refint\Voxpop.Identity.Application.dll
+C:\Users\osaka\Projects\Voxpop\identity\src\Voxpop.Identity.Application\obj\Debug\net10.0\Voxpop.Identity.Application.pdb
+C:\Users\osaka\Projects\Voxpop\identity\src\Voxpop.Identity.Application\obj\Debug\net10.0\ref\Voxpop.Identity.Application.dll
+C:\Users\osaka\Projects\Voxpop\identity\src\Voxpop.Identity.Application\bin\Debug\net10.0\Voxpop.Identity.Domain.dll
+C:\Users\osaka\Projects\Voxpop\identity\src\Voxpop.Identity.Application\bin\Debug\net10.0\Voxpop.Identity.Domain.pdb
+C:\Users\osaka\Projects\Voxpop\identity\src\Voxpop.Identity.Application\obj\Debug\net10.0\Voxpop.Identity.Application.csproj.AssemblyReference.cache
+C:\Users\osaka\Projects\Voxpop\identity\src\Voxpop.Identity.Application\obj\Debug\net10.0\Voxpop.I.1C0F5379.Up2Date

@@ -1,0 +1,9 @@
+POST {{Voxpop.Identity.HostAddress}}/user
+Content-Type: application/json
+
+{
+  "phoneNumber": "5511941758744",
+  "password": "DrinkWater#123"
+}
+
+###
