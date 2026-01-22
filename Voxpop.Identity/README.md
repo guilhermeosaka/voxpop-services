@@ -1,5 +1,44 @@
-- docker
-- dotnet tool install --global dotnet-ef
-- docker compose up -d
-- dotnet ef migrations add InitialIdentity --project .\identity\src\Voxpop.Identity.Infrastructure --startup-project .\identity\src\Voxpop.Identity.Api
-- dotnet ef database update --project .\identity\src\Voxpop.Identity.Infrastructure --startup-project .\identity\src\Voxpop.Identity.Api
+# Voxpop.Identity
+
+A .NET-based geographical service API with SQL Server database support.
+
+## Prerequisites
+
+- [Docker](https://www.docker.com/get-started)
+- [.NET SDK](https://dotnet.microsoft.com/download)
+- Entity Framework Core CLI tools
+
+## Getting Started
+
+Run the following commands inside the root folder.
+
+### 1. Install Entity Framework Core Tools
+
+```bash
+dotnet tool install --global dotnet-ef
+```
+
+### 2. Start SQL Server Database
+
+```bash
+docker compose up -d
+```
+
+### 3. Update Database Schema
+
+```bash
+dotnet ef database update --project .\Voxpop.Identity\src\Voxpop.Identity.Infrastructure --startup-project .\Voxpop.Identity\src\Voxpop.Identity.Api
+```
+
+## Database Migration
+
+### 1. Create Migration
+```bash
+dotnet ef migrations add InitialIdentity --project .\Voxpop.Identity\src\Voxpop.Identity.Infrastructure --startup-project .\Voxpop.Identity\src\Voxpop.Identity.Api
+```
+
+### 2. Update Database Schema
+
+```bash
+dotnet ef database update --project .\Voxpop.Identity\src\Voxpop.Identity.Infrastructure --startup-project .\Voxpop.Identity\src\Voxpop.Identity.Api
+```
