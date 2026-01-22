@@ -7,14 +7,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\packages\src\Voxpop.Contracts\Voxpop.Contracts.csproj" />
+      <ProjectReference Include="..\..\..\Voxpop.Packages\src\Voxpop.Packages.Contracts\Voxpop.Packages.Contracts.csproj" />
       <ProjectReference Include="..\Voxpop.Identity.Domain\Voxpop.Identity.Domain.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <Reference Include="Microsoft.Extensions.Options">
-        <HintPath>..\..\..\..\..\..\..\Program Files\dotnet\shared\Microsoft.AspNetCore.App\10.0.2\Microsoft.Extensions.Options.dll</HintPath>
-      </Reference>
+      <PackageReference Include="Microsoft.Extensions.Options" Version="10.0.2" />
     </ItemGroup>
 
 </Project>
