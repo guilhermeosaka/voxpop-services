@@ -1,9 +1,19 @@
-POST {{Voxpop.Identity.HostAddress}}/user
+###
+
+POST {{Voxpop.Identity.HostAddress}}/api/users
 Content-Type: application/json
 
 {
-  "phoneNumber": "5511941758744",
-  "password": "DrinkWater#123"
+  "phoneNumber": "5511941758744"
+}
+
+### /verifications/phone
+
+POST {{Voxpop.Identity.HostAddress}}/api/verifications/phone
+Content-Type: application/json
+
+{
+  "phoneNumber": "5511941758744"
 }
 
 ###

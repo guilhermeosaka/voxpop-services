@@ -32,6 +32,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C0520DCE-FE3
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Packages.Contracts", "Voxpop.Packages\src\Voxpop.Packages.Contracts\Voxpop.Packages.Contracts.csproj", "{07F76CB9-16F5-4A86-88BE-4678F6A5BB72}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Packages.Dispatcher", "Voxpop.Packages\src\Voxpop.Packages.Dispatcher\Voxpop.Packages.Dispatcher.csproj", "{AD4785F2-792C-4787-BAF1-1C88EFDDF3BE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,7 @@ Global
 		{7E221005-C51C-4E15-B301-5FCEB343E1B7} = {F4E08E47-636B-47D1-8344-FD401E381A3D}
 		{C0520DCE-FE32-44F9-8051-C255B99B139E} = {5FBD46D5-BA2E-4D63-B8CE-2EA43A95D894}
 		{07F76CB9-16F5-4A86-88BE-4678F6A5BB72} = {C0520DCE-FE32-44F9-8051-C255B99B139E}
+		{AD4785F2-792C-4787-BAF1-1C88EFDDF3BE} = {C0520DCE-FE32-44F9-8051-C255B99B139E}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{490F24B4-8127-4740-883A-FBDFA0B42AAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -73,5 +76,9 @@ Global
 		{07F76CB9-16F5-4A86-88BE-4678F6A5BB72}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07F76CB9-16F5-4A86-88BE-4678F6A5BB72}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07F76CB9-16F5-4A86-88BE-4678F6A5BB72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD4785F2-792C-4787-BAF1-1C88EFDDF3BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD4785F2-792C-4787-BAF1-1C88EFDDF3BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD4785F2-792C-4787-BAF1-1C88EFDDF3BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD4785F2-792C-4787-BAF1-1C88EFDDF3BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

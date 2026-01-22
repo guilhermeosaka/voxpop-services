@@ -36,15 +36,4 @@ public class UserRepository(UserManager<ApplicationUser> userManager) : IUserRep
         var applicationUser = await userManager.FindByIdAsync(userId);
         return applicationUser == null ? null : new User(applicationUser.UserName!, applicationUser.PhoneNumberConfirmed);
     }
-
-    public async Task UpdateAsync(User user)
-    {
-        var applicationUser = await userManager.FindByNameAsync(user.PhoneNumber);
-        if (applicationUser == null) return;
-        
-        applicationUser.VerificationCode = user.VerificationCode;
-        applicationUser.VerificationCodeExpiresAt = user.VerificationCodeExpiresAt;
-        
-        await userManager.UpdateAsync(applicationUser);
-    }
 }

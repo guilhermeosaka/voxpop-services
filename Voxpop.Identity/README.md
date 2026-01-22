@@ -34,7 +34,7 @@ dotnet ef database update --project .\Voxpop.Identity\src\Voxpop.Identity.Infras
 
 ### 1. Create Migration
 ```bash
-dotnet ef migrations add InitialIdentity --project .\Voxpop.Identity\src\Voxpop.Identity.Infrastructure --startup-project .\Voxpop.Identity\src\Voxpop.Identity.Api
+dotnet ef migrations add Initial --project .\Voxpop.Identity\src\Voxpop.Identity.Infrastructure --startup-project .\Voxpop.Identity\src\Voxpop.Identity.Api
 ```
 
 ### 2. Update Database Schema

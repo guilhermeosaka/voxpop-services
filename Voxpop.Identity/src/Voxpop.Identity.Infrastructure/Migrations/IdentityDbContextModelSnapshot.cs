@@ -152,28 +152,38 @@ namespace Voxpop.Identity.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Voxpop.Identity.Domain.Models.RefreshToken", b =>
+            modelBuilder.Entity("Voxpop.Identity.Domain.Models.VerificationCode", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("ExpiresAt")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<int>("Channel")
+                        .HasColumnType("integer");
 
-                    b.Property<bool>("IsRevoked")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("Token")
+                    b.Property<string>("Code")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid>("UserId")
+                    b.Property<DateTime>("ExpiresAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Target")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UsedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("UserId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
-                    b.ToTable("RefreshTokens");
+                    b.HasIndex("Target", "Channel")
+                        .IsUnique();
+
+                    b.ToTable("VerificationCodes", (string)null);
                 });
 
             modelBuilder.Entity("Voxpop.Identity.Infrastructure.Persistence.Entities.ApplicationUser", b =>

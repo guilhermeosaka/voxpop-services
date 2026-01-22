@@ -1,16 +1,13 @@
-using Microsoft.Extensions.Options;
-using RabbitMQ.Client;
-using Voxpop.Identity.Application.Commands;
-using Voxpop.Identity.Application.Handlers;
 using Voxpop.Identity.Application.Interfaces;
 using Voxpop.Identity.Application.Options;
-using Voxpop.Identity.Application.Services;
 using Voxpop.Identity.Domain.Interfaces;
 using Voxpop.Identity.Domain.Models;
 using Voxpop.Identity.Infrastructure.Extensions;
 using Voxpop.Identity.Infrastructure.Messaging;
 using Voxpop.Identity.Infrastructure.Options;
+using Voxpop.Identity.Infrastructure.Persistence;
 using Voxpop.Identity.Infrastructure.Persistence.Repositories;
+using Voxpop.Packages.Handler.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,12 +18,12 @@ builder.Services.Configure<VerificationCodeOptions>(builder.Configuration.GetSec
 builder.Services
     .AddEndpointsApiExplorer()
     .AddSwaggerGen()
+    .AddDispatcher()
     .AddDb(builder.Configuration.GetConnectionString("IdentityDb"))
-    .AddTransient<IHandler<RegisterUserCommand>, RegisterUserHandler>()
     .AddTransient<IUserRepository<User>, UserRepository>()
-    .AddTransient<IHandler<RegisterUserCommand>, RegisterUserHandler>()
+    .AddTransient<IVerificationCodeRepository, VerificationCodeRepository>()
+    .AddTransient<IUnitOfWork, UnitOfWork>()
     .AddTransient<IMessagePublisher, RabbitMqPublisher>()
-    .AddTransient<VerificationCodeService>()
     .AddRabbitMq(builder.Configuration.GetSection("RabbitMq").Get<RabbitMqOptions>()!);
 
 var app = builder.Build();

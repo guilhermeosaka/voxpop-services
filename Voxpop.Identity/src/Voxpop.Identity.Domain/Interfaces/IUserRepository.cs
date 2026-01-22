@@ -8,5 +8,4 @@ public interface IUserRepository<TUser> where TUser : class
     Task<TUser?> FindByPhoneNumberAsync(string phoneNumber);
     Task<bool> CheckPasswordAsync(TUser user, string password);
     Task<TUser?> FindByIdAsync(string userId);
-    Task UpdateAsync(TUser user);
 }
