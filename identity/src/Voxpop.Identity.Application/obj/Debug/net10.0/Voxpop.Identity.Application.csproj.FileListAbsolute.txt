@@ -13,3 +13,9 @@ C:\Users\osaka\Projects\Voxpop\identity\src\Voxpop.Identity.Application\bin\Debu
 C:\Users\osaka\Projects\Voxpop\identity\src\Voxpop.Identity.Application\bin\Debug\net10.0\Voxpop.Identity.Domain.pdb
 C:\Users\osaka\Projects\Voxpop\identity\src\Voxpop.Identity.Application\obj\Debug\net10.0\Voxpop.Identity.Application.csproj.AssemblyReference.cache
 C:\Users\osaka\Projects\Voxpop\identity\src\Voxpop.Identity.Application\obj\Debug\net10.0\Voxpop.I.1C0F5379.Up2Date
+C:\Users\osaka\Projects\Voxpop\identity\src\Voxpop.Identity.Application\bin\Debug\net10.0\Microsoft.Extensions.Options.dll
+C:\Users\osaka\Projects\Voxpop\identity\src\Voxpop.Identity.Application\bin\Debug\net10.0\Voxpop.Contracts.dll
+C:\Users\osaka\Projects\Voxpop\identity\src\Voxpop.Identity.Application\bin\Debug\net10.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\osaka\Projects\Voxpop\identity\src\Voxpop.Identity.Application\bin\Debug\net10.0\Microsoft.Extensions.Primitives.dll
+C:\Users\osaka\Projects\Voxpop\identity\src\Voxpop.Identity.Application\bin\Debug\net10.0\Voxpop.Contracts.pdb
+C:\Users\osaka\Projects\Voxpop\identity\src\Voxpop.Identity.Application\obj\Debug\net10.0\Voxpop.Identity.Application.sourcelink.json

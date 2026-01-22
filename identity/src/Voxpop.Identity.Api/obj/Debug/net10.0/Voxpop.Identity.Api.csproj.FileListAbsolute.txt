@@ -139,3 +139,7 @@ C:\Users\osaka\Projects\Voxpop\identity\src\Voxpop.Identity.Api\bin\Debug\net10.
 C:\Users\osaka\Projects\Voxpop\identity\src\Voxpop.Identity.Api\bin\Debug\net10.0\Npgsql.dll
 C:\Users\osaka\Projects\Voxpop\identity\src\Voxpop.Identity.Api\bin\Debug\net10.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
 C:\Users\osaka\Projects\Voxpop\identity\src\Voxpop.Identity.Api\bin\Debug\net10.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\osaka\Projects\Voxpop\identity\src\Voxpop.Identity.Api\bin\Debug\net10.0\RabbitMQ.Client.dll
+C:\Users\osaka\Projects\Voxpop\identity\src\Voxpop.Identity.Api\bin\Debug\net10.0\Voxpop.Contracts.dll
+C:\Users\osaka\Projects\Voxpop\identity\src\Voxpop.Identity.Api\bin\Debug\net10.0\Voxpop.Contracts.pdb
+C:\Users\osaka\Projects\Voxpop\identity\src\Voxpop.Identity.Api\obj\Debug\net10.0\Voxpop.Identity.Api.sourcelink.json

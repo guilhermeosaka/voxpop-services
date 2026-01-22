@@ -518,6 +518,14 @@
           }
         }
       },
+      "RabbitMQ.Client/7.2.0": {
+        "runtime": {
+          "lib/net8.0/RabbitMQ.Client.dll": {
+            "assemblyVersion": "7.0.0.0",
+            "fileVersion": "7.2.0.0"
+          }
+        }
+      },
       "Swashbuckle.AspNetCore.Swagger/10.1.0": {
         "dependencies": {
           "Microsoft.OpenApi": "2.3.0"
@@ -628,8 +636,17 @@
           }
         }
       },
+      "Voxpop.Contracts/1.0.0": {
+        "runtime": {
+          "Voxpop.Contracts.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "Voxpop.Identity.Application/1.0.0": {
         "dependencies": {
+          "Voxpop.Contracts": "1.0.0",
           "Voxpop.Identity.Domain": "1.0.0"
         },
         "runtime": {
@@ -652,6 +669,7 @@
           "Microsoft.AspNetCore.Authentication.JwtBearer": "10.0.2",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "10.0.2",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "10.0.0",
+          "RabbitMQ.Client": "7.2.0",
           "Voxpop.Identity.Application": "1.0.0"
         },
         "runtime": {
@@ -858,6 +876,13 @@
       "path": "npgsql.entityframeworkcore.postgresql/10.0.0",
       "hashPath": "npgsql.entityframeworkcore.postgresql.10.0.0.nupkg.sha512"
     },
+    "RabbitMQ.Client/7.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-PPQ7cF7lwbhqC4up6en1bTUZlz06YqQwJecOJzsguTtyhNA7oL5uNDZIx/h6ZfcyPZV4V3DYKSCxfm4RUFLcbA==",
+      "path": "rabbitmq.client/7.2.0",
+      "hashPath": "rabbitmq.client.7.2.0.nupkg.sha512"
+    },
     "Swashbuckle.AspNetCore.Swagger/10.1.0": {
       "type": "package",
       "serviceable": true,
@@ -934,6 +959,11 @@
       "sha512": "sha512-GJw3bYkWpOgvN3tJo5X4lYUeIFA2HD293FPUhKmp7qxS+g5ywAb34Dnd3cDAFLkcMohy5XTpoaZ4uAHuw0uSPQ==",
       "path": "system.identitymodel.tokens.jwt/8.0.1",
       "hashPath": "system.identitymodel.tokens.jwt.8.0.1.nupkg.sha512"
+    },
+    "Voxpop.Contracts/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "Voxpop.Identity.Application/1.0.0": {
       "type": "project",

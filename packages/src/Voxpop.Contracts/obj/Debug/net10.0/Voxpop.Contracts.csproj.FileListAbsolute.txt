@@ -9,3 +9,4 @@ C:\Users\osaka\Projects\Voxpop\packages\src\Voxpop.Contracts\obj\Debug\net10.0\V
 C:\Users\osaka\Projects\Voxpop\packages\src\Voxpop.Contracts\obj\Debug\net10.0\refint\Voxpop.Contracts.dll
 C:\Users\osaka\Projects\Voxpop\packages\src\Voxpop.Contracts\obj\Debug\net10.0\Voxpop.Contracts.pdb
 C:\Users\osaka\Projects\Voxpop\packages\src\Voxpop.Contracts\obj\Debug\net10.0\ref\Voxpop.Contracts.dll
+C:\Users\osaka\Projects\Voxpop\packages\src\Voxpop.Contracts\obj\Debug\net10.0\Voxpop.Contracts.sourcelink.json

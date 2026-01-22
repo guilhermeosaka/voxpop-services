@@ -2,4 +2,4 @@
 - dotnet tool install --global dotnet-ef
 - docker compose up -d
 - dotnet ef migrations add InitialIdentity --project .\identity\src\Voxpop.Identity.Infrastructure --startup-project .\identity\src\Voxpop.Identity.Api
-- dotnet ef database update (first time it shows failure, but works)
+- dotnet ef database update --project .\identity\src\Voxpop.Identity.Infrastructure --startup-project .\identity\src\Voxpop.Identity.Api

@@ -12,7 +12,7 @@
       - postgres_data:/var/lib/postgresql
 
   rabbitmq:
-    image: rabbitmq:4.2.2
+    image: rabbitmq:4.2.2-management
     restart: unless-stopped
     ports:
       - "5672:5672"
@@ -22,7 +22,6 @@
       RABBITMQ_DEFAULT_PASS: guest
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
-
 
 volumes:
   postgres_data:

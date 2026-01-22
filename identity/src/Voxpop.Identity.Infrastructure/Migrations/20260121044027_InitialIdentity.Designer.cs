@@ -12,7 +12,7 @@ using Voxpop.Identity.Infrastructure.Persistence;
 namespace Voxpop.Identity.Infrastructure.Migrations
 {
     [DbContext(typeof(IdentityDbContext))]
-    [Migration("20260120175012_InitialIdentity")]
+    [Migration("20260121044027_InitialIdentity")]
     partial class InitialIdentity
     {
         /// <inheritdoc />
@@ -234,6 +234,12 @@ namespace Voxpop.Identity.Infrastructure.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
+
+                    b.Property<string>("VerificationCode")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("VerificationCodeExpiresAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
