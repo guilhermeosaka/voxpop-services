@@ -1,36 +1,36 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "profile", "profile", "{F1DB1C89-6081-475F-81DF-4534B47E47BF}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Voxpop.Profile", "Voxpop.Profile", "{F1DB1C89-6081-475F-81DF-4534B47E47BF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{82BA791F-0B71-4882-8F76-8D467DB8F44E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Profile.Api", "profile\src\Voxpop.Profile.Api\Voxpop.Profile.Api.csproj", "{490F24B4-8127-4740-883A-FBDFA0B42AAC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Profile.Api", "Voxpop.Profile\src\Voxpop.Profile.Api\Voxpop.Profile.Api.csproj", "{490F24B4-8127-4740-883A-FBDFA0B42AAC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{603979F1-0DBF-4BF6-9C50-BEB3D4495619}"
 	ProjectSection(SolutionItems) = preProject
 		docker-compose.yaml = docker-compose.yaml
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "identity", "identity", "{2C5499BE-A6EB-46DE-BD28-C07854200791}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Voxpop.Identity", "Voxpop.Identity", "{2C5499BE-A6EB-46DE-BD28-C07854200791}"
 	ProjectSection(SolutionItems) = preProject
-		identity\README.md = identity\README.md
+		Voxpop.Identity\README.md = Voxpop.Identity\README.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F4E08E47-636B-47D1-8344-FD401E381A3D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Identity.Api", "identity\src\Voxpop.Identity.Api\Voxpop.Identity.Api.csproj", "{AA4EAF22-78DC-4160-894B-6339B6D46587}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Identity.Api", "Voxpop.Identity\src\Voxpop.Identity.Api\Voxpop.Identity.Api.csproj", "{AA4EAF22-78DC-4160-894B-6339B6D46587}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Identity.Infrastructure", "identity\src\Voxpop.Identity.Infrastructure\Voxpop.Identity.Infrastructure.csproj", "{215440B7-6F0C-4FA0-AAD4-D9A9ADA361CF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Identity.Infrastructure", "Voxpop.Identity\src\Voxpop.Identity.Infrastructure\Voxpop.Identity.Infrastructure.csproj", "{215440B7-6F0C-4FA0-AAD4-D9A9ADA361CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Identity.Domain", "identity\src\Voxpop.Identity.Domain\Voxpop.Identity.Domain.csproj", "{378903D2-2FA5-4E19-A416-EEA2C72DA4D1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Identity.Domain", "Voxpop.Identity\src\Voxpop.Identity.Domain\Voxpop.Identity.Domain.csproj", "{378903D2-2FA5-4E19-A416-EEA2C72DA4D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Identity.Application", "identity\src\Voxpop.Identity.Application\Voxpop.Identity.Application.csproj", "{7E221005-C51C-4E15-B301-5FCEB343E1B7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Identity.Application", "Voxpop.Identity\src\Voxpop.Identity.Application\Voxpop.Identity.Application.csproj", "{7E221005-C51C-4E15-B301-5FCEB343E1B7}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "packages", "packages", "{5FBD46D5-BA2E-4D63-B8CE-2EA43A95D894}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Voxpop.Packages", "Voxpop.Packages", "{5FBD46D5-BA2E-4D63-B8CE-2EA43A95D894}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C0520DCE-FE32-44F9-8051-C255B99B139E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Contracts", "packages\src\Voxpop.Contracts\Voxpop.Contracts.csproj", "{07F76CB9-16F5-4A86-88BE-4678F6A5BB72}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Contracts", "Voxpop.Packages\src\Voxpop.Contracts\Voxpop.Contracts.csproj", "{07F76CB9-16F5-4A86-88BE-4678F6A5BB72}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
