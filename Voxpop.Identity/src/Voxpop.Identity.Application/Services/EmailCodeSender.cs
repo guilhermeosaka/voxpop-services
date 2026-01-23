@@ -6,6 +6,6 @@ public class EmailCodeSender : ICodeSender
 {
     public Task SendAsync(string target, string code)
     {
-        throw new NotImplementedException("Email sending is not implemented yet.");
+        throw new NotImplementedException($"Email sending is not implemented yet. (Target: {target}, Code: {code}).");
     }
 }
