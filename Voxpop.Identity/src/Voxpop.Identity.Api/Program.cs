@@ -22,6 +22,7 @@ builder.Services.AddControllers();
 builder.Services.Configure<RabbitMqOptions>(builder.Configuration.GetSection("RabbitMq"));
 builder.Services.Configure<VerificationCodeOptions>(builder.Configuration.GetSection("VerificationCode"));
 builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("Jwt"));
+builder.Services.Configure<RefreshTokenOptions>(builder.Configuration.GetSection("RefreshToken"));
 
 builder.Services
     .AddEndpointsApiExplorer()
@@ -30,17 +31,21 @@ builder.Services
     .AddDb(builder.Configuration.GetConnectionString("IdentityDb"))
     .AddScoped<IUserRepository, UserRepository>()
     .AddScoped<IVerificationCodeRepository, VerificationCodeRepository>()
+    .AddScoped<IRefreshTokenRepository, RefreshTokenRepository>()
     .AddScoped<IUnitOfWork, UnitOfWork>()
     .AddScoped<IMessagePublisher, RabbitMqPublisher>()
     .AddScoped<ITokenGenerator, JwtGenerator>()
     .AddScoped<CodeVerifier>()
+    .AddScoped<RefreshTokenService>()
     .AddKeyedScoped<ICodeSender, PhoneCodeSender>(VerificationCodeChannel.Phone)
     .AddKeyedScoped<ICodeSender, EmailCodeSender>(VerificationCodeChannel.Email)
     .AddKeyedScoped<IUserFinder, PhoneUserFinder>(VerificationCodeChannel.Phone)
     .AddKeyedScoped<IUserFinder, EmailUserFinder>(VerificationCodeChannel.Email)
     .AddScoped<IPasswordHasher<VerificationCode>, PasswordHasher<VerificationCode>>()
     .AddScoped<IHasher, Hasher>()
-    .AddRabbitMq(builder.Configuration.GetSection("RabbitMq").Get<RabbitMqOptions>()!);
+    .AddRabbitMq(builder.Configuration.GetSection("RabbitMq").Get<RabbitMqOptions>()!)
+    .AddAuthentication(builder.Configuration.GetSection("Jwt").Get<JwtOptions>()!)
+    .AddAuthorization();
 
 var app = builder.Build();
 
@@ -51,6 +56,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 

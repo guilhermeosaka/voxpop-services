@@ -24,7 +24,7 @@ public class CreateCodeHandler(
 
         if (verificationCode == null)
         {
-            verificationCode = new VerificationCode(request.Target, request.Channel);
+            verificationCode = VerificationCode.Create(request.Target, request.Channel);
             await verificationCodeRepository.AddAsync(verificationCode);
         }
 

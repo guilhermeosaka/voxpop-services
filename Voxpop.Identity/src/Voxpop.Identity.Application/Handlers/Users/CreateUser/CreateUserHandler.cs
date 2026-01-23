@@ -15,11 +15,11 @@ public class CreateUserHandler(IUserRepository userRepository, IDispatcher dispa
     {
         var existingUser = await userRepository.FindByPhoneNumberAsync(request.PhoneNumber);
 
-        if (existingUser is { PhoneNumberConfirmed: true })
+        if (existingUser != null)
             return Errors.UserConflict(request.PhoneNumber, VerificationCodeChannel.Phone);
 
         if (existingUser == null)
-            await userRepository.AddAsync(new User(request.PhoneNumber));
+            await userRepository.AddAsync(User.Create(request.PhoneNumber));
 
         await dispatcher.Dispatch(new CreateCodeCommand(request.PhoneNumber, VerificationCodeChannel.Phone), ct);
         

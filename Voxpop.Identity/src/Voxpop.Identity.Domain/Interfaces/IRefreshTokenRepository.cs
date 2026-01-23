@@ -1,19 +1,9 @@
-﻿namespace Voxpop.Identity.Domain.Interfaces;
+﻿using Voxpop.Identity.Domain.Models;
+
+namespace Voxpop.Identity.Domain.Interfaces;
 
 public interface IRefreshTokenRepository
 {
-    Task<string> CreateAsync(
-        Guid userId,
-        DateTime expiresAt,
-        CancellationToken cancellationToken = default);
-
-    Task<string?> RefreshAsync(
-        Guid userId,
-        string token,
-        DateTime expiresAt,
-        CancellationToken cancellationToken = default);
-
-    Task RevokeAsync(string token, CancellationToken cancellationToken = default);
-
-    Task RevokeAllAsync(Guid userId, CancellationToken cancellationToken = default);
+    Task<IReadOnlyList<RefreshToken>> GetAllActiveByTokenId(string tokenId);
+    Task AddAsync(RefreshToken refreshToken);
 }

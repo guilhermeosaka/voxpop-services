@@ -9,4 +9,5 @@ public interface IUserRepository
     Task<User?> FindByEmailAsync(string email);
     Task<bool> CheckPasswordAsync(User user, string password);
     Task<User?> FindByIdAsync(string userId);
+    Task<User?> FindByIdAsync(Guid userId);
 }

@@ -10,7 +10,8 @@ namespace Voxpop.Identity.Application.Handlers.Tokens.CreateToken;
 public class CreateTokenHandler(
     CodeVerifier codeVerifier,
     IServiceProvider serviceProvider,
-    ITokenGenerator tokenGenerator
+    ITokenGenerator tokenGenerator,
+    RefreshTokenService refreshTokenService
     ) : IHandler<CreateTokenCommand, CreateTokenResult>
 {
     public async Task<Result<CreateTokenResult>> Handle(CreateTokenCommand request, CancellationToken ct)
@@ -24,6 +25,9 @@ public class CreateTokenHandler(
         if (user == null)
             return Errors.UserNotFound(request.Target, request.Channel);
 
-        return new CreateTokenResult(tokenGenerator.Generate(user));
+        var accessToken = tokenGenerator.Generate(user);
+        var refreshToken = await refreshTokenService.CreateAsync(user.Id, ct: ct);
+        
+        return new CreateTokenResult(accessToken, refreshToken!);
     }
 }

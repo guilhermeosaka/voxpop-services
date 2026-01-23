@@ -25,5 +25,14 @@ Content-Type: application/json
 {
   "target": "5511941758744",
   "channel": 1,
-  "code": "274693"
+  "code": "217426"
+}
+
+### POST /tokens
+
+PUT {{Voxpop.Identity.HostAddress}}/api/tokens
+Content-Type: application/json
+
+{
+  "token": "eSfXF9Oe00mi1DZYfteSl9kJ/QrDwYMRM3hxd1b2G0IlSrezXqLOqzFlk+08iqN2fAjiMY973pI+vJU9ZvXeXg=="
 }

@@ -24,7 +24,7 @@ public class UserRepository(UserManager<ApplicationUser> userManager) : IUserRep
         var applicationUser = await userManager.FindByNameAsync(phoneNumber);
         return applicationUser == null
             ? null
-            : new User(applicationUser.UserName!, applicationUser.Email, applicationUser.PhoneNumberConfirmed);
+            : new User(applicationUser.Id, applicationUser.UserName!, applicationUser.Email);
     }
 
     public async Task<User?> FindByEmailAsync(string email)
@@ -32,7 +32,7 @@ public class UserRepository(UserManager<ApplicationUser> userManager) : IUserRep
         var applicationUser = await userManager.FindByEmailAsync(email);
         return applicationUser == null
             ? null
-            : new User(applicationUser.UserName!, applicationUser.Email, applicationUser.PhoneNumberConfirmed);
+            : new User(applicationUser.Id, applicationUser.UserName!, applicationUser.Email);
     }
 
     public async Task<bool> CheckPasswordAsync(User user, string password)
@@ -46,6 +46,8 @@ public class UserRepository(UserManager<ApplicationUser> userManager) : IUserRep
         var applicationUser = await userManager.FindByIdAsync(userId);
         return applicationUser == null
             ? null
-            : new User(applicationUser.UserName!, applicationUser.Email, applicationUser.PhoneNumberConfirmed);
+            : new User(applicationUser.Id, applicationUser.UserName!, applicationUser.Email);
     }
+
+    public async Task<User?> FindByIdAsync(Guid userId) => await FindByIdAsync(userId.ToString());
 }

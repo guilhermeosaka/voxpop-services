@@ -22,6 +22,7 @@ public static class ResultExtensions
         return error?.Code switch
         {
             Errors.InvalidCodeCode => error.ToProblemDetails(HttpStatusCode.Unauthorized),
+            Errors.InvalidRefreshTokenCode => error.ToProblemDetails(HttpStatusCode.Unauthorized),
             Errors.UserConflictCode => error.ToProblemDetails(HttpStatusCode.Conflict),
             Errors.UserNotFoundCode => error.ToProblemDetails(HttpStatusCode.NotFound),
             _ => new Error(string.Empty, "InternalServerError", "An unexpected error occurred")
