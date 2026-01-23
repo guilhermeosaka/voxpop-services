@@ -7,7 +7,7 @@ using Voxpop.Packages.Handler.Interfaces;
 
 namespace Voxpop.Identity.Application.Handlers.Users.CreateUser;
 
-public class CreateUserHandler(IUserRepository<User> userRepository, IHandler handler)
+public class CreateUserHandler(IUserRepository userRepository, IHandler handler)
     : IHandler<CreateUserCommand>
 {
     public async Task Handle(CreateUserCommand request, CancellationToken ct)

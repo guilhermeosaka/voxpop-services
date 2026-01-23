@@ -8,16 +8,12 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\Voxpop.Packages\src\Voxpop.Packages.Contracts\Voxpop.Packages.Contracts.csproj" />
-      <ProjectReference Include="..\..\..\Voxpop.Packages\src\Voxpop.Packages.Dispatcher\Voxpop.Packages.Dispatcher.csproj" />
+      <ProjectReference Include="..\..\..\Voxpop.Packages\src\Voxpop.Packages.Handler\Voxpop.Packages.Handler.csproj" />
       <ProjectReference Include="..\Voxpop.Identity.Domain\Voxpop.Identity.Domain.csproj" />
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="Microsoft.Extensions.Options" Version="10.0.2" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Handlers\Tokens\" />
     </ItemGroup>
 
 </Project>

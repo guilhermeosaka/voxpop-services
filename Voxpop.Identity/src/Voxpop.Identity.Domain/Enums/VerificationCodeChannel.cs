@@ -2,6 +2,6 @@
 
 public enum VerificationCodeChannel
 {
-    Phone,
-    Email
+    Phone = 1,
+    Email = 2
 }

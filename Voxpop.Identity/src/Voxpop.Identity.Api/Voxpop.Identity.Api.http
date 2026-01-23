@@ -1,4 +1,4 @@
-###
+### POST /users 
 
 POST {{Voxpop.Identity.HostAddress}}/api/users
 Content-Type: application/json
@@ -7,14 +7,23 @@ Content-Type: application/json
   "phoneNumber": "5511941758744"
 }
 
-### /verifications
+### POST /verifications
 
 POST {{Voxpop.Identity.HostAddress}}/api/verifications
 Content-Type: application/json
 
 {
   "target": "5511941758744",
-  "channel": 2
+  "channel": 1
 }
 
-###
+### POST /tokens
+
+POST {{Voxpop.Identity.HostAddress}}/api/tokens
+Content-Type: application/json
+
+{
+  "target": "5511941758744",
+  "channel": 1,
+  "code": "255865"
+}

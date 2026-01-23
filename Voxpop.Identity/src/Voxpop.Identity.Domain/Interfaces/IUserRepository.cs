@@ -2,10 +2,11 @@
 
 namespace Voxpop.Identity.Domain.Interfaces;
 
-public interface IUserRepository<TUser> where TUser : class
+public interface IUserRepository
 {
     Task AddAsync(User user);
-    Task<TUser?> FindByPhoneNumberAsync(string phoneNumber);
-    Task<bool> CheckPasswordAsync(TUser user, string password);
-    Task<TUser?> FindByIdAsync(string userId);
+    Task<User?> FindByPhoneNumberAsync(string phoneNumber);
+    Task<User?> FindByEmailAsync(string email);
+    Task<bool> CheckPasswordAsync(User user, string password);
+    Task<User?> FindByIdAsync(string userId);
 }

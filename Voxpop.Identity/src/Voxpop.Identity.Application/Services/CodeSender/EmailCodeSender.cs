@@ -1,6 +1,6 @@
 ﻿using Voxpop.Identity.Application.Interfaces;
 
-namespace Voxpop.Identity.Application.Services;
+namespace Voxpop.Identity.Application.Services.CodeSender;
 
 public class EmailCodeSender : ICodeSender
 {

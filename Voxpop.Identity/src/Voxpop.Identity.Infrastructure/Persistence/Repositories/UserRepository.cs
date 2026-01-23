@@ -5,7 +5,7 @@ using Voxpop.Identity.Infrastructure.Persistence.Entities;
 
 namespace Voxpop.Identity.Infrastructure.Persistence.Repositories;
 
-public class UserRepository(UserManager<ApplicationUser> userManager) : IUserRepository<User>
+public class UserRepository(UserManager<ApplicationUser> userManager) : IUserRepository
 {
     public async Task AddAsync(User user)
     {
@@ -15,14 +15,24 @@ public class UserRepository(UserManager<ApplicationUser> userManager) : IUserRep
             UserName = user.PhoneNumber,
             PhoneNumber = user.PhoneNumber
         };
-        
+
         await userManager.CreateAsync(applicationUser);
     }
 
     public async Task<User?> FindByPhoneNumberAsync(string phoneNumber)
     {
         var applicationUser = await userManager.FindByNameAsync(phoneNumber);
-        return applicationUser == null ? null : new User(applicationUser.UserName!, applicationUser.PhoneNumberConfirmed);
+        return applicationUser == null
+            ? null
+            : new User(applicationUser.UserName!, applicationUser.Email, applicationUser.PhoneNumberConfirmed);
+    }
+
+    public async Task<User?> FindByEmailAsync(string email)
+    {
+        var applicationUser = await userManager.FindByEmailAsync(email);
+        return applicationUser == null
+            ? null
+            : new User(applicationUser.UserName!, applicationUser.Email, applicationUser.PhoneNumberConfirmed);
     }
 
     public async Task<bool> CheckPasswordAsync(User user, string password)
@@ -34,6 +44,8 @@ public class UserRepository(UserManager<ApplicationUser> userManager) : IUserRep
     public async Task<User?> FindByIdAsync(string userId)
     {
         var applicationUser = await userManager.FindByIdAsync(userId);
-        return applicationUser == null ? null : new User(applicationUser.UserName!, applicationUser.PhoneNumberConfirmed);
+        return applicationUser == null
+            ? null
+            : new User(applicationUser.UserName!, applicationUser.Email, applicationUser.PhoneNumberConfirmed);
     }
 }

@@ -3,7 +3,7 @@ using Voxpop.Contracts.Events;
 using Voxpop.Identity.Application.Interfaces;
 using Voxpop.Identity.Application.Options;
 
-namespace Voxpop.Identity.Application.Services;
+namespace Voxpop.Identity.Application.Services.CodeSender;
 
 public class PhoneCodeSender(
     IMessagePublisher publisher, 
