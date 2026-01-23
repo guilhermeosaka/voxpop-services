@@ -11,7 +11,7 @@ public class PhoneCodeSender(
 {
     public async Task SendAsync(string phoneNumber, string code)
     {
-        var message = string.Format(verificationCodeOptions.Value.Message, code);
+        var message = string.Format(verificationCodeOptions.Value.SmsMessage, code);
         await publisher.PublishAsync(new SmsSend(phoneNumber, message));
     }
 }

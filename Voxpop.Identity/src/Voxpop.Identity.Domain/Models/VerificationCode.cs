@@ -1,5 +1,4 @@
-﻿using System.Security.Cryptography;
-using Voxpop.Identity.Domain.Enums;
+﻿using Voxpop.Identity.Domain.Enums;
 
 namespace Voxpop.Identity.Domain.Models;
 

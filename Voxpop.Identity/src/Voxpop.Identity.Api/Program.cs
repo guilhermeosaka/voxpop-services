@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Voxpop.Identity.Api.Middlewares;
 using Voxpop.Identity.Application.Interfaces;
 using Voxpop.Identity.Application.Options;
 using Voxpop.Identity.Application.Services;
@@ -52,5 +53,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.MapControllers();
+
+app.UseMiddleware<ErrorHandlerMiddleware>();
 
 app.Run();

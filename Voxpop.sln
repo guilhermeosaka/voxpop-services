@@ -32,7 +32,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C0520DCE-FE3
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Packages.Contracts", "Voxpop.Packages\src\Voxpop.Packages.Contracts\Voxpop.Packages.Contracts.csproj", "{07F76CB9-16F5-4A86-88BE-4678F6A5BB72}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Packages.Handler", "Voxpop.Packages\src\Voxpop.Packages.Handler\Voxpop.Packages.Handler.csproj", "{AD4785F2-792C-4787-BAF1-1C88EFDDF3BE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Packages.Dispatcher", "Voxpop.Packages\src\Voxpop.Packages.Dispatcher\Voxpop.Packages.Dispatcher.csproj", "{AD4785F2-792C-4787-BAF1-1C88EFDDF3BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

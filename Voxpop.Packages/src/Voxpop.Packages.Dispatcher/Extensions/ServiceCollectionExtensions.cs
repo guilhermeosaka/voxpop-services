@@ -17,7 +17,7 @@ public static class ServiceCollectionExtensions
             .WithScopedLifetime()
         );
 
-        services.AddScoped<IHandler, Handler>();
+        services.AddScoped<IDispatcher, Dispatcher>();
 
         return services;
     }
