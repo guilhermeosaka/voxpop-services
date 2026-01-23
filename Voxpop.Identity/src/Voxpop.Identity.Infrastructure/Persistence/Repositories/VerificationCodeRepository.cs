@@ -7,9 +7,8 @@ namespace Voxpop.Identity.Infrastructure.Persistence.Repositories;
 
 public class VerificationCodeRepository(IdentityDbContext dbContext) : IVerificationCodeRepository
 {
-    public async Task<VerificationCode?> GetByPhoneNumber(string phoneNumber) =>
-        await dbContext.VerificationCodes.FirstOrDefaultAsync(vc =>
-            vc.Target == phoneNumber && vc.Channel == VerificationCodeChannel.PhoneNumber);
+    public async Task<VerificationCode?> GetByTargetAsync(string target, VerificationCodeChannel channel) =>
+        await dbContext.VerificationCodes.FirstOrDefaultAsync(vc => vc.Target == target && vc.Channel == channel);
 
     public async Task AddAsync(VerificationCode verificationCode) =>
         await dbContext.VerificationCodes.AddAsync(verificationCode);

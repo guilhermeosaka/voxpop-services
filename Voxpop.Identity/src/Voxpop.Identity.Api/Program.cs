@@ -1,5 +1,7 @@
 using Voxpop.Identity.Application.Interfaces;
 using Voxpop.Identity.Application.Options;
+using Voxpop.Identity.Application.Services;
+using Voxpop.Identity.Domain.Enums;
 using Voxpop.Identity.Domain.Interfaces;
 using Voxpop.Identity.Domain.Models;
 using Voxpop.Identity.Infrastructure.Extensions;
@@ -20,10 +22,12 @@ builder.Services
     .AddSwaggerGen()
     .AddDispatcher()
     .AddDb(builder.Configuration.GetConnectionString("IdentityDb"))
-    .AddTransient<IUserRepository<User>, UserRepository>()
-    .AddTransient<IVerificationCodeRepository, VerificationCodeRepository>()
-    .AddTransient<IUnitOfWork, UnitOfWork>()
-    .AddTransient<IMessagePublisher, RabbitMqPublisher>()
+    .AddScoped<IUserRepository<User>, UserRepository>()
+    .AddScoped<IVerificationCodeRepository, VerificationCodeRepository>()
+    .AddScoped<IUnitOfWork, UnitOfWork>()
+    .AddScoped<IMessagePublisher, RabbitMqPublisher>()
+    .AddKeyedScoped<ICodeSender, PhoneCodeSender>(VerificationCodeChannel.Phone)
+    .AddKeyedScoped<ICodeSender, EmailCodeSender>(VerificationCodeChannel.Email)
     .AddRabbitMq(builder.Configuration.GetSection("RabbitMq").Get<RabbitMqOptions>()!);
 
 var app = builder.Build();
