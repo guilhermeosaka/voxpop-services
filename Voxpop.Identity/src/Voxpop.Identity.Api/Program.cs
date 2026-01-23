@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Voxpop.Identity.Application.Interfaces;
 using Voxpop.Identity.Application.Options;
 using Voxpop.Identity.Application.Services;
@@ -5,6 +6,7 @@ using Voxpop.Identity.Application.Services.CodeSender;
 using Voxpop.Identity.Application.Services.UserFinder;
 using Voxpop.Identity.Domain.Enums;
 using Voxpop.Identity.Domain.Interfaces;
+using Voxpop.Identity.Domain.Models;
 using Voxpop.Identity.Infrastructure.Extensions;
 using Voxpop.Identity.Infrastructure.Messaging;
 using Voxpop.Identity.Infrastructure.Options;
@@ -35,6 +37,8 @@ builder.Services
     .AddKeyedScoped<ICodeSender, EmailCodeSender>(VerificationCodeChannel.Email)
     .AddKeyedScoped<IUserFinder, PhoneUserFinder>(VerificationCodeChannel.Phone)
     .AddKeyedScoped<IUserFinder, EmailUserFinder>(VerificationCodeChannel.Email)
+    .AddScoped<IPasswordHasher<VerificationCode>, PasswordHasher<VerificationCode>>()
+    .AddScoped<IHasher, Hasher>()
     .AddRabbitMq(builder.Configuration.GetSection("RabbitMq").Get<RabbitMqOptions>()!);
 
 var app = builder.Build();

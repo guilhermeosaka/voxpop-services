@@ -9,7 +9,7 @@ Content-Type: application/json
 
 ### POST /verifications
 
-POST {{Voxpop.Identity.HostAddress}}/api/verifications
+POST {{Voxpop.Identity.HostAddress}}/api/codes
 Content-Type: application/json
 
 {
@@ -25,5 +25,5 @@ Content-Type: application/json
 {
   "target": "5511941758744",
   "channel": 1,
-  "code": "255865"
+  "code": "418643"
 }

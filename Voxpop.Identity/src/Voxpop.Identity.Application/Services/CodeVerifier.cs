@@ -6,7 +6,8 @@ namespace Voxpop.Identity.Application.Services;
 
 public class CodeVerifier(
     IVerificationCodeRepository verificationCodeRepository,
-    IUnitOfWork unitOfWork)
+    IUnitOfWork unitOfWork,
+    IHasher hasher)
 {
     public async Task<bool> VerifyAsync(string target, VerificationCodeChannel channel, string code, CancellationToken ct)
     {
@@ -14,9 +15,10 @@ public class CodeVerifier(
 
         if (verificationCode == null ||
             verificationCode.IsExpired ||
-            verificationCode.IsConsumed)
+            verificationCode.IsConsumed ||
+            !hasher.Verify(verificationCode.CodeHash, code))
             return false;
-
+        
         verificationCode.Consume();
 
         await unitOfWork.SaveChangesAsync(ct);

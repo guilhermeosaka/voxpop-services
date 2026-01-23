@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Voxpop.Identity.Api.Dtos;
-using Voxpop.Identity.Application.Handlers.Verifications.CreateCode;
+using Voxpop.Identity.Application.Handlers.Codes.CreateCode;
 using Voxpop.Packages.Handler.Interfaces;
 
 namespace Voxpop.Identity.Api.Controllers;
 
 [ApiController]
 [Route("/api/[controller]")]
-public class VerificationsController(IHandler handler) : ControllerBase
+public class CodesController(IHandler handler) : ControllerBase
 {
     [AllowAnonymous]
     [HttpPost]

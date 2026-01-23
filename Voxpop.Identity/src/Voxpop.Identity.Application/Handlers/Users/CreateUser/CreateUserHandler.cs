@@ -1,5 +1,5 @@
 ﻿using Voxpop.Identity.Application.Exceptions;
-using Voxpop.Identity.Application.Handlers.Verifications.CreateCode;
+using Voxpop.Identity.Application.Handlers.Codes.CreateCode;
 using Voxpop.Identity.Domain.Enums;
 using Voxpop.Identity.Domain.Interfaces;
 using Voxpop.Identity.Domain.Models;
