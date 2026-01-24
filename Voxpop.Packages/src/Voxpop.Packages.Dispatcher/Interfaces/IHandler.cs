@@ -1,6 +1,6 @@
-﻿using Voxpop.Packages.Handler.Types;
+﻿using Voxpop.Packages.Dispatcher.Types;
 
-namespace Voxpop.Packages.Handler.Interfaces;
+namespace Voxpop.Packages.Dispatcher.Interfaces;
 
 public interface IHandler<in TRequest>
 {

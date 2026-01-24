@@ -1,6 +1,8 @@
-@Voxpop.Profile.Api_HostAddress = http://localhost:5216
+### GET /profiles
 
-GET {{Voxpop.Profile.Api_HostAddress}}/weatherforecast/
-Accept: application/json
+POST {{Voxpop.Profile.HostAddress}}/api/profiles
+Content-Type: application/json
 
-###
+{
+  
+}

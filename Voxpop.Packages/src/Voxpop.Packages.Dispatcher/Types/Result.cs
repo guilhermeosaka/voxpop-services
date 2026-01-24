@@ -1,4 +1,4 @@
-﻿namespace Voxpop.Packages.Handler.Types;
+﻿namespace Voxpop.Packages.Dispatcher.Types;
 
 public class Result
 {

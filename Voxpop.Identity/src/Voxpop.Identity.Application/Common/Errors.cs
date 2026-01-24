@@ -1,5 +1,5 @@
 ﻿using Voxpop.Identity.Domain.Enums;
-using Voxpop.Packages.Handler.Types;
+using Voxpop.Packages.Dispatcher.Types;
 
 namespace Voxpop.Identity.Application.Common;
 

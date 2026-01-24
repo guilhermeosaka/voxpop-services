@@ -1,8 +1,8 @@
 ﻿using System.Net;
 using Microsoft.AspNetCore.Mvc;
-using Voxpop.Packages.Handler.Types;
+using Voxpop.Packages.Dispatcher.Types;
 
-namespace Voxpop.Identity.Api.Extensions;
+namespace Voxpop.Packages.Dispatcher.Extensions;
 
 public static class ErrorExtensions
 {

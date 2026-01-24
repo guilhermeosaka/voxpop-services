@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Profile.Api", "Voxpo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{603979F1-0DBF-4BF6-9C50-BEB3D4495619}"
 	ProjectSection(SolutionItems) = preProject
-		docker-compose.yaml = docker-compose.yaml
+		compose.yaml = compose.yaml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Voxpop.Identity", "Voxpop.Identity", "{2C5499BE-A6EB-46DE-BD28-C07854200791}"
@@ -34,6 +34,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Packages.Contracts",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Packages.Dispatcher", "Voxpop.Packages\src\Voxpop.Packages.Dispatcher\Voxpop.Packages.Dispatcher.csproj", "{AD4785F2-792C-4787-BAF1-1C88EFDDF3BE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Profile.Application", "Voxpop.Profile\src\Voxpop.Profile.Application\Voxpop.Profile.Application.csproj", "{2346D26D-9CAD-44D9-A764-E3FCAD3C5B20}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Profile.Infrastructure", "Voxpop.Profile\src\Voxpop.Profile.Infrastructure\Voxpop.Profile.Infrastructure.csproj", "{803803FF-AA62-4932-9ED4-097BB368E32C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Profile.Domain", "Voxpop.Profile\src\Voxpop.Profile.Domain\Voxpop.Profile.Domain.csproj", "{B21469A9-A879-40C3-AAE7-CA76322FCF64}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +56,9 @@ Global
 		{C0520DCE-FE32-44F9-8051-C255B99B139E} = {5FBD46D5-BA2E-4D63-B8CE-2EA43A95D894}
 		{07F76CB9-16F5-4A86-88BE-4678F6A5BB72} = {C0520DCE-FE32-44F9-8051-C255B99B139E}
 		{AD4785F2-792C-4787-BAF1-1C88EFDDF3BE} = {C0520DCE-FE32-44F9-8051-C255B99B139E}
+		{2346D26D-9CAD-44D9-A764-E3FCAD3C5B20} = {82BA791F-0B71-4882-8F76-8D467DB8F44E}
+		{803803FF-AA62-4932-9ED4-097BB368E32C} = {82BA791F-0B71-4882-8F76-8D467DB8F44E}
+		{B21469A9-A879-40C3-AAE7-CA76322FCF64} = {82BA791F-0B71-4882-8F76-8D467DB8F44E}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{490F24B4-8127-4740-883A-FBDFA0B42AAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -80,5 +89,17 @@ Global
 		{AD4785F2-792C-4787-BAF1-1C88EFDDF3BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD4785F2-792C-4787-BAF1-1C88EFDDF3BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD4785F2-792C-4787-BAF1-1C88EFDDF3BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2346D26D-9CAD-44D9-A764-E3FCAD3C5B20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2346D26D-9CAD-44D9-A764-E3FCAD3C5B20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2346D26D-9CAD-44D9-A764-E3FCAD3C5B20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2346D26D-9CAD-44D9-A764-E3FCAD3C5B20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{803803FF-AA62-4932-9ED4-097BB368E32C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{803803FF-AA62-4932-9ED4-097BB368E32C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{803803FF-AA62-4932-9ED4-097BB368E32C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{803803FF-AA62-4932-9ED4-097BB368E32C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B21469A9-A879-40C3-AAE7-CA76322FCF64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B21469A9-A879-40C3-AAE7-CA76322FCF64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B21469A9-A879-40C3-AAE7-CA76322FCF64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B21469A9-A879-40C3-AAE7-CA76322FCF64}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

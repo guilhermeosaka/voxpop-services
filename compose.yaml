@@ -22,7 +22,19 @@
       RABBITMQ_DEFAULT_PASS: guest
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
+  
+  seq:
+    image: datalust/seq:2025.2
+    container_name: seq
+    ports:
+      - "5341:80"
+    environment:
+      ACCEPT_EULA: "Y"
+      SEQ_FIRSTRUN_NOAUTHENTICATION: "True"
+    volumes:
+      - seq_data:/data
 
 volumes:
   postgres_data:
   rabbitmq_data:
+  seq_data:

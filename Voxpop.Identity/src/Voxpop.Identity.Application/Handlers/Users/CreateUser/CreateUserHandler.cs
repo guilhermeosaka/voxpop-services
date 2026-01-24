@@ -3,8 +3,8 @@ using Voxpop.Identity.Application.Handlers.Codes.CreateCode;
 using Voxpop.Identity.Domain.Enums;
 using Voxpop.Identity.Domain.Interfaces;
 using Voxpop.Identity.Domain.Models;
-using Voxpop.Packages.Handler.Interfaces;
-using Voxpop.Packages.Handler.Types;
+using Voxpop.Packages.Dispatcher.Interfaces;
+using Voxpop.Packages.Dispatcher.Types;
 
 namespace Voxpop.Identity.Application.Handlers.Users.CreateUser;
 

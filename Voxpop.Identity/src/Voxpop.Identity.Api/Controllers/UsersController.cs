@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Voxpop.Identity.Api.Dtos;
 using Voxpop.Identity.Api.Extensions;
 using Voxpop.Identity.Application.Handlers.Users.CreateUser;
-using Voxpop.Packages.Handler.Interfaces;
+using Voxpop.Packages.Dispatcher.Interfaces;
 
 namespace Voxpop.Identity.Api.Controllers;
 
@@ -16,6 +16,6 @@ public class UsersController(IDispatcher dispatcher) : ControllerBase
     public async Task<IActionResult> Create([FromBody] CreateUserRequest request, CancellationToken ct)
     {
         var result = await dispatcher.Dispatch(new CreateUserCommand(request.PhoneNumber), ct);
-        return result.ToHttpResult();
+        return result.ToActionResult();
     }
 }

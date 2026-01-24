@@ -14,7 +14,7 @@ using Voxpop.Identity.Infrastructure.Options;
 using Voxpop.Identity.Infrastructure.Persistence;
 using Voxpop.Identity.Infrastructure.Persistence.Repositories;
 using Voxpop.Identity.Infrastructure.Services;
-using Voxpop.Packages.Handler.Extensions;
+using Voxpop.Packages.Dispatcher.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 

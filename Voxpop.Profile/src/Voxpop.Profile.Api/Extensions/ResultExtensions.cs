@@ -1,10 +1,9 @@
 ﻿using System.Net;
 using Microsoft.AspNetCore.Mvc;
-using Voxpop.Identity.Application.Common;
 using Voxpop.Packages.Dispatcher.Extensions;
 using Voxpop.Packages.Dispatcher.Types;
 
-namespace Voxpop.Identity.Api.Extensions;
+namespace Voxpop.Profile.Api.Extensions;
 
 public static class ResultExtensions
 {
@@ -22,10 +21,6 @@ public static class ResultExtensions
     {
         return error?.Code switch
         {
-            Errors.InvalidCodeCode => error.ToProblemDetails(HttpStatusCode.Unauthorized),
-            Errors.InvalidRefreshTokenCode => error.ToProblemDetails(HttpStatusCode.Unauthorized),
-            Errors.UserConflictCode => error.ToProblemDetails(HttpStatusCode.Conflict),
-            Errors.UserNotFoundCode => error.ToProblemDetails(HttpStatusCode.NotFound),
             _ => new Error(string.Empty, "InternalServerError", "An unexpected error occurred")
                 .ToProblemDetails(HttpStatusCode.InternalServerError)
         };

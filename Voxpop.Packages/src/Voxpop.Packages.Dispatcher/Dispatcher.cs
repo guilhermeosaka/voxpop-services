@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Voxpop.Packages.Handler.Interfaces;
-using Voxpop.Packages.Handler.Types;
+using Voxpop.Packages.Dispatcher.Interfaces;
+using Voxpop.Packages.Dispatcher.Types;
 
-namespace Voxpop.Packages.Handler;
+namespace Voxpop.Packages.Dispatcher;
 
 public class Dispatcher(IServiceScopeFactory scopeFactory) : IDispatcher
 {

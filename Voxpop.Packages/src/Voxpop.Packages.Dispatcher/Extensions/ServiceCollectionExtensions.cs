@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Voxpop.Packages.Handler.Interfaces;
+using Voxpop.Packages.Dispatcher.Interfaces;
 
-namespace Voxpop.Packages.Handler.Extensions;
+namespace Voxpop.Packages.Dispatcher.Extensions;
 
 public static class ServiceCollectionExtensions
 {

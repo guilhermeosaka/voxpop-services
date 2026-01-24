@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Voxpop.Identity.Api.Dtos;
 using Voxpop.Identity.Api.Extensions;
 using Voxpop.Identity.Application.Handlers.Codes.CreateCode;
-using Voxpop.Packages.Handler.Interfaces;
+using Voxpop.Packages.Dispatcher.Interfaces;
 
 namespace Voxpop.Identity.Api.Controllers;
 
@@ -17,6 +17,6 @@ public class CodesController(IDispatcher dispatcher) : ControllerBase
     {
         var result = await dispatcher.Dispatch(new CreateCodeCommand(request.Target, request.Channel), ct);
         
-        return result.ToHttpResult();
+        return result.ToActionResult();
     }
 }

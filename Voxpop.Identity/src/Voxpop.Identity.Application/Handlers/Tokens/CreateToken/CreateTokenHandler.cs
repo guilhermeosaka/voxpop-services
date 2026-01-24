@@ -2,8 +2,8 @@
 using Voxpop.Identity.Application.Common;
 using Voxpop.Identity.Application.Interfaces;
 using Voxpop.Identity.Application.Services;
-using Voxpop.Packages.Handler.Interfaces;
-using Voxpop.Packages.Handler.Types;
+using Voxpop.Packages.Dispatcher.Interfaces;
+using Voxpop.Packages.Dispatcher.Types;
 
 namespace Voxpop.Identity.Application.Handlers.Tokens.CreateToken;
 
