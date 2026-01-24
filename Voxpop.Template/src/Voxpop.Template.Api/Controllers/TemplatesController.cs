@@ -13,7 +13,7 @@ public class TemplatesController(IDispatcher dispatcher) : ControllerBase
 {
     [AllowAnonymous]
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] CreateProfileRequest request, CancellationToken ct)
+    public async Task<IActionResult> Create([FromBody] CreateTemplateRequest request, CancellationToken ct)
     {
         var result = await dispatcher.Dispatch(new CreateTemplateCommand(), ct);
         return result.ToActionResult();
