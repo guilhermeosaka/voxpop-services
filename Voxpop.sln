@@ -40,6 +40,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Profile.Infrastructu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Profile.Domain", "Voxpop.Profile\src\Voxpop.Profile.Domain\Voxpop.Profile.Domain.csproj", "{B21469A9-A879-40C3-AAE7-CA76322FCF64}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Voxpop.Template", "Voxpop.Template", "{78934624-F8EA-4B38-9A70-8751F4E0B7DE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{256375E5-2542-4304-A932-B26CA9DF14F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Template.Api", "Voxpop.Template\src\Voxpop.Template.Api\Voxpop.Template.Api.csproj", "{9915328C-66BC-4AD5-ADD2-C1642A4F7D64}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Template.Application", "Voxpop.Template\src\Voxpop.Template.Application\Voxpop.Template.Application.csproj", "{5F738DBD-FE29-4934-8AD6-52ADB79ED6AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Template.Domain", "Voxpop.Template\src\Voxpop.Template.Domain\Voxpop.Template.Domain.csproj", "{8B2136C6-90CA-445C-A25C-C09A16EB67BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Template.Infrastructure", "Voxpop.Template\src\Voxpop.Template.Infrastructure\Voxpop.Template.Infrastructure.csproj", "{2884FF7C-433B-4701-BDB0-5E7F742E467C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +71,11 @@ Global
 		{2346D26D-9CAD-44D9-A764-E3FCAD3C5B20} = {82BA791F-0B71-4882-8F76-8D467DB8F44E}
 		{803803FF-AA62-4932-9ED4-097BB368E32C} = {82BA791F-0B71-4882-8F76-8D467DB8F44E}
 		{B21469A9-A879-40C3-AAE7-CA76322FCF64} = {82BA791F-0B71-4882-8F76-8D467DB8F44E}
+		{256375E5-2542-4304-A932-B26CA9DF14F6} = {78934624-F8EA-4B38-9A70-8751F4E0B7DE}
+		{9915328C-66BC-4AD5-ADD2-C1642A4F7D64} = {256375E5-2542-4304-A932-B26CA9DF14F6}
+		{5F738DBD-FE29-4934-8AD6-52ADB79ED6AB} = {256375E5-2542-4304-A932-B26CA9DF14F6}
+		{8B2136C6-90CA-445C-A25C-C09A16EB67BB} = {256375E5-2542-4304-A932-B26CA9DF14F6}
+		{2884FF7C-433B-4701-BDB0-5E7F742E467C} = {256375E5-2542-4304-A932-B26CA9DF14F6}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{490F24B4-8127-4740-883A-FBDFA0B42AAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -101,5 +118,21 @@ Global
 		{B21469A9-A879-40C3-AAE7-CA76322FCF64}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B21469A9-A879-40C3-AAE7-CA76322FCF64}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B21469A9-A879-40C3-AAE7-CA76322FCF64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9915328C-66BC-4AD5-ADD2-C1642A4F7D64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9915328C-66BC-4AD5-ADD2-C1642A4F7D64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9915328C-66BC-4AD5-ADD2-C1642A4F7D64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9915328C-66BC-4AD5-ADD2-C1642A4F7D64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F738DBD-FE29-4934-8AD6-52ADB79ED6AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F738DBD-FE29-4934-8AD6-52ADB79ED6AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F738DBD-FE29-4934-8AD6-52ADB79ED6AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F738DBD-FE29-4934-8AD6-52ADB79ED6AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B2136C6-90CA-445C-A25C-C09A16EB67BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B2136C6-90CA-445C-A25C-C09A16EB67BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B2136C6-90CA-445C-A25C-C09A16EB67BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B2136C6-90CA-445C-A25C-C09A16EB67BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2884FF7C-433B-4701-BDB0-5E7F742E467C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2884FF7C-433B-4701-BDB0-5E7F742E467C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2884FF7C-433B-4701-BDB0-5E7F742E467C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2884FF7C-433B-4701-BDB0-5E7F742E467C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
