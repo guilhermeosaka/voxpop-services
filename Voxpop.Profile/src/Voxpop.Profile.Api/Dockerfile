@@ -7,10 +7,10 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["profile/src/Voxpop.Profile.Api/Voxpop.Profile.Api.csproj", "profile/src/Voxpop.Profile.Api/"]
+COPY ["Voxpop.Profile/src/Voxpop.Profile.Api/Voxpop.Profile.Api.csproj", "Voxpop.Profile/src/Voxpop.Profile.Api/"]
 RUN dotnet restore "profile/src/Voxpop.Profile.Api/Voxpop.Profile.Api.csproj"
 COPY . .
-WORKDIR "/src/profile/src/Voxpop.Profile.Api"
+WORKDIR "/src/Voxpop.Profile/src/Voxpop.Profile.Api"
 RUN dotnet build "./Voxpop.Profile.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish

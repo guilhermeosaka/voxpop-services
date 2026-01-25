@@ -1,6 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Voxpop.Profile", "Voxpop.Profile", "{F1DB1C89-6081-475F-81DF-4534B47E47BF}"
+	ProjectSection(SolutionItems) = preProject
+		Voxpop.Profile\README.md = Voxpop.Profile\README.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{82BA791F-0B71-4882-8F76-8D467DB8F44E}"
 EndProject
@@ -41,6 +44,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Profile.Domain", "Voxpop.Profile\src\Voxpop.Profile.Domain\Voxpop.Profile.Domain.csproj", "{B21469A9-A879-40C3-AAE7-CA76322FCF64}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Voxpop.Template", "Voxpop.Template", "{78934624-F8EA-4B38-9A70-8751F4E0B7DE}"
+	ProjectSection(SolutionItems) = preProject
+		Voxpop.Template\README.md = Voxpop.Template\README.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{256375E5-2542-4304-A932-B26CA9DF14F6}"
 EndProject
@@ -51,6 +57,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Template.Domain", "Voxpop.Template\src\Voxpop.Template.Domain\Voxpop.Template.Domain.csproj", "{8B2136C6-90CA-445C-A25C-C09A16EB67BB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Template.Infrastructure", "Voxpop.Template\src\Voxpop.Template.Infrastructure\Voxpop.Template.Infrastructure.csproj", "{2884FF7C-433B-4701-BDB0-5E7F742E467C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{5B4734FE-6292-472E-8951-ADACE1747D98}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "postgres", "postgres", "{83CB245B-69E6-4738-81F1-2F2AD3508B65}"
+	ProjectSection(SolutionItems) = preProject
+		docker\postgres\001-create-dbs.sql = docker\postgres\001-create-dbs.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -76,6 +89,8 @@ Global
 		{5F738DBD-FE29-4934-8AD6-52ADB79ED6AB} = {256375E5-2542-4304-A932-B26CA9DF14F6}
 		{8B2136C6-90CA-445C-A25C-C09A16EB67BB} = {256375E5-2542-4304-A932-B26CA9DF14F6}
 		{2884FF7C-433B-4701-BDB0-5E7F742E467C} = {256375E5-2542-4304-A932-B26CA9DF14F6}
+		{5B4734FE-6292-472E-8951-ADACE1747D98} = {603979F1-0DBF-4BF6-9C50-BEB3D4495619}
+		{83CB245B-69E6-4738-81F1-2F2AD3508B65} = {5B4734FE-6292-472E-8951-ADACE1747D98}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{490F24B4-8127-4740-883A-FBDFA0B42AAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

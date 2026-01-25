@@ -12,10 +12,10 @@ namespace Voxpop.Profile.Api.Controllers;
 public class ProfilesController(IDispatcher dispatcher) : ControllerBase
 {
     [AllowAnonymous]
-    [HttpPost]
-    public async Task<IActionResult> Create([FromBody] CreateProfileRequest request, CancellationToken ct)
+    [HttpPut]
+    public async Task<IActionResult> Upsert([FromBody] UpsertProfileRequest request, CancellationToken ct)
     {
-        var result = await dispatcher.Dispatch(new CreateProfileCommand(), ct);
+        var result = await dispatcher.Dispatch(new UpsertProfileCommand(), ct);
         return result.ToActionResult();
     }
 }
