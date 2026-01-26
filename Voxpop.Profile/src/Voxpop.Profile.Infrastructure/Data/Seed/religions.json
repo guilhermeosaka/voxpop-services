@@ -1,0 +1,16 @@
+﻿[
+  { "code": "christianity" },
+  { "code": "islam" },
+  { "code": "hinduism" },
+  { "code": "buddhism" },
+  { "code": "judaism" },
+  { "code": "sikhism" },
+  { "code": "taoism" },
+  { "code": "confucianism" },
+  { "code": "folk_or_traditional_religion" },
+  { "code": "no_religion" },
+  { "code": "agnostic" },
+  { "code": "atheist" },
+  { "code": "other" },
+  { "code": "prefer_not_to_say" }
+]

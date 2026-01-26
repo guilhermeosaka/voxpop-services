@@ -1,4 +1,4 @@
-﻿namespace Voxpop.Profile.Domain.Abstractions;
+﻿namespace Voxpop.Profile.Domain.Models.Abstractions;
 
 public abstract class BaseModel(Guid id)
 {

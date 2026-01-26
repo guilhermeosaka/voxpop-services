@@ -1,4 +1,4 @@
-﻿using Voxpop.Profile.Domain.Abstractions;
+﻿using Voxpop.Profile.Domain.Models.Abstractions;
 
 namespace Voxpop.Profile.Domain.Models;
 

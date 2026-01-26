@@ -32,12 +32,37 @@ namespace Voxpop.Profile.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<Guid>("StateId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Code", "StateId")
+                        .IsUnique();
+
                     b.ToTable("Cities", (string)null);
+                });
+
+            modelBuilder.Entity("Voxpop.Profile.Domain.Models.Continent", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.ToTable("Continents", (string)null);
                 });
 
             modelBuilder.Entity("Voxpop.Profile.Domain.Models.Country", b =>
@@ -50,11 +75,13 @@ namespace Voxpop.Profile.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Continent")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<Guid>("ContinentId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
 
                     b.ToTable("Countries", (string)null);
                 });
@@ -71,6 +98,9 @@ namespace Voxpop.Profile.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Code")
+                        .IsUnique();
+
                     b.ToTable("EducationLevels", (string)null);
                 });
 
@@ -85,6 +115,9 @@ namespace Voxpop.Profile.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
 
                     b.ToTable("Ethnicities", (string)null);
                 });
@@ -101,6 +134,9 @@ namespace Voxpop.Profile.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Code")
+                        .IsUnique();
+
                     b.ToTable("Genders", (string)null);
                 });
 
@@ -111,6 +147,12 @@ namespace Voxpop.Profile.Infrastructure.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<Guid>("CityId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("CountryId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("StateId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
@@ -130,6 +172,9 @@ namespace Voxpop.Profile.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Code")
+                        .IsUnique();
+
                     b.ToTable("Occupations", (string)null);
                 });
 
@@ -145,6 +190,9 @@ namespace Voxpop.Profile.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Code")
+                        .IsUnique();
+
                     b.ToTable("Races", (string)null);
                 });
 
@@ -159,6 +207,9 @@ namespace Voxpop.Profile.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
 
                     b.ToTable("Religions", (string)null);
                 });
@@ -177,6 +228,9 @@ namespace Voxpop.Profile.Infrastructure.Migrations
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Code", "CountryId")
+                        .IsUnique();
 
                     b.ToTable("States", (string)null);
                 });

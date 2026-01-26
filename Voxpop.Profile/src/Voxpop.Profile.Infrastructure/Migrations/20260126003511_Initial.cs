@@ -16,6 +16,7 @@ namespace Voxpop.Profile.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
                     StateId = table.Column<Guid>(type: "uuid", nullable: false),
                     Code = table.Column<string>(type: "text", nullable: false)
                 },
@@ -25,11 +26,23 @@ namespace Voxpop.Profile.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Continents",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Code = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Continents", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Countries",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Continent = table.Column<string>(type: "text", nullable: false),
+                    ContinentId = table.Column<Guid>(type: "uuid", nullable: false),
                     Code = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
@@ -78,6 +91,8 @@ namespace Voxpop.Profile.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    CountryId = table.Column<Guid>(type: "uuid", nullable: false),
+                    StateId = table.Column<Guid>(type: "uuid", nullable: false),
                     CityId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
@@ -153,6 +168,66 @@ namespace Voxpop.Profile.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_UserProfiles", x => x.Id);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cities_Code_StateId",
+                table: "Cities",
+                columns: new[] { "Code", "StateId" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Continents_Code",
+                table: "Continents",
+                column: "Code",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Countries_Code",
+                table: "Countries",
+                column: "Code",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EducationLevels_Code",
+                table: "EducationLevels",
+                column: "Code",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ethnicities_Code",
+                table: "Ethnicities",
+                column: "Code",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Genders_Code",
+                table: "Genders",
+                column: "Code",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Occupations_Code",
+                table: "Occupations",
+                column: "Code",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Races_Code",
+                table: "Races",
+                column: "Code",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Religions_Code",
+                table: "Religions",
+                column: "Code",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_States_Code_CountryId",
+                table: "States",
+                columns: new[] { "Code", "CountryId" },
+                unique: true);
         }
 
         /// <inheritdoc />
@@ -160,6 +235,9 @@ namespace Voxpop.Profile.Infrastructure.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Cities");
+
+            migrationBuilder.DropTable(
+                name: "Continents");
 
             migrationBuilder.DropTable(
                 name: "Countries");

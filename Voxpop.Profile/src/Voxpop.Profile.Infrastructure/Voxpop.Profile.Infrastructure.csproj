@@ -24,5 +24,29 @@
       <ProjectReference Include="..\Voxpop.Profile.Application\Voxpop.Profile.Application.csproj" />
       <ProjectReference Include="..\Voxpop.Profile.Domain\Voxpop.Profile.Domain.csproj" />
     </ItemGroup>
+    
+    <ItemGroup>
+      <None Update="Data\Seed\continents.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="Data\Seed\education_levels.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="Data\Seed\ethnicities.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="Data\Seed\genders.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="Data\Seed\races.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="Data\Seed\religions.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="Data\Seed\occupations.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
 
 </Project>

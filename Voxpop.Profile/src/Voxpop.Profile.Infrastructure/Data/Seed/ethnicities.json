@@ -1,0 +1,14 @@
+﻿[
+  { "code": "hispanic_or_latino" },
+  { "code": "non_hispanic_or_latino" },
+  { "code": "arab" },
+  { "code": "south_asian" },
+  { "code": "east_asian" },
+  { "code": "southeast_asian" },
+  { "code": "african" },
+  { "code": "european" },
+  { "code": "indigenous" },
+  { "code": "mixed_ethnicity" },
+  { "code": "other" },
+  { "code": "prefer_not_to_say" }
+]

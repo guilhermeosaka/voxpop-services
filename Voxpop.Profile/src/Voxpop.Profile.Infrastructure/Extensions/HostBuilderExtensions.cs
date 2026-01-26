@@ -20,8 +20,7 @@ public static class HostBuilderExtensions
                 .ReadFrom.Services(services)
                 .Enrich.FromLogContext()
                 .Enrich.WithEnvironmentName()
-                .Enrich.WithMachineName()
-                .WriteTo.Console();
+                .Enrich.WithMachineName();
         });
     }
 }

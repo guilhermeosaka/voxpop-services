@@ -1,0 +1,10 @@
+﻿[
+  { "code": "male" },
+  { "code": "female" },
+  { "code": "non_binary" },
+  { "code": "transgender" },
+  { "code": "genderqueer" },
+  { "code": "agender" },
+  { "code": "other" },
+  { "code": "prefer_not_to_say" }
+]

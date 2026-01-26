@@ -12,6 +12,9 @@ public class CityConfiguration : IEntityTypeConfiguration<City>
 
         builder.HasKey(c => c.Id);
 
+        builder.HasIndex(t => new { t.Code, t.StateId }).IsUnique();
+        
+        builder.Property(t => t.Code).IsRequired();
         builder.Property(c => c.StateId).IsRequired();
     }
 }

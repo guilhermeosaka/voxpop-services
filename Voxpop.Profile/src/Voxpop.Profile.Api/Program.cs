@@ -3,6 +3,8 @@ using Voxpop.Packages.Dispatcher.Extensions;
 using Voxpop.Profile.Api.Middlewares;
 using Voxpop.Profile.Application.Options;
 using Voxpop.Profile.Infrastructure.Extensions;
+using Voxpop.Profile.Infrastructure.Persistence;
+using Voxpop.Profile.Infrastructure.Persistence.Seed;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +27,12 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+}
+
+using (var scope = app.Services.CreateScope())
+{
+    var seeder = scope.ServiceProvider.GetRequiredService<Seeder>();
+    await seeder.SeedAsync();
 }
 
 app

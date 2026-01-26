@@ -1,0 +1,15 @@
+[
+  { "code": "no_formal_education" },
+  { "code": "primary" },
+  { "code": "lower_secondary" },
+  { "code": "upper_secondary" },
+  { "code": "vocational" },
+  { "code": "associate" },
+  { "code": "bachelor" },
+  { "code": "postgraduate_diploma" },
+  { "code": "master" },
+  { "code": "doctorate" },
+  { "code": "post_doctorate" },
+  { "code": "other" },
+  { "code": "prefer_not_to_say" }
+]

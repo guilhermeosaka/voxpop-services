@@ -1,0 +1,85 @@
+﻿[
+  {
+    "code": "south_america",
+    "countries": [
+      {
+        "code": "br",
+        "states": [
+          {
+            "code": "sp",
+            "cities": [
+              {
+                "code": "sao_paulo",
+                "name": "São Paulo"
+              },
+              {
+                "code": "marilia",
+                "name": "Marília"
+              }
+            ]
+          },
+          {
+            "code": "rj",
+            "cities": [
+              {
+                "code": "rio_de_janeiro",
+                "name": "Rio de Janeiro"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "code": "north_america",
+    "countries": [
+      {
+        "code": "us",
+        "states": [
+          {
+            "code": "ca",
+            "cities": [
+              {
+                "code": "los_angeles",
+                "name": "Los Angeles"
+              },
+              {
+                "code": "san_francisco",
+                "name": "San Francisco"
+              }
+            ]
+          },
+          {
+            "code": "ny",
+            "cities": [
+              {
+                "code": "new_york_city",
+                "name": "New York City"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "code": "asia",
+    "countries": [
+      {
+        "code": "jp",
+        "states": [
+          {
+            "code": "tokyo",
+            "cities": [
+              {
+                "code": "shinjuku",
+                "name": "shinjuku"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

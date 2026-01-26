@@ -11,7 +11,10 @@ public class CountryConfiguration : IEntityTypeConfiguration<Country>
         builder.ToTable("Countries");
 
         builder.HasKey(c => c.Id);
-
-        builder.Property(c => c.Continent).IsRequired();
+        
+        builder.HasIndex(t => t.Code).IsUnique();
+        
+        builder.Property(t => t.Code).IsRequired();
+        builder.Property(c => c.ContinentId).IsRequired();
     }
 }

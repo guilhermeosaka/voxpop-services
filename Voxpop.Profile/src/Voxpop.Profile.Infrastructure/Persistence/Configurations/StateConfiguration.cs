@@ -11,7 +11,10 @@ public class StateConfiguration : IEntityTypeConfiguration<State>
         builder.ToTable("States");
 
         builder.HasKey(s => s.Id);
-
+        
+        builder.HasIndex(t => new { t.Code, t.CountryId }).IsUnique();
+        
+        builder.Property(t => t.Code).IsRequired();
         builder.Property(s => s.CountryId).IsRequired();
     }
 }

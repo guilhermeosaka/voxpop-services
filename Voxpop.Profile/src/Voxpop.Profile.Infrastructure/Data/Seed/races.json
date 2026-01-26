@@ -1,0 +1,11 @@
+﻿[
+  { "code": "white" },
+  { "code": "black_or_african_descent" },
+  { "code": "asian" },
+  { "code": "indigenous_or_native" },
+  { "code": "middle_eastern_or_north_african" },
+  { "code": "pacific_islander" },
+  { "code": "mixed_race" },
+  { "code": "other" },
+  { "code": "prefer_not_to_say" }
+]

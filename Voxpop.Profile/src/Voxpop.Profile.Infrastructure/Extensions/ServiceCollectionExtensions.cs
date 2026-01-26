@@ -9,6 +9,7 @@ using Voxpop.Profile.Domain.Interfaces;
 using Voxpop.Profile.Infrastructure.Persistence;
 
 using Voxpop.Profile.Infrastructure.Persistence.Repositories;
+using Voxpop.Profile.Infrastructure.Persistence.Seed;
 
 namespace Voxpop.Profile.Infrastructure.Extensions;
 
@@ -19,7 +20,8 @@ public static class ServiceCollectionExtensions
         services
             .AddDbContext<ProfileDbContext>(options => options.UseNpgsql(connectionString))
             .AddScoped<IProfileRepository, ProfileRepository>()
-            .AddScoped<IUnitOfWork, UnitOfWork>();
+            .AddScoped<IUnitOfWork, UnitOfWork>()
+            .AddScoped<Seeder>();
 
         return services;
     }
