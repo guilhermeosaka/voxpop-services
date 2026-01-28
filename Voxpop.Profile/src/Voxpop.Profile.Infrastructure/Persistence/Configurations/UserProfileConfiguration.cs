@@ -17,9 +17,9 @@ public class UserProfileConfiguration : IEntityTypeConfiguration<UserProfile>
         builder.Property(up => up.UserId).HasColumnName("user_id").IsRequired();
         
         builder.HasOne<Gender>().WithMany().HasForeignKey(up => up.GenderId);
-        builder.HasOne<Country>().WithMany().HasForeignKey(up => up.CountryId);
-        builder.HasOne<State>().WithMany().HasForeignKey(up => up.StateId);
         builder.HasOne<City>().WithMany().HasForeignKey(up => up.CityId);
+        builder.HasOne<State>().WithMany().HasForeignKey(up => up.StateId);
+        builder.HasOne<Country>().WithMany().HasForeignKey(up => up.CountryId);
         builder.HasOne<EducationLevel>().WithMany().HasForeignKey(up => up.EducationLevelId);
         builder.HasOne<Occupation>().WithMany().HasForeignKey(up => up.OccupationId);
         builder.HasOne<Religion>().WithMany().HasForeignKey(up => up.ReligionId);
@@ -28,9 +28,9 @@ public class UserProfileConfiguration : IEntityTypeConfiguration<UserProfile>
         
         builder.Property(up => up.DateOfBirth).HasColumnName("date_of_birth").IsRequired(false);
         builder.Property(up => up.GenderId).HasColumnName("gender_id").IsRequired(false);
-        builder.Property(up => up.CountryId).HasColumnName("country_id").IsRequired(false);
-        builder.Property(up => up.StateId).HasColumnName("state_id").IsRequired(false);
         builder.Property(up => up.CityId).HasColumnName("city_id").IsRequired(false);
+        builder.Property(up => up.StateId).HasColumnName("state_id").IsRequired(false);
+        builder.Property(up => up.CountryId).HasColumnName("country_id").IsRequired(false);
         builder.Property(up => up.EducationLevelId).HasColumnName("education_level_id").IsRequired(false);
         builder.Property(up => up.OccupationId).HasColumnName("occupation_id").IsRequired(false);
         builder.Property(up => up.ReligionId).HasColumnName("religion_id").IsRequired(false);

@@ -25,7 +25,7 @@ public class Result<TResult> : Result
 {
     public TResult? Value { get; }
 
-    private Result(TResult value)
+    private Result(TResult? value)
     {
         IsSuccess = true;
         Value = value;

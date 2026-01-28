@@ -16,7 +16,7 @@ namespace Voxpop.Profile.Infrastructure.Migrations
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
+                    name = table.Column<string>(type: "text", nullable: false),
                     state_id = table.Column<Guid>(type: "uuid", nullable: false),
                     code = table.Column<string>(type: "text", nullable: false)
                 },

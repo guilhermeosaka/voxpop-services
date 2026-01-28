@@ -2,7 +2,7 @@
 
 namespace Voxpop.Profile.Domain.Interfaces;
 
-public interface IProfileRepository
+public interface IUserProfileRepository
 {
     Task<UserProfile?> FindByUserIdAsync(Guid userId);
     Task AddAsync(UserProfile user);

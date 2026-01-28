@@ -12,7 +12,7 @@ using Voxpop.Profile.Infrastructure.Persistence;
 namespace Voxpop.Profile.Infrastructure.Migrations
 {
     [DbContext(typeof(ProfileDbContext))]
-    [Migration("20260127235556_Initial")]
+    [Migration("20260128125915_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -39,7 +39,8 @@ namespace Voxpop.Profile.Infrastructure.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("name");
 
                     b.Property<Guid>("StateId")
                         .HasColumnType("uuid")

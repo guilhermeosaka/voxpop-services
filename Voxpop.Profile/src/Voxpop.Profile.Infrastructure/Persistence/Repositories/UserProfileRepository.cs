@@ -4,7 +4,7 @@ using Voxpop.Profile.Domain.UserProfiles;
 
 namespace Voxpop.Profile.Infrastructure.Persistence.Repositories;
 
-public class ProfileRepository(ProfileDbContext dbContext) : IProfileRepository
+public class UserProfileRepository(ProfileDbContext dbContext) : IUserProfileRepository
 {
     public async Task<UserProfile?> FindByUserIdAsync(Guid userId) =>
         await dbContext.UserProfiles.FirstOrDefaultAsync(up => up.UserId == userId);

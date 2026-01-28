@@ -17,7 +17,7 @@ builder.Services
     .AddEndpointsApiExplorer()
     .AddSwaggerGen()
     .AddDispatcher()
-    .AddPersistence(builder.Configuration.GetConnectionString("ProfileDb"))
+    .AddPersistence(builder.Configuration.GetConnectionString("ProfileDb")!)
     .AddAuth(builder.Configuration.GetSection("Jwt").Get<JwtOptions>()!)
     .AddInfrastructureServices();
 

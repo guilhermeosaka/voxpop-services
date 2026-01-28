@@ -8,8 +8,10 @@ using Voxpop.Profile.Application.Options;
 using Voxpop.Profile.Domain.Interfaces;
 using Voxpop.Profile.Infrastructure.Identity;
 using Voxpop.Profile.Infrastructure.Persistence;
+using Voxpop.Profile.Infrastructure.Persistence.Dapper;
 using Voxpop.Profile.Infrastructure.Persistence.Interceptors;
 using Voxpop.Profile.Infrastructure.Persistence.Migrations;
+using Voxpop.Profile.Infrastructure.Persistence.Queries;
 using Voxpop.Profile.Infrastructure.Persistence.Repositories;
 using Voxpop.Profile.Infrastructure.Services;
 
@@ -17,11 +19,13 @@ namespace Voxpop.Profile.Infrastructure.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddPersistence(this IServiceCollection services, string? connectionString)
+    public static IServiceCollection AddPersistence(this IServiceCollection services, string connectionString)
     {
         services
             .AddDbContext<ProfileDbContext>(options => options.UseNpgsql(connectionString))
-            .AddScoped<IProfileRepository, ProfileRepository>()
+            .AddScoped<IUserProfileRepository, UserProfileRepository>()
+            .AddScoped<IUserProfileQueries, UserProfileQueries>()
+            .AddScoped<ISqlConnectionFactory>(_ => new SqlConnectionFactory(connectionString))
             .AddScoped<IUnitOfWork, UnitOfWork>()
             .AddScoped<Migrator>()
             .AddScoped<AuditSaveChangesInterceptor>();

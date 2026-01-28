@@ -7,7 +7,7 @@ using Voxpop.Profile.Domain.UserProfiles;
 namespace Voxpop.Profile.Application.Handlers.Profiles.UpsertProfile;
 
 public class UpsertProfileHandler(
-    IProfileRepository profileRepository, 
+    IUserProfileRepository userProfileRepository, 
     IUnitOfWork unitOfWork, 
     IRequestContext requestContext)
     : IHandler<UpsertProfileCommand>
@@ -19,12 +19,12 @@ public class UpsertProfileHandler(
         
         var userId = requestContext.UserId.Value;
         
-        var userProfile = await profileRepository.FindByUserIdAsync(userId);
+        var userProfile = await userProfileRepository.FindByUserIdAsync(userId);
 
         if (userProfile == null)
         {
             userProfile = UserProfile.Create(userId);
-            await profileRepository.AddAsync(userProfile);
+            await userProfileRepository.AddAsync(userProfile);
         }
         
         if (request.PersonalInfo != null) userProfile.UpdatePersonalInfo(request.PersonalInfo);

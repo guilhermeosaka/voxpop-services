@@ -20,10 +20,10 @@ public class ProfileDbContext(DbContextOptions<ProfileDbContext> options, AuditS
         modelBuilder.ApplyConfiguration(new BaseCodeModelConfiguration<Occupation>("occupations"));
         modelBuilder.ApplyConfiguration(new BaseCodeModelConfiguration<Race>("races"));
         modelBuilder.ApplyConfiguration(new BaseCodeModelConfiguration<Ethnicity>("ethnicities"));
-        modelBuilder.ApplyConfiguration(new CityConfiguration());
-        modelBuilder.ApplyConfiguration(new StateConfiguration());
-        modelBuilder.ApplyConfiguration(new CountryConfiguration());
         modelBuilder.ApplyConfiguration(new BaseCodeModelConfiguration<Continent>("continents"));
+        modelBuilder.ApplyConfiguration(new CountryConfiguration());
+        modelBuilder.ApplyConfiguration(new StateConfiguration());
+        modelBuilder.ApplyConfiguration(new CityConfiguration());
         
         base.OnModelCreating(modelBuilder);
     }

@@ -10,9 +10,9 @@ public class UserProfile(
     public Guid UserId { get; private set; } = userId;
     public DateTime? DateOfBirth { get; private set; }
     public Guid? GenderId { get; private set; }
-    public Guid? CountryId { get; private set; }
-    public Guid? StateId { get; private set; }
     public Guid? CityId { get; private set; }
+    public Guid? StateId { get; private set; }
+    public Guid? CountryId { get; private set; }
     public Guid? EducationLevelId { get; private set; }
     public Guid? OccupationId { get; private set; }
     public Guid? ReligionId { get; private set; }
@@ -24,7 +24,7 @@ public class UserProfile(
     public void UpdatePersonalInfo(PersonalInfo personalInfo) => 
         (DateOfBirth, GenderId) = personalInfo;
     public void UpdateLocation(LocationInfo locationInfo) => 
-        (CountryId, StateId, CityId) = locationInfo;
+        (CityId, StateId, CountryId) = locationInfo;
 
     public void UpdateProfessionalInfo(ProfessionalInfo professionalInfo) =>
         (EducationLevelId, OccupationId) = professionalInfo;

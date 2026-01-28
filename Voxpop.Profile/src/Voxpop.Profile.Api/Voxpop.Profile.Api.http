@@ -1,4 +1,4 @@
-### GET /profiles
+### PUT /profiles
 
 PUT {{Voxpop.Profile.HostAddress}}/api/profiles
 Content-Type: application/json
@@ -6,6 +6,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1Y2RlZTUzZ
 
 {
   "locationInfo": {
-    "cityId": "00720254-e49a-449b-81c6-a987d3ddbec5"
+    "cityId": "2e9414b5-a274-4f37-8294-b62b3f6f395c"
   }
 }
+
+### GET /profiles
+
+GET {{Voxpop.Profile.HostAddress}}/api/profiles
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1Y2RlZTUzZi0xNzA2LTQwNDQtOGRjZi00NDRkNTE4MThhNmQiLCJwaG9uZV9udW1iZXIiOiI1NTExOTQxNzU4NzQ0IiwiZXhwIjoxODY5NTUwMzU5LCJpc3MiOiJ2b3hwb3AtaWRlbnRpdHkiLCJhdWQiOiJ2b3hwb3AtYXBpIn0.cAKHfJogEPZFbgCEqAdypFGJmMtFqmmdVIBKTLGDsMY

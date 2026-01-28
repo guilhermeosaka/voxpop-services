@@ -36,7 +36,8 @@ namespace Voxpop.Profile.Infrastructure.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("name");
 
                     b.Property<Guid>("StateId")
                         .HasColumnType("uuid")
