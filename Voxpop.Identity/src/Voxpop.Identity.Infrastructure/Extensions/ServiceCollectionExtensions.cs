@@ -9,6 +9,7 @@ using Voxpop.Identity.Application.Options;
 using Voxpop.Identity.Infrastructure.Options;
 using Voxpop.Identity.Infrastructure.Persistence;
 using Voxpop.Identity.Infrastructure.Persistence.Entities;
+using Voxpop.Identity.Infrastructure.Persistence.Migrations;
 
 namespace Voxpop.Identity.Infrastructure.Extensions;
 
@@ -20,6 +21,7 @@ public static class ServiceCollectionExtensions
         {
             services
                 .AddDbContext<IdentityDbContext>(options => options.UseNpgsql(connectionString))
+                .AddScoped<DbMigrator>()
                 .AddIdentity<ApplicationUser, IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<IdentityDbContext>()
                 .AddDefaultTokenProviders();

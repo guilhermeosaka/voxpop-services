@@ -8,10 +8,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\..\Voxpop.Packages\src\Voxpop.Packages.Dispatcher\Voxpop.Packages.Dispatcher.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Results\" />
+        <ProjectReference Include="..\Voxpop.Profile.Domain\Voxpop.Profile.Domain.csproj" />
     </ItemGroup>
 
 </Project>

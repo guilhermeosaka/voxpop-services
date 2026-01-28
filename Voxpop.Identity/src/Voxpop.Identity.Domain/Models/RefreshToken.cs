@@ -5,7 +5,6 @@ public class RefreshToken(Guid id, Guid userId, string tokenId, string tokenHash
     public Guid Id { get; private set; } = id;
     public Guid UserId { get; private set; } = userId;
     public string TokenId { get; private set; } = tokenId;
-
     public string TokenHash { get; private set; } = tokenHash;
     public DateTime ExpiresAt { get; private set; } = expiresAt;
     public bool IsRevoked { get; private set; }

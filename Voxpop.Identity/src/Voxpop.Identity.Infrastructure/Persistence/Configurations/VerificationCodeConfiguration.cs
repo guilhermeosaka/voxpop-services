@@ -8,10 +8,17 @@ public class VerificationCodeConfiguration : IEntityTypeConfiguration<Verificati
 {
     public void Configure(EntityTypeBuilder<VerificationCode> builder)
     {
-        builder.ToTable("VerificationCodes");
+        builder.ToTable("verification_codes");
         
         builder.HasKey(vc => vc.Id);
 
         builder.HasIndex(vc => new { vc.Target, vc.Channel }).IsUnique();
+        
+        builder.Property(vc => vc.Id).HasColumnName("id").IsRequired();
+        builder.Property(vc => vc.Target).HasColumnName("target").IsRequired();
+        builder.Property(vc => vc.Channel).HasColumnName("channel").IsRequired();
+        builder.Property(vc => vc.CodeHash).HasColumnName("code_hash").IsRequired();
+        builder.Property(vc => vc.ExpiresAt).HasColumnName("expires_at").IsRequired();
+        builder.Property(vc => vc.UsedAt).HasColumnName("used_at").IsRequired(false);
     }
 }

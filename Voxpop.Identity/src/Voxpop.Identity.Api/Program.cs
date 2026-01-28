@@ -12,6 +12,7 @@ using Voxpop.Identity.Infrastructure.Extensions;
 using Voxpop.Identity.Infrastructure.Messaging;
 using Voxpop.Identity.Infrastructure.Options;
 using Voxpop.Identity.Infrastructure.Persistence;
+using Voxpop.Identity.Infrastructure.Persistence.Migrations;
 using Voxpop.Identity.Infrastructure.Persistence.Repositories;
 using Voxpop.Identity.Infrastructure.Services;
 using Voxpop.Packages.Dispatcher.Extensions;
@@ -53,6 +54,12 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+}
+
+using (var scope = app.Services.CreateScope())
+{
+    var migrator = scope.ServiceProvider.GetRequiredService<DbMigrator>();
+    await migrator.MigrateAsync();
 }
 
 app.UseHttpsRedirection();

@@ -6,10 +6,12 @@ using Microsoft.IdentityModel.Tokens;
 using Voxpop.Profile.Application.Interfaces;
 using Voxpop.Profile.Application.Options;
 using Voxpop.Profile.Domain.Interfaces;
+using Voxpop.Profile.Infrastructure.Identity;
 using Voxpop.Profile.Infrastructure.Persistence;
-
+using Voxpop.Profile.Infrastructure.Persistence.Interceptors;
+using Voxpop.Profile.Infrastructure.Persistence.Migrations;
 using Voxpop.Profile.Infrastructure.Persistence.Repositories;
-using Voxpop.Profile.Infrastructure.Persistence.Seed;
+using Voxpop.Profile.Infrastructure.Services;
 
 namespace Voxpop.Profile.Infrastructure.Extensions;
 
@@ -21,7 +23,8 @@ public static class ServiceCollectionExtensions
             .AddDbContext<ProfileDbContext>(options => options.UseNpgsql(connectionString))
             .AddScoped<IProfileRepository, ProfileRepository>()
             .AddScoped<IUnitOfWork, UnitOfWork>()
-            .AddScoped<Seeder>();
+            .AddScoped<Migrator>()
+            .AddScoped<AuditSaveChangesInterceptor>();
 
         return services;
     }
@@ -49,7 +52,17 @@ public static class ServiceCollectionExtensions
             });
 
         services.AddAuthorization();
+        
+        services.AddHttpContextAccessor();
+        services.AddScoped<IRequestContext, HttpRequestContext>();
 
+        return services;
+    }
+
+    public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
+    {
+        services.AddScoped<IClock, SystemClock>();
+        
         return services;
     }
 }

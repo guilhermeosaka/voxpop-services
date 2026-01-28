@@ -1,0 +1,352 @@
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+
+#nullable disable
+
+namespace Voxpop.Profile.Infrastructure.Migrations
+{
+    /// <inheritdoc />
+    public partial class Initial : Migration
+    {
+        /// <inheritdoc />
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.CreateTable(
+                name: "cities",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    state_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    code = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_cities", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "continents",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    code = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_continents", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "countries",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    continent_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    code = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_countries", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "education_levels",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    code = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_education_levels", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ethnicities",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    code = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ethnicities", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "genders",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    code = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_genders", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "occupations",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    code = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_occupations", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "races",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    code = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_races", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "religions",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    code = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_religions", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "states",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    country_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    code = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_states", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "user_profiles",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    user_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    date_of_birth = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    gender_id = table.Column<Guid>(type: "uuid", nullable: true),
+                    country_id = table.Column<Guid>(type: "uuid", nullable: true),
+                    state_id = table.Column<Guid>(type: "uuid", nullable: true),
+                    city_id = table.Column<Guid>(type: "uuid", nullable: true),
+                    education_level_id = table.Column<Guid>(type: "uuid", nullable: true),
+                    occupation_id = table.Column<Guid>(type: "uuid", nullable: true),
+                    religion_id = table.Column<Guid>(type: "uuid", nullable: true),
+                    race_id = table.Column<Guid>(type: "uuid", nullable: true),
+                    ethnicity_id = table.Column<Guid>(type: "uuid", nullable: true),
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    modified_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    is_archived = table.Column<bool>(type: "boolean", nullable: false),
+                    archived_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_user_profiles", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_user_profiles_cities_city_id",
+                        column: x => x.city_id,
+                        principalTable: "cities",
+                        principalColumn: "id");
+                    table.ForeignKey(
+                        name: "FK_user_profiles_countries_country_id",
+                        column: x => x.country_id,
+                        principalTable: "countries",
+                        principalColumn: "id");
+                    table.ForeignKey(
+                        name: "FK_user_profiles_education_levels_education_level_id",
+                        column: x => x.education_level_id,
+                        principalTable: "education_levels",
+                        principalColumn: "id");
+                    table.ForeignKey(
+                        name: "FK_user_profiles_ethnicities_ethnicity_id",
+                        column: x => x.ethnicity_id,
+                        principalTable: "ethnicities",
+                        principalColumn: "id");
+                    table.ForeignKey(
+                        name: "FK_user_profiles_genders_gender_id",
+                        column: x => x.gender_id,
+                        principalTable: "genders",
+                        principalColumn: "id");
+                    table.ForeignKey(
+                        name: "FK_user_profiles_occupations_occupation_id",
+                        column: x => x.occupation_id,
+                        principalTable: "occupations",
+                        principalColumn: "id");
+                    table.ForeignKey(
+                        name: "FK_user_profiles_races_race_id",
+                        column: x => x.race_id,
+                        principalTable: "races",
+                        principalColumn: "id");
+                    table.ForeignKey(
+                        name: "FK_user_profiles_religions_religion_id",
+                        column: x => x.religion_id,
+                        principalTable: "religions",
+                        principalColumn: "id");
+                    table.ForeignKey(
+                        name: "FK_user_profiles_states_state_id",
+                        column: x => x.state_id,
+                        principalTable: "states",
+                        principalColumn: "id");
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_cities_code_state_id",
+                table: "cities",
+                columns: new[] { "code", "state_id" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_continents_code",
+                table: "continents",
+                column: "code",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_countries_code",
+                table: "countries",
+                column: "code",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_education_levels_code",
+                table: "education_levels",
+                column: "code",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ethnicities_code",
+                table: "ethnicities",
+                column: "code",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_genders_code",
+                table: "genders",
+                column: "code",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_occupations_code",
+                table: "occupations",
+                column: "code",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_races_code",
+                table: "races",
+                column: "code",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_religions_code",
+                table: "religions",
+                column: "code",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_states_code_country_id",
+                table: "states",
+                columns: new[] { "code", "country_id" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_user_profiles_city_id",
+                table: "user_profiles",
+                column: "city_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_user_profiles_country_id",
+                table: "user_profiles",
+                column: "country_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_user_profiles_education_level_id",
+                table: "user_profiles",
+                column: "education_level_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_user_profiles_ethnicity_id",
+                table: "user_profiles",
+                column: "ethnicity_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_user_profiles_gender_id",
+                table: "user_profiles",
+                column: "gender_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_user_profiles_occupation_id",
+                table: "user_profiles",
+                column: "occupation_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_user_profiles_race_id",
+                table: "user_profiles",
+                column: "race_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_user_profiles_religion_id",
+                table: "user_profiles",
+                column: "religion_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_user_profiles_state_id",
+                table: "user_profiles",
+                column: "state_id");
+        }
+
+        /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropTable(
+                name: "continents");
+
+            migrationBuilder.DropTable(
+                name: "user_profiles");
+
+            migrationBuilder.DropTable(
+                name: "cities");
+
+            migrationBuilder.DropTable(
+                name: "countries");
+
+            migrationBuilder.DropTable(
+                name: "education_levels");
+
+            migrationBuilder.DropTable(
+                name: "ethnicities");
+
+            migrationBuilder.DropTable(
+                name: "genders");
+
+            migrationBuilder.DropTable(
+                name: "occupations");
+
+            migrationBuilder.DropTable(
+                name: "races");
+
+            migrationBuilder.DropTable(
+                name: "religions");
+
+            migrationBuilder.DropTable(
+                name: "states");
+        }
+    }
+}

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Voxpop.Profile.Domain.Models;
+using Voxpop.Profile.Domain.ReferenceData;
 
 namespace Voxpop.Profile.Infrastructure.Persistence.Configurations;
 
@@ -8,13 +8,14 @@ public class CountryConfiguration : IEntityTypeConfiguration<Country>
 {
     public void Configure(EntityTypeBuilder<Country> builder)
     {
-        builder.ToTable("Countries");
+        builder.ToTable("countries");
 
         builder.HasKey(c => c.Id);
         
-        builder.HasIndex(t => t.Code).IsUnique();
+        builder.HasIndex(c => c.Code).IsUnique();
         
-        builder.Property(t => t.Code).IsRequired();
-        builder.Property(c => c.ContinentId).IsRequired();
+        builder.Property(c => c.Id).HasColumnName("id").IsRequired();
+        builder.Property(c => c.Code).HasColumnName("code").IsRequired();
+        builder.Property(c => c.ContinentId).HasColumnName("continent_id").IsRequired();
     }
 }

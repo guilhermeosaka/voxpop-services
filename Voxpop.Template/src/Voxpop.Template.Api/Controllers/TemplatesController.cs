@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Voxpop.Packages.Dispatcher.Interfaces;
 using Voxpop.Template.Api.Extensions;
 using Voxpop.Template.Api.Requests;
-using Voxpop.Template.Application.Commands;
+using Voxpop.Template.Application.Handlers.Templates.CreateTemplate;
 
 namespace Voxpop.Template.Api.Controllers;
 

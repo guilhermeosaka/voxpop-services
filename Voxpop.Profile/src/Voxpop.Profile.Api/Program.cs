@@ -3,8 +3,7 @@ using Voxpop.Packages.Dispatcher.Extensions;
 using Voxpop.Profile.Api.Middlewares;
 using Voxpop.Profile.Application.Options;
 using Voxpop.Profile.Infrastructure.Extensions;
-using Voxpop.Profile.Infrastructure.Persistence;
-using Voxpop.Profile.Infrastructure.Persistence.Seed;
+using Voxpop.Profile.Infrastructure.Persistence.Migrations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +18,8 @@ builder.Services
     .AddSwaggerGen()
     .AddDispatcher()
     .AddPersistence(builder.Configuration.GetConnectionString("ProfileDb"))
-    .AddAuth(builder.Configuration.GetSection("Jwt").Get<JwtOptions>()!);
+    .AddAuth(builder.Configuration.GetSection("Jwt").Get<JwtOptions>()!)
+    .AddInfrastructureServices();
 
 var app = builder.Build();
 
@@ -31,8 +31,8 @@ if (app.Environment.IsDevelopment())
 
 using (var scope = app.Services.CreateScope())
 {
-    var seeder = scope.ServiceProvider.GetRequiredService<Seeder>();
-    await seeder.SeedAsync();
+    var dbInitializer = scope.ServiceProvider.GetRequiredService<Migrator>();
+    await dbInitializer.MigrateAsync();
 }
 
 app

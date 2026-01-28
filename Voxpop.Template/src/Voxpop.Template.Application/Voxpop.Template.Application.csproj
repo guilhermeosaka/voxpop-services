@@ -10,8 +10,4 @@
         <ProjectReference Include="..\..\..\Voxpop.Packages\src\Voxpop.Packages.Dispatcher\Voxpop.Packages.Dispatcher.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Results\" />
-    </ItemGroup>
-
 </Project>
