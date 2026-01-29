@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Voxpop.Profile", "Voxpop.Profile", "{F1DB1C89-6081-475F-81DF-4534B47E47BF}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Voxpop.Core", "Voxpop.Core", "{F1DB1C89-6081-475F-81DF-4534B47E47BF}"
 	ProjectSection(SolutionItems) = preProject
-		Voxpop.Profile\README.md = Voxpop.Profile\README.md
+		Voxpop.Core\README.md = Voxpop.Core\README.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{82BA791F-0B71-4882-8F76-8D467DB8F44E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Profile.Api", "Voxpop.Profile\src\Voxpop.Profile.Api\Voxpop.Profile.Api.csproj", "{490F24B4-8127-4740-883A-FBDFA0B42AAC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Core.Api", "Voxpop.Core\src\Voxpop.Core.Api\Voxpop.Core.Api.csproj", "{490F24B4-8127-4740-883A-FBDFA0B42AAC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{603979F1-0DBF-4BF6-9C50-BEB3D4495619}"
 	ProjectSection(SolutionItems) = preProject
@@ -37,11 +37,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Packages.Contracts",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Packages.Dispatcher", "Voxpop.Packages\src\Voxpop.Packages.Dispatcher\Voxpop.Packages.Dispatcher.csproj", "{AD4785F2-792C-4787-BAF1-1C88EFDDF3BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Profile.Application", "Voxpop.Profile\src\Voxpop.Profile.Application\Voxpop.Profile.Application.csproj", "{2346D26D-9CAD-44D9-A764-E3FCAD3C5B20}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Core.Application", "Voxpop.Core\src\Voxpop.Core.Application\Voxpop.Core.Application.csproj", "{2346D26D-9CAD-44D9-A764-E3FCAD3C5B20}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Profile.Infrastructure", "Voxpop.Profile\src\Voxpop.Profile.Infrastructure\Voxpop.Profile.Infrastructure.csproj", "{803803FF-AA62-4932-9ED4-097BB368E32C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Core.Infrastructure", "Voxpop.Core\src\Voxpop.Core.Infrastructure\Voxpop.Core.Infrastructure.csproj", "{803803FF-AA62-4932-9ED4-097BB368E32C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Profile.Domain", "Voxpop.Profile\src\Voxpop.Profile.Domain\Voxpop.Profile.Domain.csproj", "{B21469A9-A879-40C3-AAE7-CA76322FCF64}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Core.Domain", "Voxpop.Core\src\Voxpop.Core.Domain\Voxpop.Core.Domain.csproj", "{B21469A9-A879-40C3-AAE7-CA76322FCF64}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Voxpop.Template", "Voxpop.Template", "{78934624-F8EA-4B38-9A70-8751F4E0B7DE}"
 	ProjectSection(SolutionItems) = preProject
