@@ -11,4 +11,9 @@
         <ProjectReference Include="..\Voxpop.Core.Domain\Voxpop.Core.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Polls\Handlers\" />
+      <Folder Include="UserProfiles\Handlers\" />
+    </ItemGroup>
+
 </Project>

@@ -1,4 +1,4 @@
-﻿using Voxpop.Core.Domain.UserProfiles;
+﻿using Voxpop.Core.Domain.UserProfiles.Entities;
 
 namespace Voxpop.Core.Api.Requests;
 

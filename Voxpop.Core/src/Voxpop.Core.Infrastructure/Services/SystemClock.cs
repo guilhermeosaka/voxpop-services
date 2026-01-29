@@ -1,4 +1,4 @@
-﻿using Voxpop.Core.Domain.Interfaces;
+﻿using Voxpop.Core.Domain.Common.Interfaces;
 
 namespace Voxpop.Core.Infrastructure.Services;
 

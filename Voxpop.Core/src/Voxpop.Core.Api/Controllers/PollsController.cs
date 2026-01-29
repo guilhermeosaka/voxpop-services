@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Voxpop.Core.Api.Extensions;
 using Voxpop.Core.Api.Requests;
-using Voxpop.Core.Application.Handlers.Polls.CreatePoll;
+using Voxpop.Core.Application.Polls.Handlers.CreatePoll;
 using Voxpop.Packages.Dispatcher.Interfaces;
 
 namespace Voxpop.Core.Api.Controllers;

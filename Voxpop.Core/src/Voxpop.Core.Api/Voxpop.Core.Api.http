@@ -6,10 +6,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1Y2RlZTUzZ
 
 {
   "personalInfo": {
-    "genderId": "5b2277f4-7a64-42ac-b94f-9588892fe79c"
-  },
-  "locationInfo": {
-    "cityId": "0ee5c87d-68ac-4560-ab4d-386d244a5359"
+    "dateOfBirth": "1989-03-01"
   }
 }
 

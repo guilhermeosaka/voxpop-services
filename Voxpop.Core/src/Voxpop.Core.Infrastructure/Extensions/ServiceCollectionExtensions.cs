@@ -3,16 +3,19 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using Voxpop.Core.Application.Interfaces;
-using Voxpop.Core.Application.Options;
-using Voxpop.Core.Domain.Interfaces;
+using Voxpop.Core.Application.Common.Interfaces;
+using Voxpop.Core.Application.Common.Options;
+using Voxpop.Core.Application.UserProfiles.Interfaces;
+using Voxpop.Core.Domain.Common.Interfaces;
+using Voxpop.Core.Domain.UserProfiles.Repositories;
 using Voxpop.Core.Infrastructure.Identity;
-using Voxpop.Core.Infrastructure.Persistence;
-using Voxpop.Core.Infrastructure.Persistence.Dapper;
-using Voxpop.Core.Infrastructure.Persistence.Interceptors;
-using Voxpop.Core.Infrastructure.Persistence.Migrations;
-using Voxpop.Core.Infrastructure.Persistence.Queries;
-using Voxpop.Core.Infrastructure.Persistence.Repositories;
+using Voxpop.Core.Infrastructure.Persistence.Common;
+using Voxpop.Core.Infrastructure.Persistence.Common.Dapper;
+using Voxpop.Core.Infrastructure.Persistence.Common.Interceptors;
+using Voxpop.Core.Infrastructure.Persistence.Common.Migrations;
+using Voxpop.Core.Infrastructure.Persistence.Common.Repositories;
+using Voxpop.Core.Infrastructure.Persistence.UserProfiles.Queries;
+using Voxpop.Core.Infrastructure.Persistence.UserProfiles.Repositories;
 using Voxpop.Core.Infrastructure.Services;
 
 namespace Voxpop.Core.Infrastructure.Extensions;
@@ -33,7 +36,7 @@ public static class ServiceCollectionExtensions
 
         return services;
     }
-    
+
     public static IServiceCollection AddAuth(this IServiceCollection services, JwtOptions jwtOptions)
     {
         services
@@ -57,7 +60,7 @@ public static class ServiceCollectionExtensions
             });
 
         services.AddAuthorization();
-        
+
         services.AddHttpContextAccessor();
         services.AddScoped<IRequestContext, HttpRequestContext>();
 
@@ -67,7 +70,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
     {
         services.AddScoped<IClock, SystemClock>();
-        
+
         return services;
     }
 }

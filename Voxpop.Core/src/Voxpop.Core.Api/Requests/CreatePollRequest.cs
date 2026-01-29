@@ -1,4 +1,4 @@
-﻿using Voxpop.Core.Application.Handlers.Polls.CreatePoll;
+﻿using Voxpop.Core.Application.Polls.Handlers.CreatePoll;
 
 namespace Voxpop.Core.Api.Requests;
 

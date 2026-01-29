@@ -50,5 +50,9 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
     </ItemGroup>
+    
+    <ItemGroup>
+      <Folder Include="Persistence\ReferenceData\" />
+    </ItemGroup>
 
 </Project>

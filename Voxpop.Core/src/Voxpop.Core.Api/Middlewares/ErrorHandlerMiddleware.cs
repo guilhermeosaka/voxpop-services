@@ -1,6 +1,6 @@
 ﻿using System.Net;
 using Microsoft.AspNetCore.Mvc;
-using Voxpop.Core.Domain.Exceptions;
+using Voxpop.Core.Domain.Common.Exceptions;
 
 namespace Voxpop.Core.Api.Middlewares;
 

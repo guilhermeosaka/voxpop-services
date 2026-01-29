@@ -1,8 +1,8 @@
 using Serilog;
 using Voxpop.Core.Api.Middlewares;
-using Voxpop.Core.Application.Options;
+using Voxpop.Core.Application.Common.Options;
 using Voxpop.Core.Infrastructure.Extensions;
-using Voxpop.Core.Infrastructure.Persistence.Migrations;
+using Voxpop.Core.Infrastructure.Persistence.Common.Migrations;
 using Voxpop.Packages.Dispatcher.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);

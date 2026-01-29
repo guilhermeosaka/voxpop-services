@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
-using Voxpop.Core.Application.Interfaces;
+using Voxpop.Core.Application.Common.Interfaces;
 using Voxpop.Core.Domain.Common;
 
 namespace Voxpop.Core.Infrastructure.Identity;
