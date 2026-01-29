@@ -1,5 +1,4 @@
 ﻿using Voxpop.Profile.Domain.Common;
-using Voxpop.Profile.Domain.ReferenceData;
 
 namespace Voxpop.Profile.Domain.UserProfiles;
 

@@ -16,13 +16,38 @@ namespace Voxpop.Profile.Infrastructure.Migrations
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
-                    name = table.Column<string>(type: "text", nullable: false),
                     state_id = table.Column<Guid>(type: "uuid", nullable: false),
                     code = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_cities", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "city_translations",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    language = table.Column<string>(type: "text", nullable: false),
+                    name = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_city_translations", x => new { x.id, x.language });
+                });
+
+            migrationBuilder.CreateTable(
+                name: "continent_translations",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    language = table.Column<string>(type: "text", nullable: false),
+                    name = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_continent_translations", x => new { x.id, x.language });
                 });
 
             migrationBuilder.CreateTable(
@@ -51,6 +76,32 @@ namespace Voxpop.Profile.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "country_translations",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    language = table.Column<string>(type: "text", nullable: false),
+                    name = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_country_translations", x => new { x.id, x.language });
+                });
+
+            migrationBuilder.CreateTable(
+                name: "education_level_translations",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    language = table.Column<string>(type: "text", nullable: false),
+                    name = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_education_level_translations", x => new { x.id, x.language });
+                });
+
+            migrationBuilder.CreateTable(
                 name: "education_levels",
                 columns: table => new
                 {
@@ -75,6 +126,32 @@ namespace Voxpop.Profile.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ethnicity_translations",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    language = table.Column<string>(type: "text", nullable: false),
+                    name = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ethnicity_translations", x => new { x.id, x.language });
+                });
+
+            migrationBuilder.CreateTable(
+                name: "gender_translations",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    language = table.Column<string>(type: "text", nullable: false),
+                    name = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_gender_translations", x => new { x.id, x.language });
+                });
+
+            migrationBuilder.CreateTable(
                 name: "genders",
                 columns: table => new
                 {
@@ -84,6 +161,19 @@ namespace Voxpop.Profile.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_genders", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "occupation_translations",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    language = table.Column<string>(type: "text", nullable: false),
+                    name = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_occupation_translations", x => new { x.id, x.language });
                 });
 
             migrationBuilder.CreateTable(
@@ -99,6 +189,19 @@ namespace Voxpop.Profile.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "race_translations",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    language = table.Column<string>(type: "text", nullable: false),
+                    name = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_race_translations", x => new { x.id, x.language });
+                });
+
+            migrationBuilder.CreateTable(
                 name: "races",
                 columns: table => new
                 {
@@ -111,6 +214,19 @@ namespace Voxpop.Profile.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "religion_translations",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    language = table.Column<string>(type: "text", nullable: false),
+                    name = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_religion_translations", x => new { x.id, x.language });
+                });
+
+            migrationBuilder.CreateTable(
                 name: "religions",
                 columns: table => new
                 {
@@ -120,6 +236,19 @@ namespace Voxpop.Profile.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_religions", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "state_translations",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    language = table.Column<string>(type: "text", nullable: false),
+                    name = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_state_translations", x => new { x.id, x.language });
                 });
 
             migrationBuilder.CreateTable(
@@ -143,9 +272,9 @@ namespace Voxpop.Profile.Infrastructure.Migrations
                     user_id = table.Column<Guid>(type: "uuid", nullable: false),
                     date_of_birth = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     gender_id = table.Column<Guid>(type: "uuid", nullable: true),
-                    country_id = table.Column<Guid>(type: "uuid", nullable: true),
-                    state_id = table.Column<Guid>(type: "uuid", nullable: true),
                     city_id = table.Column<Guid>(type: "uuid", nullable: true),
+                    state_id = table.Column<Guid>(type: "uuid", nullable: true),
+                    country_id = table.Column<Guid>(type: "uuid", nullable: true),
                     education_level_id = table.Column<Guid>(type: "uuid", nullable: true),
                     occupation_id = table.Column<Guid>(type: "uuid", nullable: true),
                     religion_id = table.Column<Guid>(type: "uuid", nullable: true),
@@ -316,7 +445,37 @@ namespace Voxpop.Profile.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "city_translations");
+
+            migrationBuilder.DropTable(
+                name: "continent_translations");
+
+            migrationBuilder.DropTable(
                 name: "continents");
+
+            migrationBuilder.DropTable(
+                name: "country_translations");
+
+            migrationBuilder.DropTable(
+                name: "education_level_translations");
+
+            migrationBuilder.DropTable(
+                name: "ethnicity_translations");
+
+            migrationBuilder.DropTable(
+                name: "gender_translations");
+
+            migrationBuilder.DropTable(
+                name: "occupation_translations");
+
+            migrationBuilder.DropTable(
+                name: "race_translations");
+
+            migrationBuilder.DropTable(
+                name: "religion_translations");
+
+            migrationBuilder.DropTable(
+                name: "state_translations");
 
             migrationBuilder.DropTable(
                 name: "user_profiles");

@@ -1,6 +1,4 @@
-﻿using Voxpop.Profile.Domain.UserProfiles;
-
-namespace Voxpop.Profile.Application.Dtos;
+﻿namespace Voxpop.Profile.Application.Dtos;
 
 public record UserProfileDto(
     PersonalInfoDto? PersonalInfo,

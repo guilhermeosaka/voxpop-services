@@ -6,13 +6,14 @@ using Voxpop.Profile.Api.Requests;
 using Voxpop.Profile.Application.Dtos;
 using Voxpop.Profile.Application.Handlers.Profiles.GetProfile;
 using Voxpop.Profile.Application.Handlers.Profiles.UpsertProfile;
+using Voxpop.Profile.Application.Interfaces;
 
 namespace Voxpop.Profile.Api.Controllers;
 
 [Authorize]
 [ApiController]
 [Route("/api/[controller]")]
-public class ProfilesController(IDispatcher dispatcher) : ControllerBase
+public class ProfilesController(IDispatcher dispatcher, IRequestContext requestContext) : ControllerBase
 {
     [HttpPut]
     public async Task<IActionResult> Upsert([FromBody] UpsertProfileRequest request, CancellationToken ct)
@@ -23,15 +24,17 @@ public class ProfilesController(IDispatcher dispatcher) : ControllerBase
             request.ProfessionalInfo,
             request.CulturalInfo
         ), ct);
-        
+
         return result.ToActionResult();
     }
 
     [HttpGet]
     public async Task<IActionResult> Get(CancellationToken ct)
     {
-        var result = await dispatcher.Dispatch<GetProfileQuery, UserProfileDto>(new GetProfileQuery(), ct);
-        
+        var result =
+            await dispatcher.Dispatch<GetProfileQuery, UserProfileDto>(new GetProfileQuery(requestContext.Language),
+                ct);
+
         return result.ToActionResult();
     }
 }

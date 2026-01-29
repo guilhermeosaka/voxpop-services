@@ -1,33 +1,219 @@
 ﻿[
-  { "code": "software_developer" },
-  { "code": "data_analyst_or_scientist" },
-  { "code": "it_support_or_sysadmin" },
-  { "code": "engineer" },
-  { "code": "architect" },
-  { "code": "product_manager" },
-  { "code": "project_manager" },
-  { "code": "designer" },
-  { "code": "marketing_or_communications" },
-  { "code": "sales" },
-  { "code": "customer_support" },
-  { "code": "business_or_management" },
-  { "code": "finance_or_accounting" },
-  { "code": "legal" },
-  { "code": "healthcare_professional" },
-  { "code": "education_or_training" },
-  { "code": "research_or_science" },
-  { "code": "manufacturing_or_technical" },
-  { "code": "construction_or_trades" },
-  { "code": "transportation_or_logistics" },
-  { "code": "hospitality_or_tourism" },
-  { "code": "arts_or_entertainment" },
-  { "code": "media_or_journalism" },
-  { "code": "agriculture_or_fishing" },
-  { "code": "public_service" },
-  { "code": "military_or_defense" },
-  { "code": "student" },
-  { "code": "unemployed" },
-  { "code": "retired" },
-  { "code": "other" },
-  { "code": "prefer_not_to_say" }
+  {
+    "code": "software_developer",
+    "translations": {
+      "en-us": "Software Developer",
+      "pt-br": "Desenvolvedor de Software"
+    }
+  },
+  {
+    "code": "data_analyst_or_scientist",
+    "translations": {
+      "en-us": "Data Analyst or Scientist",
+      "pt-br": "Analista ou Cientista de Dados"
+    }
+  },
+  {
+    "code": "it_support_or_sysadmin",
+    "translations": {
+      "en-us": "IT Support or Sysadmin",
+      "pt-br": "Suporte de TI ou Administrador de Sistemas"
+    }
+  },
+  {
+    "code": "engineer",
+    "translations": {
+      "en-us": "Engineer",
+      "pt-br": "Engenheiro"
+    }
+  },
+  {
+    "code": "architect",
+    "translations": {
+      "en-us": "Architect",
+      "pt-br": "Arquiteto"
+    }
+  },
+  {
+    "code": "product_manager",
+    "translations": {
+      "en-us": "Product Manager",
+      "pt-br": "Gerente de Produto"
+    }
+  },
+  {
+    "code": "project_manager",
+    "translations": {
+      "en-us": "Project Manager",
+      "pt-br": "Gerente de Projeto"
+    }
+  },
+  {
+    "code": "designer",
+    "translations": {
+      "en-us": "Designer",
+      "pt-br": "Designer"
+    }
+  },
+  {
+    "code": "marketing_or_communications",
+    "translations": {
+      "en-us": "Marketing or Communications",
+      "pt-br": "Marketing ou Comunicação"
+    }
+  },
+  {
+    "code": "sales",
+    "translations": {
+      "en-us": "Sales",
+      "pt-br": "Vendas"
+    }
+  },
+  {
+    "code": "customer_support",
+    "translations": {
+      "en-us": "Customer Support",
+      "pt-br": "Atendimento ao Cliente"
+    }
+  },
+  {
+    "code": "business_or_management",
+    "translations": {
+      "en-us": "Business or Management",
+      "pt-br": "Negócios ou Gestão"
+    }
+  },
+  {
+    "code": "finance_or_accounting",
+    "translations": {
+      "en-us": "Finance or Accounting",
+      "pt-br": "Finanças ou Contabilidade"
+    }
+  },
+  {
+    "code": "legal",
+    "translations": {
+      "en-us": "Legal",
+      "pt-br": "Jurídico"
+    }
+  },
+  {
+    "code": "healthcare_professional",
+    "translations": {
+      "en-us": "Healthcare Professional",
+      "pt-br": "Profissional de Saúde"
+    }
+  },
+  {
+    "code": "education_or_training",
+    "translations": {
+      "en-us": "Education or Training",
+      "pt-br": "Educação ou Treinamento"
+    }
+  },
+  {
+    "code": "research_or_science",
+    "translations": {
+      "en-us": "Research or Science",
+      "pt-br": "Pesquisa ou Ciência"
+    }
+  },
+  {
+    "code": "manufacturing_or_technical",
+    "translations": {
+      "en-us": "Manufacturing or Technical",
+      "pt-br": "Manufatura ou Técnico"
+    }
+  },
+  {
+    "code": "construction_or_trades",
+    "translations": {
+      "en-us": "Construction or Trades",
+      "pt-br": "Construção ou Ofícios"
+    }
+  },
+  {
+    "code": "transportation_or_logistics",
+    "translations": {
+      "en-us": "Transportation or Logistics",
+      "pt-br": "Transporte ou Logística"
+    }
+  },
+  {
+    "code": "hospitality_or_tourism",
+    "translations": {
+      "en-us": "Hospitality or Tourism",
+      "pt-br": "Hospitalidade ou Turismo"
+    }
+  },
+  {
+    "code": "arts_or_entertainment",
+    "translations": {
+      "en-us": "Arts or Entertainment",
+      "pt-br": "Artes ou Entretenimento"
+    }
+  },
+  {
+    "code": "media_or_journalism",
+    "translations": {
+      "en-us": "Media or Journalism",
+      "pt-br": "Mídia ou Jornalismo"
+    }
+  },
+  {
+    "code": "agriculture_or_fishing",
+    "translations": {
+      "en-us": "Agriculture or Fishing",
+      "pt-br": "Agricultura ou Pesca"
+    }
+  },
+  {
+    "code": "public_service",
+    "translations": {
+      "en-us": "Public Service",
+      "pt-br": "Serviço Público"
+    }
+  },
+  {
+    "code": "military_or_defense",
+    "translations": {
+      "en-us": "Military or Defense",
+      "pt-br": "Militar ou Defesa"
+    }
+  },
+  {
+    "code": "student",
+    "translations": {
+      "en-us": "Student",
+      "pt-br": "Estudante"
+    }
+  },
+  {
+    "code": "unemployed",
+    "translations": {
+      "en-us": "Unemployed",
+      "pt-br": "Desempregado"
+    }
+  },
+  {
+    "code": "retired",
+    "translations": {
+      "en-us": "Retired",
+      "pt-br": "Aposentado"
+    }
+  },
+  {
+    "code": "other",
+    "translations": {
+      "en-us": "Other",
+      "pt-br": "Outro"
+    }
+  },
+  {
+    "code": "prefer_not_to_say",
+    "translations": {
+      "en-us": "Prefer not to say",
+      "pt-br": "Prefiro não dizer"
+    }
+  }
 ]

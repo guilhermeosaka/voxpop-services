@@ -1,11 +1,65 @@
 ﻿[
-  { "code": "white" },
-  { "code": "black_or_african_descent" },
-  { "code": "asian" },
-  { "code": "indigenous_or_native" },
-  { "code": "middle_eastern_or_north_african" },
-  { "code": "pacific_islander" },
-  { "code": "mixed_race" },
-  { "code": "other" },
-  { "code": "prefer_not_to_say" }
+  {
+    "code": "white",
+    "translations": {
+      "en-us": "White",
+      "pt-br": "Branco"
+    }
+  },
+  {
+    "code": "black_or_african_descent",
+    "translations": {
+      "en-us": "Black or African Descent",
+      "pt-br": "Preto ou de descendência africana"
+    }
+  },
+  {
+    "code": "asian",
+    "translations": {
+      "en-us": "Asian",
+      "pt-br": "Asiático"
+    }
+  },
+  {
+    "code": "indigenous_or_native",
+    "translations": {
+      "en-us": "Indigenous or Native",
+      "pt-br": "Indígena ou Nativo"
+    }
+  },
+  {
+    "code": "middle_eastern_or_north_african",
+    "translations": {
+      "en-us": "Middle Eastern or North African",
+      "pt-br": "Oriente Médio ou Norte da África"
+    }
+  },
+  {
+    "code": "pacific_islander",
+    "translations": {
+      "en-us": "Pacific Islander",
+      "pt-br": "Ilhéu do Pacífico"
+    }
+  },
+  {
+    "code": "mixed_race",
+    "translations": {
+      "en-us": "Mixed Race",
+      "pt-br": "Mestiço"
+    }
+  },
+  {
+    "code": "other",
+    "translations": {
+      "en-us": "Other",
+      "pt-br": "Outro"
+    }
+  },
+  {
+    "code": "prefer_not_to_say",
+    "translations": {
+      "en-us": "Prefer not to say",
+      "pt-br": "Prefiro não dizer"
+    }
+  }
 ]

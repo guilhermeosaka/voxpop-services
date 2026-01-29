@@ -1,5 +1,6 @@
 ﻿using Voxpop.Packages.Dispatcher.Interfaces;
 using Voxpop.Packages.Dispatcher.Types;
+using Voxpop.Profile.Application.Common;
 using Voxpop.Profile.Application.Dtos;
 using Voxpop.Profile.Application.Interfaces;
 
@@ -15,7 +16,10 @@ public class GetProfileHandler(IUserProfileQueries userProfileQueries, IRequestC
 
         var userId = requestContext.UserId.Value;
         
-        var user = await userProfileQueries.GetByUserId(userId);
+        var user = await userProfileQueries.GetByUserId(userId, request.Language);
+
+        if (user == null)
+            return Errors.UserNotFound();
 
         return user;
     }

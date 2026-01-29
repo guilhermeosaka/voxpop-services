@@ -1,10 +1,44 @@
 ﻿[
-  { "code": "male" },
-  { "code": "female" },
-  { "code": "non_binary" },
-  { "code": "transgender" },
-  { "code": "genderqueer" },
-  { "code": "agender" },
-  { "code": "other" },
-  { "code": "prefer_not_to_say" }
+  {
+    "code": "male",
+    "translations": {
+      "en-us": "Male",
+      "pt-br": "Masculino"
+    }
+  },
+  {
+    "code": "female",
+    "translations": {
+      "en-us": "Female",
+      "pt-br": "Feminino"
+    }
+  },
+  {
+    "code": "non_binary",
+    "translations": {
+      "en-us": "Non-binary",
+      "pt-br": "Não-binário"
+    }
+  },
+  {
+    "code": "transgender",
+    "translations": {
+      "en-us": "Transgender",
+      "pt-br": "Transgênero"
+    }
+  },
+  {
+    "code": "other",
+    "translations": {
+      "en-us": "Other",
+      "pt-br": "Outro"
+    }
+  },
+  {
+    "code": "prefer_not_to_say",
+    "translations": {
+      "en-us": "Prefer not to say",
+      "pt-br": "Prefiro não dizer"
+    }
+  }
 ]

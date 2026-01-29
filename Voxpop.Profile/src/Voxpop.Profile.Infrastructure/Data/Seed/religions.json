@@ -1,16 +1,100 @@
 ﻿[
-  { "code": "christianity" },
-  { "code": "islam" },
-  { "code": "hinduism" },
-  { "code": "buddhism" },
-  { "code": "judaism" },
-  { "code": "sikhism" },
-  { "code": "taoism" },
-  { "code": "confucianism" },
-  { "code": "folk_or_traditional_religion" },
-  { "code": "no_religion" },
-  { "code": "agnostic" },
-  { "code": "atheist" },
-  { "code": "other" },
-  { "code": "prefer_not_to_say" }
+  {
+    "code": "christianity",
+    "translations": {
+      "en-us": "Christianity",
+      "pt-br": "Cristianismo"
+    }
+  },
+  {
+    "code": "islam",
+    "translations": {
+      "en-us": "Islam",
+      "pt-br": "Islamismo"
+    }
+  },
+  {
+    "code": "hinduism",
+    "translations": {
+      "en-us": "Hinduism",
+      "pt-br": "Hinduísmo"
+    }
+  },
+  {
+    "code": "buddhism",
+    "translations": {
+      "en-us": "Buddhism",
+      "pt-br": "Budismo"
+    }
+  },
+  {
+    "code": "judaism",
+    "translations": {
+      "en-us": "Judaism",
+      "pt-br": "Judaísmo"
+    }
+  },
+  {
+    "code": "sikhism",
+    "translations": {
+      "en-us": "Sikhism",
+      "pt-br": "Sikhismo"
+    }
+  },
+  {
+    "code": "taoism",
+    "translations": {
+      "en-us": "Taoism",
+      "pt-br": "Taoismo"
+    }
+  },
+  {
+    "code": "confucianism",
+    "translations": {
+      "en-us": "Confucianism",
+      "pt-br": "Confucionismo"
+    }
+  },
+  {
+    "code": "folk_or_traditional_religion",
+    "translations": {
+      "en-us": "Folk or Traditional Religion",
+      "pt-br": "Religião Popular ou Tradicional"
+    }
+  },
+  {
+    "code": "no_religion",
+    "translations": {
+      "en-us": "No Religion",
+      "pt-br": "Sem religião"
+    }
+  },
+  {
+    "code": "agnostic",
+    "translations": {
+      "en-us": "Agnostic",
+      "pt-br": "Agnóstico"
+    }
+  },
+  {
+    "code": "atheist",
+    "translations": {
+      "en-us": "Atheist",
+      "pt-br": "Ateu"
+    }
+  },
+  {
+    "code": "other",
+    "translations": {
+      "en-us": "Other",
+      "pt-br": "Outro"
+    }
+  },
+  {
+    "code": "prefer_not_to_say",
+    "translations": {
+      "en-us": "Prefer not to say",
+      "pt-br": "Prefiro não dizer"
+    }
+  }
 ]

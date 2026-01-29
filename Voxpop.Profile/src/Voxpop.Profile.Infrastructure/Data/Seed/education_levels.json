@@ -1,15 +1,93 @@
 [
-  { "code": "no_formal_education" },
-  { "code": "primary" },
-  { "code": "lower_secondary" },
-  { "code": "upper_secondary" },
-  { "code": "vocational" },
-  { "code": "associate" },
-  { "code": "bachelor" },
-  { "code": "postgraduate_diploma" },
-  { "code": "master" },
-  { "code": "doctorate" },
-  { "code": "post_doctorate" },
-  { "code": "other" },
-  { "code": "prefer_not_to_say" }
+  {
+    "code": "no_formal_education",
+    "translations": {
+      "en-us": "No formal education",
+      "pt-br": "Sem educação formal"
+    }
+  },
+  {
+    "code": "primary",
+    "translations": {
+      "en-us": "Primary education",
+      "pt-br": "Ensino fundamental I"
+    }
+  },
+  {
+    "code": "lower_secondary",
+    "translations": {
+      "en-us": "Lower secondary education",
+      "pt-br": "Ensino fundamental II"
+    }
+  },
+  {
+    "code": "upper_secondary",
+    "translations": {
+      "en-us": "Upper secondary education",
+      "pt-br": "Ensino médio"
+    }
+  },
+  {
+    "code": "vocational",
+    "translations": {
+      "en-us": "Vocational education",
+      "pt-br": "Ensino técnico"
+    }
+  },
+  {
+    "code": "associate",
+    "translations": {
+      "en-us": "Associate degree",
+      "pt-br": "Graduação tecnológica"
+    }
+  },
+  {
+    "code": "bachelor",
+    "translations": {
+      "en-us": "Bachelor's degree",
+      "pt-br": "Bacharelado"
+    }
+  },
+  {
+    "code": "postgraduate_diploma",
+    "translations": {
+      "en-us": "Postgraduate diploma",
+      "pt-br": "Pós-graduação"
+    }
+  },
+  {
+    "code": "master",
+    "translations": {
+      "en-us": "Master's degree",
+      "pt-br": "Mestrado"
+    }
+  },
+  {
+    "code": "doctorate",
+    "translations": {
+      "en-us": "Doctorate degree",
+      "pt-br": "Doutorado"
+    }
+  },
+  {
+    "code": "post_doctorate",
+    "translations": {
+      "en-us": "Post-doctorate",
+      "pt-br": "Pós-doutorado"
+    }
+  },
+  {
+    "code": "other",
+    "translations": {
+      "en-us": "Other",
+      "pt-br": "Outro"
+    }
+  },
+  {
+    "code": "prefer_not_to_say",
+    "translations": {
+      "en-us": "Prefer not to say",
+      "pt-br": "Prefiro não dizer"
+    }
+  }
 ]

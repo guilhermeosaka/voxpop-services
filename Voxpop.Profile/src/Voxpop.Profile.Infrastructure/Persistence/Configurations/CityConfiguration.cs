@@ -16,7 +16,6 @@ public class CityConfiguration : IEntityTypeConfiguration<City>
 
         builder.Property(c => c.Id).HasColumnName("id").IsRequired();
         builder.Property(c => c.Code).HasColumnName("code").IsRequired();
-        builder.Property(c => c.Name).HasColumnName("name").IsRequired();
         builder.Property(c => c.StateId).HasColumnName("state_id").IsRequired();
     }
 }

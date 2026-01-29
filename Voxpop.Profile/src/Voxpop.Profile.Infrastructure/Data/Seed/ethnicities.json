@@ -1,14 +1,79 @@
 ﻿[
-  { "code": "hispanic_or_latino" },
-  { "code": "non_hispanic_or_latino" },
-  { "code": "arab" },
-  { "code": "south_asian" },
-  { "code": "east_asian" },
-  { "code": "southeast_asian" },
-  { "code": "african" },
-  { "code": "european" },
-  { "code": "indigenous" },
-  { "code": "mixed_ethnicity" },
-  { "code": "other" },
-  { "code": "prefer_not_to_say" }
+  {
+    "code": "hispanic_or_latino",
+    "translations": {
+      "en-us": "Hispanic or Latino",
+      "pt-br": "Hispânico ou Latino"
+    }
+  },
+  {
+    "code": "arab",
+    "translations": {
+      "en-us": "Arab",
+      "pt-br": "Árabe"
+    }
+  },
+  {
+    "code": "south_asian",
+    "translations": {
+      "en-us": "South Asian",
+      "pt-br": "Sul-asiático"
+    }
+  },
+  {
+    "code": "east_asian",
+    "translations": {
+      "en-us": "East Asian",
+      "pt-br": "Leste-asiático"
+    }
+  },
+  {
+    "code": "southeast_asian",
+    "translations": {
+      "en-us": "Southeast Asian",
+      "pt-br": "Sudeste-asiático"
+    }
+  },
+  {
+    "code": "african",
+    "translations": {
+      "en-us": "African",
+      "pt-br": "Africano"
+    }
+  },
+  {
+    "code": "european",
+    "translations": {
+      "en-us": "European",
+      "pt-br": "Europeu"
+    }
+  },
+  {
+    "code": "indigenous",
+    "translations": {
+      "en-us": "Indigenous",
+      "pt-br": "Indígena"
+    }
+  },
+  {
+    "code": "mixed_ethnicity",
+    "translations": {
+      "en-us": "Mixed ethnicity",
+      "pt-br": "Etnia mista"
+    }
+  },
+  {
+    "code": "other",
+    "translations": {
+      "en-us": "Other",
+      "pt-br": "Outro"
+    }
+  },
+  {
+    "code": "prefer_not_to_say",
+    "translations": {
+      "en-us": "Prefer not to say",
+      "pt-br": "Prefiro não dizer"
+    }
+  }
 ]

@@ -4,7 +4,7 @@ using Voxpop.Profile.Domain.Common;
 
 namespace Voxpop.Profile.Infrastructure.Persistence.Configurations.Abstractions;
 
-public class BaseCodeModelConfiguration<T>(string tableName) : IEntityTypeConfiguration<T> where T : ReferenceEntity
+public class ReferenceEntityConfiguration<T>(string tableName) : IEntityTypeConfiguration<T> where T : ReferenceEntity
 {
     public void Configure(EntityTypeBuilder<T> builder)
     {

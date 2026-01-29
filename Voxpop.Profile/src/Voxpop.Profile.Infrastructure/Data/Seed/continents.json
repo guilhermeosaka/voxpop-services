@@ -1,29 +1,54 @@
 ﻿[
   {
     "code": "south_america",
+    "translations": {
+      "en-us": "South America",
+      "pt-br": "América do Sul"
+    },
     "countries": [
       {
         "code": "br",
+        "translations": {
+          "en-us": "Brazil",
+          "pt-br": "Brasil"
+        },
         "states": [
           {
             "code": "sp",
+            "translations": {
+              "en-us": "Sao Paulo",
+              "pt-br": "São Paulo"
+            },
             "cities": [
               {
                 "code": "sao_paulo",
-                "name": "São Paulo"
+                "translations": {
+                  "en-us": "Sao Paulo",
+                  "pt-br": "São Paulo"
+                }
               },
               {
                 "code": "marilia",
-                "name": "Marília"
+                "translations": {
+                  "en-us": "Marilia",
+                  "pt-br": "Marília"
+                }
               }
             ]
           },
           {
             "code": "rj",
+            "translations": {
+              "en-us": "Rio de Janeiro",
+              "pt-br": "Rio de Janeiro"
+            },
             "cities": [
               {
                 "code": "rio_de_janeiro",
-                "name": "Rio de Janeiro"
+                "translations": {
+                  "en-us": "Rio de Janeiro",
+                  "pt-br": "Rio de Janeiro"
+                }
               }
             ]
           }
@@ -33,29 +58,54 @@
   },
   {
     "code": "north_america",
+    "translations": {
+      "en-us": "North America",
+      "pt-br": "América do Norte"
+    },
     "countries": [
       {
         "code": "us",
+        "translations": {
+          "en-us": "United States of America",
+          "pt-br": "Estados Unidos da América"
+        },
         "states": [
           {
             "code": "ca",
+            "translations": {
+              "en-us": "California",
+              "pt-br": "Califórnia"
+            },
             "cities": [
               {
                 "code": "los_angeles",
-                "name": "Los Angeles"
+                "translations": {
+                  "en-us": "Los Angeles",
+                  "pt-br": "Los Angeles"
+                }
               },
               {
                 "code": "san_francisco",
-                "name": "San Francisco"
+                "translations": {
+                  "en-us": "San Francisco",
+                  "pt-br": "São Francisco"
+                }
               }
             ]
           },
           {
             "code": "ny",
+            "translations": {
+              "en-us": "New York",
+              "pt-br": "Nova Iorque"
+            },
             "cities": [
               {
                 "code": "new_york_city",
-                "name": "New York City"
+                "translations": {
+                  "en-us": "New York City",
+                  "pt-br": "Nova Iorque"
+                }
               }
             ]
           }
@@ -65,16 +115,31 @@
   },
   {
     "code": "asia",
+    "translations": {
+      "en-us": "Asia",
+      "pt-br": "Ásia"
+    },
     "countries": [
       {
         "code": "jp",
+        "translations": {
+          "en-us": "Japan",
+          "pt-br": "Japão"
+        },
         "states": [
           {
             "code": "tokyo",
+            "translations": {
+              "en-us": "Tokyo",
+              "pt-br": "Tóquio"
+            },
             "cities": [
               {
                 "code": "shinjuku",
-                "name": "shinjuku"
+                "translations": {
+                  "en-us": "Shinjuku",
+                  "pt-br": "Shinjuku"
+                }
               }
             ]
           }

@@ -1,6 +1,6 @@
 ﻿# Voxpop.Profile
 
-A .NET-based geographical service API with SQL Server database support.
+A .NET-based service API with PostgreSQL database support.
 
 ## Prerequisites
 
@@ -18,7 +18,7 @@ Run the following commands inside the root folder.
 dotnet tool install --global dotnet-ef
 ```
 
-### 2. Start SQL Server Database
+### 2. Start PostgreSQL Database
 
 ```bash
 docker compose up -d
