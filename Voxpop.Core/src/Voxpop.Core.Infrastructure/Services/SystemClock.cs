@@ -4,5 +4,5 @@ namespace Voxpop.Core.Infrastructure.Services;
 
 public class SystemClock : IClock
 {
-    public DateTime UtcNow { get; } = DateTime.UtcNow;
+    public DateTimeOffset UtcNow { get; } = DateTimeOffset.UtcNow;
 }

@@ -14,10 +14,7 @@ public class UpsertProfileHandler(
 {
     public async Task<Result> Handle(UpsertProfileCommand request, CancellationToken ct)
     {
-        if (!requestContext.UserId.HasValue)
-            throw new UnauthorizedAccessException();
-        
-        var userId = requestContext.UserId.Value;
+        var userId = requestContext.UserId;
         
         var userProfile = await userProfileRepository.FindByUserIdAsync(userId);
 

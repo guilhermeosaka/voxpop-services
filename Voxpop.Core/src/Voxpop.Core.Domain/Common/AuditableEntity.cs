@@ -2,8 +2,11 @@
 
 public abstract class AuditableEntity(Guid id) : Entity(id), IAuditable
 {
-    public DateTime CreatedAt { get; set; }
-    public DateTime ModifiedAt { get; set; }
+    public Guid CreatedBy { get; set; }
+    public DateTimeOffset CreatedAt { get; set; }
+    public Guid ModifiedBy { get; set; }
+    public DateTimeOffset ModifiedAt { get; set; }
     public bool IsArchived { get; set; }
-    public DateTime? ArchivedAt { get; set; }
+    public Guid? ArchivedBy { get; set; }
+    public DateTimeOffset? ArchivedAt { get; set; }
 }

@@ -11,12 +11,7 @@ public class GetProfileHandler(IUserProfileQueries userProfileQueries, IRequestC
 {
     public async Task<Result<UserProfileDto>> Handle(GetProfileQuery request, CancellationToken ct)
     {
-        if (!requestContext.UserId.HasValue)
-            throw new UnauthorizedAccessException();
-
-        var userId = requestContext.UserId.Value;
-        
-        var user = await userProfileQueries.GetByUserId(userId, request.Language);
+        var user = await userProfileQueries.GetByUserId(requestContext.UserId, request.Language);
 
         if (user == null)
             return Errors.UserNotFound();

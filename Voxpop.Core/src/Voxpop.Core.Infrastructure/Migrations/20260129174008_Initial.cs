@@ -189,6 +189,26 @@ namespace Voxpop.Core.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "polls",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    question = table.Column<string>(type: "character varying(512)", maxLength: 512, nullable: false),
+                    expires_at = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    created_by = table.Column<Guid>(type: "uuid", nullable: false),
+                    created_at = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    modified_by = table.Column<Guid>(type: "uuid", nullable: false),
+                    modified_at = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    is_archived = table.Column<bool>(type: "boolean", nullable: false),
+                    archived_by = table.Column<Guid>(type: "uuid", nullable: true),
+                    archived_at = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_polls", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "race_translations",
                 columns: table => new
                 {
@@ -265,12 +285,31 @@ namespace Voxpop.Core.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "poll_options",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    poll_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    value = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_poll_options", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_poll_options_polls_poll_id",
+                        column: x => x.poll_id,
+                        principalTable: "polls",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "user_profiles",
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
                     user_id = table.Column<Guid>(type: "uuid", nullable: false),
-                    date_of_birth = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    date_of_birth = table.Column<DateOnly>(type: "date", nullable: true),
                     gender_id = table.Column<Guid>(type: "uuid", nullable: true),
                     city_id = table.Column<Guid>(type: "uuid", nullable: true),
                     state_id = table.Column<Guid>(type: "uuid", nullable: true),
@@ -280,10 +319,13 @@ namespace Voxpop.Core.Infrastructure.Migrations
                     religion_id = table.Column<Guid>(type: "uuid", nullable: true),
                     race_id = table.Column<Guid>(type: "uuid", nullable: true),
                     ethnicity_id = table.Column<Guid>(type: "uuid", nullable: true),
-                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    modified_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    created_by = table.Column<Guid>(type: "uuid", nullable: false),
+                    created_at = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    modified_by = table.Column<Guid>(type: "uuid", nullable: false),
+                    modified_at = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     is_archived = table.Column<bool>(type: "boolean", nullable: false),
-                    archived_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                    archived_by = table.Column<Guid>(type: "uuid", nullable: true),
+                    archived_at = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -378,6 +420,12 @@ namespace Voxpop.Core.Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_poll_options_poll_id_value",
+                table: "poll_options",
+                columns: new[] { "poll_id", "value" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_races_code",
                 table: "races",
                 column: "code",
@@ -469,6 +517,9 @@ namespace Voxpop.Core.Infrastructure.Migrations
                 name: "occupation_translations");
 
             migrationBuilder.DropTable(
+                name: "poll_options");
+
+            migrationBuilder.DropTable(
                 name: "race_translations");
 
             migrationBuilder.DropTable(
@@ -479,6 +530,9 @@ namespace Voxpop.Core.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "user_profiles");
+
+            migrationBuilder.DropTable(
+                name: "polls");
 
             migrationBuilder.DropTable(
                 name: "cities");

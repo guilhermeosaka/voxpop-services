@@ -2,9 +2,11 @@
 
 public interface IAuditable
 {
-    DateTime CreatedAt { get; set; }
-    DateTime ModifiedAt { get; set; }
-    
+    Guid CreatedBy { get; set; }
+    DateTimeOffset CreatedAt { get; set; }
+    Guid ModifiedBy { get; set; }
+    DateTimeOffset ModifiedAt { get; set; }
     bool IsArchived { get; set; }
-    DateTime? ArchivedAt { get; set; } 
+    Guid? ArchivedBy { get; set; }
+    DateTimeOffset? ArchivedAt { get; set; } 
 }

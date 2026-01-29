@@ -10,13 +10,13 @@ using Voxpop.Packages.Dispatcher.Interfaces;
 
 namespace Voxpop.Core.Api.Controllers;
 
-[Authorize]
 [ApiController]
+[Authorize]
 [Route("/api/[controller]")]
 public class ProfilesController(IDispatcher dispatcher, IRequestContext requestContext) : ControllerBase
 {
     [HttpPut]
-    public async Task<IActionResult> Upsert([FromBody] UpsertProfileRequest request, CancellationToken ct)
+    public async Task<IActionResult> Upsert(UpsertProfileRequest request, CancellationToken ct)
     {
         var result = await dispatcher.Dispatch(new UpsertProfileCommand(
             request.PersonalInfo,

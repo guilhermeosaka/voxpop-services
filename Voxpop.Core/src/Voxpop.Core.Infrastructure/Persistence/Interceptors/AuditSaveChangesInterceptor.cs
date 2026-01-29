@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Voxpop.Core.Application.Interfaces;
+using Voxpop.Core.Domain.Common;
 using Voxpop.Core.Domain.Interfaces;
-using Voxpop.Core.Domain.UserProfiles;
 
 namespace Voxpop.Core.Infrastructure.Persistence.Interceptors;
 
-public class AuditSaveChangesInterceptor(IClock clock) : SaveChangesInterceptor
+public class AuditSaveChangesInterceptor(IRequestContext requestContext, IClock clock) : SaveChangesInterceptor
 {
     public override InterceptionResult<int> SavingChanges(
         DbContextEventData eventData,
@@ -30,22 +31,27 @@ public class AuditSaveChangesInterceptor(IClock clock) : SaveChangesInterceptor
 
         context.ChangeTracker.DetectChanges();
 
+        var userId = requestContext.UserId;
         var now = clock.UtcNow;
 
-        foreach (var entry in context.ChangeTracker.Entries<UserProfile>())
+        foreach (var entry in context.ChangeTracker.Entries<IAuditable>())
         {
             switch (entry.State)
             {
                 case EntityState.Added:
+                    entry.Entity.CreatedBy = userId;
                     entry.Entity.CreatedAt = now;
+                    entry.Entity.ModifiedBy = userId;
                     entry.Entity.ModifiedAt = now;
                     break;
                 case EntityState.Modified:
+                    entry.Entity.ModifiedBy = userId;
                     entry.Entity.ModifiedAt = now;
                     break;
                 case EntityState.Deleted:
                     entry.State = EntityState.Modified;
                     entry.Entity.IsArchived = true;
+                    entry.Entity.ArchivedBy = userId;
                     entry.Entity.ArchivedAt = now;
                     break;
             }

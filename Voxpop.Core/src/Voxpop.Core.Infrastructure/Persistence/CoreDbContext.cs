@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Voxpop.Core.Domain.Polls;
 using Voxpop.Core.Domain.ReferenceData;
 using Voxpop.Core.Domain.ReferenceData.Translations;
 using Voxpop.Core.Domain.UserProfiles;
@@ -11,10 +12,14 @@ namespace Voxpop.Core.Infrastructure.Persistence;
 public class CoreDbContext(DbContextOptions<CoreDbContext> options, AuditSaveChangesInterceptor auditInterceptor) : DbContext(options)
 {
     public DbSet<UserProfile> UserProfiles { get; set; }
+    public DbSet<Poll> Polls { get; set; }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new UserProfileConfiguration());
+        modelBuilder.ApplyConfiguration(new PollConfiguration());
+        modelBuilder.ApplyConfiguration(new PollOptionConfiguration());
+        
         modelBuilder.ApplyConfiguration(new ReferenceEntityConfiguration<Gender>("genders"));
         modelBuilder.ApplyConfiguration(new ReferenceEntityConfiguration<EducationLevel>("education_levels"));
         modelBuilder.ApplyConfiguration(new ReferenceEntityConfiguration<Religion>("religions"));

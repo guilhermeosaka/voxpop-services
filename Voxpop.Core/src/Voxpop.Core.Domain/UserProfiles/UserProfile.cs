@@ -7,7 +7,7 @@ public class UserProfile(
     Guid userId) : AuditableEntity(id)
 {
     public Guid UserId { get; private set; } = userId;
-    public DateTime? DateOfBirth { get; private set; }
+    public DateOnly? DateOfBirth { get; private set; }
     public Guid? GenderId { get; private set; }
     public Guid? CityId { get; private set; }
     public Guid? StateId { get; private set; }

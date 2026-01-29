@@ -19,6 +19,6 @@ public class HttpRequestContext : IRequestContext
         Language = language;
     }
 
-    public Guid? UserId { get; set; }
+    public Guid UserId { get; set; }
     public required string Language { get; set; }
 }

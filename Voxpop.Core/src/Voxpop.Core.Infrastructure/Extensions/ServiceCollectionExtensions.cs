@@ -25,6 +25,7 @@ public static class ServiceCollectionExtensions
             .AddDbContext<CoreDbContext>(options => options.UseNpgsql(connectionString))
             .AddScoped<IUserProfileRepository, UserProfileRepository>()
             .AddScoped<IUserProfileQueries, UserProfileQueries>()
+            .AddScoped(typeof(IRepository<>), typeof(Repository<>))
             .AddScoped<ISqlConnectionFactory>(_ => new SqlConnectionFactory(connectionString))
             .AddScoped<IUnitOfWork, UnitOfWork>()
             .AddScoped<Migrator>()

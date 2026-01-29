@@ -2,5 +2,5 @@
 
 public static class Constants
 {
-    public static string DefaultLanguage = "en-us";
+    public const string DefaultLanguage = "en-us";
 }
