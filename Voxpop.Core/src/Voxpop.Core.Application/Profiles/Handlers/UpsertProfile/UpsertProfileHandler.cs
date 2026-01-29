@@ -4,7 +4,7 @@ using Voxpop.Core.Domain.UserProfiles.Repositories;
 using Voxpop.Packages.Dispatcher.Interfaces;
 using Voxpop.Packages.Dispatcher.Types;
 
-namespace Voxpop.Core.Application.UserProfiles.Handlers.UpsertProfile;
+namespace Voxpop.Core.Application.Profiles.Handlers.UpsertProfile;
 
 public class UpsertProfileHandler(
     IUserProfileRepository repository, 

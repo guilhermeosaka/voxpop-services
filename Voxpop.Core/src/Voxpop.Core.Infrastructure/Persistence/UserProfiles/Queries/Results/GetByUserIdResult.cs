@@ -1,6 +1,6 @@
 ﻿namespace Voxpop.Core.Infrastructure.Persistence.UserProfiles.Queries.Results;
 
-public record UserProfileQueriesResult(
+public record GetByUserIdResult(
     DateOnly? DateOfBirth,
     Guid? GenderId,
     string? GenderName,

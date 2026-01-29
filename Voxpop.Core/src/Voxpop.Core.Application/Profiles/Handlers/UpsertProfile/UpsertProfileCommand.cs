@@ -1,6 +1,6 @@
 ﻿using Voxpop.Core.Domain.UserProfiles.Entities;
 
-namespace Voxpop.Core.Application.UserProfiles.Handlers.UpsertProfile;
+namespace Voxpop.Core.Application.Profiles.Handlers.UpsertProfile;
 
 public record UpsertProfileCommand(
     PersonalInfo? PersonalInfo,

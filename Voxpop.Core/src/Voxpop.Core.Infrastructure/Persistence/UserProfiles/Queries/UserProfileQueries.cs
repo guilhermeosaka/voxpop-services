@@ -1,7 +1,7 @@
 ﻿using Dapper;
+using Voxpop.Core.Application.Profiles.Dtos;
+using Voxpop.Core.Application.Profiles.Queries;
 using Voxpop.Core.Application.ReferenceData.Dtos;
-using Voxpop.Core.Application.UserProfiles.Dtos;
-using Voxpop.Core.Application.UserProfiles.Interfaces;
 using Voxpop.Core.Domain.Common;
 using Voxpop.Core.Infrastructure.Persistence.Common.Dapper;
 using Voxpop.Core.Infrastructure.Persistence.UserProfiles.Queries.Results;
@@ -10,58 +10,58 @@ namespace Voxpop.Core.Infrastructure.Persistence.UserProfiles.Queries;
 
 public class UserProfileQueries(ISqlConnectionFactory connectionFactory) : IUserProfileQueries
 {   
-    public async Task<UserProfileDto?> GetByUserId(Guid userId, string language)
+    public async Task<UserProfileDto?> GetByUserIdAsync(Guid userId, string language)
     {
         var db = connectionFactory.CreateConnection();
 
         const string sql = """
-                           select up.date_of_birth as "DateOfBirth",
-                                  coalesce(g.id, g.id) as "GenderId",
-                                  coalesce(g.name, g_en.name) as "GenderName",
-                                  coalesce(ci.id, ci.id) as "CityId",
-                                  coalesce(ci.name, ci_en.name) as "CityName",
-                                  coalesce(st.id, st.id) as "StateId",
-                                  coalesce(st.name, st_en.name) as "StateName",
-                                  coalesce(c.id, c.id) as "CountryId",
-                                  coalesce(ct.name, ct_en.name) as "CountryName",
-                                  coalesce(co.id, co.id) as "ContinentId",
-                                  coalesce(co.name, co_en.name) as "ContinentName",
-                                  coalesce(el.id, el.id) as "EducationLevelId",
-                                  coalesce(el.name, el_en.name) as "EducationLevelName",
-                                  coalesce(oc.id, oc.id) as "OccupationId",
-                                  coalesce(oc.name, oc_en.name) as "OccupationName",
-                                  coalesce(rl.id, rl.id) as "ReligionId",
-                                  coalesce(rl.name, rl_en.name) as "ReligionName",
-                                  coalesce(r.id, r.id) as "RaceId",
-                                  coalesce(r.name, r_en.name) as "RaceName",
-                                  coalesce(e.id, e.id) as "EthnicityId",
-                                  coalesce(e.name, e_en.name) as "EthnicityName"
-                           from user_profiles up
-                           left join gender_translations g on g.id = up.gender_id and g.language = @Language
-                           left join gender_translations g_en on g_en.id = up.gender_id and g_en.language = @DefaultLanguage
-                           left join city_translations ci on ci.id = up.city_id and ci.language = @Language
-                           left join city_translations ci_en on ci_en.id = up.city_id and ci_en.language = @DefaultLanguage
-                           left join state_translations st on st.id = up.state_id and st.language = @Language
-                           left join state_translations st_en on st_en.id = up.state_id and st_en.language = @DefaultLanguage
-                           left join countries c on c.id = up.country_id
-                           left join country_translations ct on ct.id = c.id and ct.language = @Language
-                           left join country_translations ct_en on ct_en.id = c.id and ct_en.language = @DefaultLanguage
-                           left join continent_translations co on co.id = c.continent_id and co.language = @Language
-                           left join continent_translations co_en on co_en.id = c.continent_id and co_en.language = @DefaultLanguage
-                           left join education_level_translations el on el.id = up.education_level_id and el.language = @Language
-                           left join education_level_translations el_en on el_en.id = up.education_level_id and el_en.language = @DefaultLanguage
-                           left join occupation_translations oc on oc.id = up.occupation_id and oc.language = @Language
-                           left join occupation_translations oc_en on oc_en.id = up.occupation_id and oc_en.language = @DefaultLanguage
-                           left join religion_translations rl on rl.id = up.religion_id and rl.language = @Language
-                           left join religion_translations rl_en on rl_en.id = up.religion_id and rl_en.language = @DefaultLanguage
-                           left join race_translations r on r.id = up.race_id and r.language = @Language
-                           left join race_translations r_en on r_en.id = up.race_id and r_en.language = @DefaultLanguage
-                           left join ethnicity_translations e on e.id = up.ethnicity_id and e.language = @Language
-                           left join ethnicity_translations e_en on e_en.id = up.ethnicity_id and e_en.language = @DefaultLanguage
-                           where up.user_id = @UserId
+                           SELECT up.date_of_birth AS "DateOfBirth",
+                                  COALESCE(g.id, g.id) AS "GenderId",
+                                  COALESCE(g.name, g_en.name) AS "GenderName",
+                                  COALESCE(ci.id, ci.id) AS "CityId",
+                                  COALESCE(ci.name, ci_en.name) AS "CityName",
+                                  COALESCE(st.id, st.id) AS "StateId",
+                                  COALESCE(st.name, st_en.name) AS "StateName",
+                                  COALESCE(c.id, c.id) AS "CountryId",
+                                  COALESCE(ct.name, ct_en.name) AS "CountryName",
+                                  COALESCE(co.id, co.id) AS "ContinentId",
+                                  COALESCE(co.name, co_en.name) AS "ContinentName",
+                                  COALESCE(el.id, el.id) AS "EducationLevelId",
+                                  COALESCE(el.name, el_en.name) AS "EducationLevelName",
+                                  COALESCE(oc.id, oc.id) AS "OccupationId",
+                                  COALESCE(oc.name, oc_en.name) AS "OccupationName",
+                                  COALESCE(rl.id, rl.id) AS "ReligionId",
+                                  COALESCE(rl.name, rl_en.name) AS "ReligionName",
+                                  COALESCE(r.id, r.id) AS "RaceId",
+                                  COALESCE(r.name, r_en.name) AS "RaceName",
+                                  COALESCE(e.id, e.id) AS "EthnicityId",
+                                  COALESCE(e.name, e_en.name) AS "EthnicityName"
+                           FROM user_profiles up
+                           LEFT JOIN gender_translations g ON g.id = up.gender_id AND g.language = @Language
+                           LEFT JOIN gender_translations g_en ON g_en.id = up.gender_id AND g_en.language = @DefaultLanguage
+                           LEFT JOIN city_translations ci ON ci.id = up.city_id AND ci.language = @Language
+                           LEFT JOIN city_translations ci_en ON ci_en.id = up.city_id AND ci_en.language = @DefaultLanguage
+                           LEFT JOIN state_translations st ON st.id = up.state_id AND st.language = @Language
+                           LEFT JOIN state_translations st_en ON st_en.id = up.state_id AND st_en.language = @DefaultLanguage
+                           LEFT JOIN countries c ON c.id = up.country_id
+                           LEFT JOIN country_translations ct ON ct.id = c.id AND ct.language = @Language
+                           LEFT JOIN country_translations ct_en ON ct_en.id = c.id AND ct_en.language = @DefaultLanguage
+                           LEFT JOIN continent_translations co ON co.id = c.continent_id AND co.language = @Language
+                           LEFT JOIN continent_translations co_en ON co_en.id = c.continent_id AND co_en.language = @DefaultLanguage
+                           LEFT JOIN education_level_translations el ON el.id = up.education_level_id AND el.language = @Language
+                           LEFT JOIN education_level_translations el_en ON el_en.id = up.education_level_id AND el_en.language = @DefaultLanguage
+                           LEFT JOIN occupation_translations oc ON oc.id = up.occupation_id AND oc.language = @Language
+                           LEFT JOIN occupation_translations oc_en ON oc_en.id = up.occupation_id AND oc_en.language = @DefaultLanguage
+                           LEFT JOIN religion_translations rl ON rl.id = up.religion_id AND rl.language = @Language
+                           LEFT JOIN religion_translations rl_en ON rl_en.id = up.religion_id AND rl_en.language = @DefaultLanguage
+                           LEFT JOIN race_translations r ON r.id = up.race_id AND r.language = @Language
+                           LEFT JOIN race_translations r_en ON r_en.id = up.race_id AND r_en.language = @DefaultLanguage
+                           LEFT JOIN ethnicity_translations e ON e.id = up.ethnicity_id AND e.language = @Language
+                           LEFT JOIN ethnicity_translations e_en ON e_en.id = up.ethnicity_id AND e_en.language = @DefaultLanguage
+                           WHERE up.user_id = @UserId
                            """;
 
-        var result = await db.QueryFirstOrDefaultAsync<UserProfileQueriesResult>(
+        var result = await db.QueryFirstOrDefaultAsync<GetByUserIdResult>(
             sql,
             new { UserId = userId, Language = language.ToLower(), Constants.DefaultLanguage }
         );

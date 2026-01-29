@@ -17,7 +17,6 @@ Accept: application/json
 Accept-Language: pt-BR,pt;q=0.9,en;q=0.8
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1Y2RlZTUzZi0xNzA2LTQwNDQtOGRjZi00NDRkNTE4MThhNmQiLCJwaG9uZV9udW1iZXIiOiI1NTExOTQxNzU4NzQ0IiwiZXhwIjoxODY5NTUwMzU5LCJpc3MiOiJ2b3hwb3AtaWRlbnRpdHkiLCJhdWQiOiJ2b3hwb3AtYXBpIn0.cAKHfJogEPZFbgCEqAdypFGJmMtFqmmdVIBKTLGDsMY
 
-
 ### POST /polls
 
 POST {{Voxpop.Core.HostAddress}}/api/polls
@@ -39,3 +38,48 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1Y2RlZTUzZ
     }
   ]
 }
+
+### POST /polls
+
+POST {{Voxpop.Core.HostAddress}}/api/polls
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1Y2RlZTUzZi0xNzA2LTQwNDQtOGRjZi00NDRkNTE4MThhNmQiLCJwaG9uZV9udW1iZXIiOiI1NTExOTQxNzU4NzQ0IiwiZXhwIjoxODY5NTUwMzU5LCJpc3MiOiJ2b3hwb3AtaWRlbnRpdHkiLCJhdWQiOiJ2b3hwb3AtYXBpIn0.cAKHfJogEPZFbgCEqAdypFGJmMtFqmmdVIBKTLGDsMY
+
+{
+  "question": "EUA vai invadir a Groenlândia em 2026?",
+  "expiresAt": "2026-06-01T00:00:00-03:00",
+  "options": [
+    {
+      "value": "Sim"
+    },
+    {
+      "value": "Não"
+    }
+  ]
+}
+
+### POST /polls
+
+POST {{Voxpop.Core.HostAddress}}/api/polls
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1Y2RlZTUzZi0xNzA2LTQwNDQtOGRjZi00NDRkNTE4MThhNmQiLCJwaG9uZV9udW1iZXIiOiI1NTExOTQxNzU4NzQ0IiwiZXhwIjoxODY5NTUwMzU5LCJpc3MiOiJ2b3hwb3AtaWRlbnRpdHkiLCJhdWQiOiJ2b3hwb3AtYXBpIn0.cAKHfJogEPZFbgCEqAdypFGJmMtFqmmdVIBKTLGDsMY
+
+{
+  "question": "China vai reunificar Taiwan?",
+  "expiresAt": "2028-01-01T00:00:00-03:00",
+  "options": [
+    {
+      "value": "Sim"
+    },
+    {
+      "value": "Não"
+    }
+  ]
+}
+
+### GET /polls
+
+GET {{Voxpop.Core.HostAddress}}/api/polls?page=1&pageSize=2
+Accept: application/json
+Accept-Language: pt-BR,pt;q=0.9,en;q=0.8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1Y2RlZTUzZi0xNzA2LTQwNDQtOGRjZi00NDRkNTE4MThhNmQiLCJwaG9uZV9udW1iZXIiOiI1NTExOTQxNzU4NzQ0IiwiZXhwIjoxODY5NTUwMzU5LCJpc3MiOiJ2b3hwb3AtaWRlbnRpdHkiLCJhdWQiOiJ2b3hwb3AtYXBpIn0.cAKHfJogEPZFbgCEqAdypFGJmMtFqmmdVIBKTLGDsMY

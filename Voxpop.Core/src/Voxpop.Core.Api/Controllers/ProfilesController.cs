@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Voxpop.Core.Api.Extensions;
 using Voxpop.Core.Api.Requests;
 using Voxpop.Core.Application.Common.Interfaces;
-using Voxpop.Core.Application.UserProfiles.Dtos;
-using Voxpop.Core.Application.UserProfiles.Handlers.GetProfile;
-using Voxpop.Core.Application.UserProfiles.Handlers.UpsertProfile;
+using Voxpop.Core.Application.Profiles.Dtos;
+using Voxpop.Core.Application.Profiles.Handlers.GetProfile;
+using Voxpop.Core.Application.Profiles.Handlers.UpsertProfile;
 using Voxpop.Packages.Dispatcher.Interfaces;
 
 namespace Voxpop.Core.Api.Controllers;

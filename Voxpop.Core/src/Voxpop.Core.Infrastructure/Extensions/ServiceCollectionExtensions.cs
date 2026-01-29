@@ -5,7 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Voxpop.Core.Application.Common.Interfaces;
 using Voxpop.Core.Application.Common.Options;
-using Voxpop.Core.Application.UserProfiles.Interfaces;
+using Voxpop.Core.Application.Polls.Queries;
+using Voxpop.Core.Application.Profiles.Queries;
 using Voxpop.Core.Domain.Common.Interfaces;
 using Voxpop.Core.Domain.UserProfiles.Repositories;
 using Voxpop.Core.Infrastructure.Identity;
@@ -14,6 +15,7 @@ using Voxpop.Core.Infrastructure.Persistence.Common.Dapper;
 using Voxpop.Core.Infrastructure.Persistence.Common.Interceptors;
 using Voxpop.Core.Infrastructure.Persistence.Common.Migrations;
 using Voxpop.Core.Infrastructure.Persistence.Common.Repositories;
+using Voxpop.Core.Infrastructure.Persistence.Polls.Queries;
 using Voxpop.Core.Infrastructure.Persistence.UserProfiles.Queries;
 using Voxpop.Core.Infrastructure.Persistence.UserProfiles.Repositories;
 using Voxpop.Core.Infrastructure.Services;
@@ -28,6 +30,7 @@ public static class ServiceCollectionExtensions
             .AddDbContext<CoreDbContext>(options => options.UseNpgsql(connectionString))
             .AddScoped<IUserProfileRepository, UserProfileRepository>()
             .AddScoped<IUserProfileQueries, UserProfileQueries>()
+            .AddScoped<IPollQueries, PollQueries>()
             .AddScoped(typeof(IRepository<>), typeof(Repository<>))
             .AddScoped<ISqlConnectionFactory>(_ => new SqlConnectionFactory(connectionString))
             .AddScoped<IUnitOfWork, UnitOfWork>()
