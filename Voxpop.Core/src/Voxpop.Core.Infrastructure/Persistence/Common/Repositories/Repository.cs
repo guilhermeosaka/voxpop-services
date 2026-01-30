@@ -7,4 +7,6 @@ public class Repository<T>(CoreDbContext dbContext) : IRepository<T> where T : c
     public async Task<T?> FindByIdAsync(Guid id) => await dbContext.Set<T>().FindAsync(id);
  
     public async Task AddAsync(T item) => await dbContext.Set<T>().AddAsync(item);
+    
+    public void Remove(T item) => dbContext.Set<T>().Remove(item);
 }

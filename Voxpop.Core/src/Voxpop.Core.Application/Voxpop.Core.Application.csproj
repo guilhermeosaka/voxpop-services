@@ -12,7 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Profiles\Handlers\" />
+      <Folder Include="Profiles\UseCases\" />
     </ItemGroup>
 
 </Project>

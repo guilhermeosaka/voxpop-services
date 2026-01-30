@@ -6,7 +6,4 @@ public interface IAuditable
     DateTimeOffset CreatedAt { get; set; }
     Guid ModifiedBy { get; set; }
     DateTimeOffset ModifiedAt { get; set; }
-    bool IsArchived { get; set; }
-    Guid? ArchivedBy { get; set; }
-    DateTimeOffset? ArchivedAt { get; set; } 
 }

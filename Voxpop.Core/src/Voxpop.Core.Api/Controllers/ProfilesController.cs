@@ -4,8 +4,8 @@ using Voxpop.Core.Api.Extensions;
 using Voxpop.Core.Api.Requests;
 using Voxpop.Core.Application.Common.Interfaces;
 using Voxpop.Core.Application.Profiles.Dtos;
-using Voxpop.Core.Application.Profiles.Handlers.GetProfile;
-using Voxpop.Core.Application.Profiles.Handlers.UpsertProfile;
+using Voxpop.Core.Application.Profiles.UseCases.GetProfile;
+using Voxpop.Core.Application.Profiles.UseCases.SaveProfile;
 using Voxpop.Packages.Dispatcher.Interfaces;
 
 namespace Voxpop.Core.Api.Controllers;
@@ -16,9 +16,9 @@ namespace Voxpop.Core.Api.Controllers;
 public class ProfilesController(IDispatcher dispatcher, IRequestContext requestContext) : ControllerBase
 {
     [HttpPut]
-    public async Task<IActionResult> Upsert(UpsertProfileRequest request, CancellationToken ct)
+    public async Task<IActionResult> Save(SaveProfileRequest request, CancellationToken ct)
     {
-        var result = await dispatcher.Dispatch(new UpsertProfileCommand(
+        var result = await dispatcher.Dispatch(new SaveProfileCommand(
             request.PersonalInfo,
             request.LocationInfo,
             request.ProfessionalInfo,
@@ -32,7 +32,7 @@ public class ProfilesController(IDispatcher dispatcher, IRequestContext requestC
     public async Task<IActionResult> Get(CancellationToken ct)
     {
         var result =
-            await dispatcher.Dispatch<GetProfileQuery, UserProfileDto>(new GetProfileQuery(requestContext.Language),
+            await dispatcher.Dispatch<GetProfileQuery, ProfileDto>(new GetProfileQuery(requestContext.Language),
                 ct);
 
         return result.ToActionResult();

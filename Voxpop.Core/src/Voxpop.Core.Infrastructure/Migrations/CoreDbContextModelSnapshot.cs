@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using Voxpop.Core.Infrastructure.Persistence;
 using Voxpop.Core.Infrastructure.Persistence.Common;
 
 #nullable disable
@@ -23,7 +22,7 @@ namespace Voxpop.Core.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Voxpop.Core.Domain.Polls.Poll", b =>
+            modelBuilder.Entity("Voxpop.Core.Domain.Polls.Entities.Poll", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -54,6 +53,10 @@ namespace Voxpop.Core.Infrastructure.Migrations
                         .HasColumnType("boolean")
                         .HasColumnName("is_archived");
 
+                    b.Property<bool>("IsClosed")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_closed");
+
                     b.Property<DateTimeOffset>("ModifiedAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("modified_at");
@@ -68,17 +71,25 @@ namespace Voxpop.Core.Infrastructure.Migrations
                         .HasColumnType("character varying(512)")
                         .HasColumnName("question");
 
+                    b.Property<int>("VoteMode")
+                        .HasColumnType("integer")
+                        .HasColumnName("vote_mode");
+
                     b.HasKey("Id");
 
                     b.ToTable("polls", (string)null);
                 });
 
-            modelBuilder.Entity("Voxpop.Core.Domain.Polls.PollOption", b =>
+            modelBuilder.Entity("Voxpop.Core.Domain.Polls.Entities.PollOption", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
                         .HasColumnName("id");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("integer")
+                        .HasColumnName("order");
 
                     b.Property<Guid>("PollId")
                         .HasColumnType("uuid")
@@ -98,419 +109,7 @@ namespace Voxpop.Core.Infrastructure.Migrations
                     b.ToTable("poll_options", (string)null);
                 });
 
-            modelBuilder.Entity("Voxpop.Core.Domain.ReferenceData.City", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("code");
-
-                    b.Property<Guid>("StateId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("state_id");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Code", "StateId")
-                        .IsUnique();
-
-                    b.ToTable("cities", (string)null);
-                });
-
-            modelBuilder.Entity("Voxpop.Core.Domain.ReferenceData.Continent", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("code");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Code")
-                        .IsUnique();
-
-                    b.ToTable("continents", (string)null);
-                });
-
-            modelBuilder.Entity("Voxpop.Core.Domain.ReferenceData.Country", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("code");
-
-                    b.Property<Guid>("ContinentId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("continent_id");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Code")
-                        .IsUnique();
-
-                    b.ToTable("countries", (string)null);
-                });
-
-            modelBuilder.Entity("Voxpop.Core.Domain.ReferenceData.EducationLevel", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("code");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Code")
-                        .IsUnique();
-
-                    b.ToTable("education_levels", (string)null);
-                });
-
-            modelBuilder.Entity("Voxpop.Core.Domain.ReferenceData.Ethnicity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("code");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Code")
-                        .IsUnique();
-
-                    b.ToTable("ethnicities", (string)null);
-                });
-
-            modelBuilder.Entity("Voxpop.Core.Domain.ReferenceData.Gender", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("code");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Code")
-                        .IsUnique();
-
-                    b.ToTable("genders", (string)null);
-                });
-
-            modelBuilder.Entity("Voxpop.Core.Domain.ReferenceData.Occupation", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("code");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Code")
-                        .IsUnique();
-
-                    b.ToTable("occupations", (string)null);
-                });
-
-            modelBuilder.Entity("Voxpop.Core.Domain.ReferenceData.Race", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("code");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Code")
-                        .IsUnique();
-
-                    b.ToTable("races", (string)null);
-                });
-
-            modelBuilder.Entity("Voxpop.Core.Domain.ReferenceData.Religion", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("code");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Code")
-                        .IsUnique();
-
-                    b.ToTable("religions", (string)null);
-                });
-
-            modelBuilder.Entity("Voxpop.Core.Domain.ReferenceData.State", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("code");
-
-                    b.Property<Guid>("CountryId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("country_id");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Code", "CountryId")
-                        .IsUnique();
-
-                    b.ToTable("states", (string)null);
-                });
-
-            modelBuilder.Entity("Voxpop.Core.Domain.ReferenceData.Translations.CityTranslation", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<string>("Language")
-                        .HasColumnType("text")
-                        .HasColumnName("language");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("name");
-
-                    b.HasKey("Id", "Language");
-
-                    b.ToTable("city_translations", (string)null);
-                });
-
-            modelBuilder.Entity("Voxpop.Core.Domain.ReferenceData.Translations.ContinentTranslation", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<string>("Language")
-                        .HasColumnType("text")
-                        .HasColumnName("language");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("name");
-
-                    b.HasKey("Id", "Language");
-
-                    b.ToTable("continent_translations", (string)null);
-                });
-
-            modelBuilder.Entity("Voxpop.Core.Domain.ReferenceData.Translations.CountryTranslation", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<string>("Language")
-                        .HasColumnType("text")
-                        .HasColumnName("language");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("name");
-
-                    b.HasKey("Id", "Language");
-
-                    b.ToTable("country_translations", (string)null);
-                });
-
-            modelBuilder.Entity("Voxpop.Core.Domain.ReferenceData.Translations.EducationLevelTranslation", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<string>("Language")
-                        .HasColumnType("text")
-                        .HasColumnName("language");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("name");
-
-                    b.HasKey("Id", "Language");
-
-                    b.ToTable("education_level_translations", (string)null);
-                });
-
-            modelBuilder.Entity("Voxpop.Core.Domain.ReferenceData.Translations.EthnicityTranslation", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<string>("Language")
-                        .HasColumnType("text")
-                        .HasColumnName("language");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("name");
-
-                    b.HasKey("Id", "Language");
-
-                    b.ToTable("ethnicity_translations", (string)null);
-                });
-
-            modelBuilder.Entity("Voxpop.Core.Domain.ReferenceData.Translations.GenderTranslation", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<string>("Language")
-                        .HasColumnType("text")
-                        .HasColumnName("language");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("name");
-
-                    b.HasKey("Id", "Language");
-
-                    b.ToTable("gender_translations", (string)null);
-                });
-
-            modelBuilder.Entity("Voxpop.Core.Domain.ReferenceData.Translations.OccupationTranslation", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<string>("Language")
-                        .HasColumnType("text")
-                        .HasColumnName("language");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("name");
-
-                    b.HasKey("Id", "Language");
-
-                    b.ToTable("occupation_translations", (string)null);
-                });
-
-            modelBuilder.Entity("Voxpop.Core.Domain.ReferenceData.Translations.RaceTranslation", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<string>("Language")
-                        .HasColumnType("text")
-                        .HasColumnName("language");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("name");
-
-                    b.HasKey("Id", "Language");
-
-                    b.ToTable("race_translations", (string)null);
-                });
-
-            modelBuilder.Entity("Voxpop.Core.Domain.ReferenceData.Translations.ReligionTranslation", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<string>("Language")
-                        .HasColumnType("text")
-                        .HasColumnName("language");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("name");
-
-                    b.HasKey("Id", "Language");
-
-                    b.ToTable("religion_translations", (string)null);
-                });
-
-            modelBuilder.Entity("Voxpop.Core.Domain.ReferenceData.Translations.StateTranslation", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<string>("Language")
-                        .HasColumnType("text")
-                        .HasColumnName("language");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("name");
-
-                    b.HasKey("Id", "Language");
-
-                    b.ToTable("state_translations", (string)null);
-                });
-
-            modelBuilder.Entity("Voxpop.Core.Domain.UserProfiles.UserProfile", b =>
+            modelBuilder.Entity("Voxpop.Core.Domain.Profiles.Entities.Profile", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -609,58 +208,531 @@ namespace Voxpop.Core.Infrastructure.Migrations
 
                     b.HasIndex("StateId");
 
-                    b.ToTable("user_profiles", (string)null);
+                    b.ToTable("profiles", (string)null);
                 });
 
-            modelBuilder.Entity("Voxpop.Core.Domain.Polls.PollOption", b =>
+            modelBuilder.Entity("Voxpop.Core.Domain.ReferenceData.Entities.City", b =>
                 {
-                    b.HasOne("Voxpop.Core.Domain.Polls.Poll", null)
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("code");
+
+                    b.Property<Guid>("StateId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("state_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code", "StateId")
+                        .IsUnique();
+
+                    b.ToTable("cities", (string)null);
+                });
+
+            modelBuilder.Entity("Voxpop.Core.Domain.ReferenceData.Entities.Continent", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("code");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.ToTable("continents", (string)null);
+                });
+
+            modelBuilder.Entity("Voxpop.Core.Domain.ReferenceData.Entities.Country", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("code");
+
+                    b.Property<Guid>("ContinentId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("continent_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.ToTable("countries", (string)null);
+                });
+
+            modelBuilder.Entity("Voxpop.Core.Domain.ReferenceData.Entities.EducationLevel", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("code");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.ToTable("education_levels", (string)null);
+                });
+
+            modelBuilder.Entity("Voxpop.Core.Domain.ReferenceData.Entities.Ethnicity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("code");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.ToTable("ethnicities", (string)null);
+                });
+
+            modelBuilder.Entity("Voxpop.Core.Domain.ReferenceData.Entities.Gender", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("code");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.ToTable("genders", (string)null);
+                });
+
+            modelBuilder.Entity("Voxpop.Core.Domain.ReferenceData.Entities.Occupation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("code");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.ToTable("occupations", (string)null);
+                });
+
+            modelBuilder.Entity("Voxpop.Core.Domain.ReferenceData.Entities.Race", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("code");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.ToTable("races", (string)null);
+                });
+
+            modelBuilder.Entity("Voxpop.Core.Domain.ReferenceData.Entities.Religion", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("code");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.ToTable("religions", (string)null);
+                });
+
+            modelBuilder.Entity("Voxpop.Core.Domain.ReferenceData.Entities.State", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("code");
+
+                    b.Property<Guid>("CountryId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("country_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code", "CountryId")
+                        .IsUnique();
+
+                    b.ToTable("states", (string)null);
+                });
+
+            modelBuilder.Entity("Voxpop.Core.Domain.ReferenceData.Entities.Translations.CityTranslation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Language")
+                        .HasColumnType("text")
+                        .HasColumnName("language");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("name");
+
+                    b.HasKey("Id", "Language");
+
+                    b.ToTable("city_translations", (string)null);
+                });
+
+            modelBuilder.Entity("Voxpop.Core.Domain.ReferenceData.Entities.Translations.ContinentTranslation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Language")
+                        .HasColumnType("text")
+                        .HasColumnName("language");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("name");
+
+                    b.HasKey("Id", "Language");
+
+                    b.ToTable("continent_translations", (string)null);
+                });
+
+            modelBuilder.Entity("Voxpop.Core.Domain.ReferenceData.Entities.Translations.CountryTranslation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Language")
+                        .HasColumnType("text")
+                        .HasColumnName("language");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("name");
+
+                    b.HasKey("Id", "Language");
+
+                    b.ToTable("country_translations", (string)null);
+                });
+
+            modelBuilder.Entity("Voxpop.Core.Domain.ReferenceData.Entities.Translations.EducationLevelTranslation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Language")
+                        .HasColumnType("text")
+                        .HasColumnName("language");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("name");
+
+                    b.HasKey("Id", "Language");
+
+                    b.ToTable("education_level_translations", (string)null);
+                });
+
+            modelBuilder.Entity("Voxpop.Core.Domain.ReferenceData.Entities.Translations.EthnicityTranslation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Language")
+                        .HasColumnType("text")
+                        .HasColumnName("language");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("name");
+
+                    b.HasKey("Id", "Language");
+
+                    b.ToTable("ethnicity_translations", (string)null);
+                });
+
+            modelBuilder.Entity("Voxpop.Core.Domain.ReferenceData.Entities.Translations.GenderTranslation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Language")
+                        .HasColumnType("text")
+                        .HasColumnName("language");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("name");
+
+                    b.HasKey("Id", "Language");
+
+                    b.ToTable("gender_translations", (string)null);
+                });
+
+            modelBuilder.Entity("Voxpop.Core.Domain.ReferenceData.Entities.Translations.OccupationTranslation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Language")
+                        .HasColumnType("text")
+                        .HasColumnName("language");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("name");
+
+                    b.HasKey("Id", "Language");
+
+                    b.ToTable("occupation_translations", (string)null);
+                });
+
+            modelBuilder.Entity("Voxpop.Core.Domain.ReferenceData.Entities.Translations.RaceTranslation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Language")
+                        .HasColumnType("text")
+                        .HasColumnName("language");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("name");
+
+                    b.HasKey("Id", "Language");
+
+                    b.ToTable("race_translations", (string)null);
+                });
+
+            modelBuilder.Entity("Voxpop.Core.Domain.ReferenceData.Entities.Translations.ReligionTranslation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Language")
+                        .HasColumnType("text")
+                        .HasColumnName("language");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("name");
+
+                    b.HasKey("Id", "Language");
+
+                    b.ToTable("religion_translations", (string)null);
+                });
+
+            modelBuilder.Entity("Voxpop.Core.Domain.ReferenceData.Entities.Translations.StateTranslation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Language")
+                        .HasColumnType("text")
+                        .HasColumnName("language");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("name");
+
+                    b.HasKey("Id", "Language");
+
+                    b.ToTable("state_translations", (string)null);
+                });
+
+            modelBuilder.Entity("Voxpop.Core.Domain.Votes.Entities.Vote", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uuid")
+                        .HasColumnName("created_by");
+
+                    b.Property<DateTimeOffset>("ModifiedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("modified_at");
+
+                    b.Property<Guid>("ModifiedBy")
+                        .HasColumnType("uuid")
+                        .HasColumnName("modified_by");
+
+                    b.Property<Guid>("OptionId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("option_id");
+
+                    b.Property<Guid>("PollId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("poll_id");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OptionId");
+
+                    b.HasIndex("PollId");
+
+                    b.HasIndex("UserId", "PollId");
+
+                    b.ToTable("votes", (string)null);
+                });
+
+            modelBuilder.Entity("Voxpop.Core.Domain.Polls.Entities.PollOption", b =>
+                {
+                    b.HasOne("Voxpop.Core.Domain.Polls.Entities.Poll", null)
                         .WithMany("Options")
                         .HasForeignKey("PollId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Voxpop.Core.Domain.UserProfiles.UserProfile", b =>
+            modelBuilder.Entity("Voxpop.Core.Domain.Profiles.Entities.Profile", b =>
                 {
-                    b.HasOne("Voxpop.Core.Domain.ReferenceData.City", null)
+                    b.HasOne("Voxpop.Core.Domain.ReferenceData.Entities.City", null)
                         .WithMany()
                         .HasForeignKey("CityId");
 
-                    b.HasOne("Voxpop.Core.Domain.ReferenceData.Country", null)
+                    b.HasOne("Voxpop.Core.Domain.ReferenceData.Entities.Country", null)
                         .WithMany()
                         .HasForeignKey("CountryId");
 
-                    b.HasOne("Voxpop.Core.Domain.ReferenceData.EducationLevel", null)
+                    b.HasOne("Voxpop.Core.Domain.ReferenceData.Entities.EducationLevel", null)
                         .WithMany()
                         .HasForeignKey("EducationLevelId");
 
-                    b.HasOne("Voxpop.Core.Domain.ReferenceData.Ethnicity", null)
+                    b.HasOne("Voxpop.Core.Domain.ReferenceData.Entities.Ethnicity", null)
                         .WithMany()
                         .HasForeignKey("EthnicityId");
 
-                    b.HasOne("Voxpop.Core.Domain.ReferenceData.Gender", null)
+                    b.HasOne("Voxpop.Core.Domain.ReferenceData.Entities.Gender", null)
                         .WithMany()
                         .HasForeignKey("GenderId");
 
-                    b.HasOne("Voxpop.Core.Domain.ReferenceData.Occupation", null)
+                    b.HasOne("Voxpop.Core.Domain.ReferenceData.Entities.Occupation", null)
                         .WithMany()
                         .HasForeignKey("OccupationId");
 
-                    b.HasOne("Voxpop.Core.Domain.ReferenceData.Race", null)
+                    b.HasOne("Voxpop.Core.Domain.ReferenceData.Entities.Race", null)
                         .WithMany()
                         .HasForeignKey("RaceId");
 
-                    b.HasOne("Voxpop.Core.Domain.ReferenceData.Religion", null)
+                    b.HasOne("Voxpop.Core.Domain.ReferenceData.Entities.Religion", null)
                         .WithMany()
                         .HasForeignKey("ReligionId");
 
-                    b.HasOne("Voxpop.Core.Domain.ReferenceData.State", null)
+                    b.HasOne("Voxpop.Core.Domain.ReferenceData.Entities.State", null)
                         .WithMany()
                         .HasForeignKey("StateId");
                 });
 
-            modelBuilder.Entity("Voxpop.Core.Domain.Polls.Poll", b =>
+            modelBuilder.Entity("Voxpop.Core.Domain.Votes.Entities.Vote", b =>
+                {
+                    b.HasOne("Voxpop.Core.Domain.Polls.Entities.PollOption", null)
+                        .WithMany()
+                        .HasForeignKey("OptionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Voxpop.Core.Domain.Polls.Entities.Poll", null)
+                        .WithMany()
+                        .HasForeignKey("PollId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Voxpop.Core.Domain.Polls.Entities.Poll", b =>
                 {
                     b.Navigation("Options");
                 });

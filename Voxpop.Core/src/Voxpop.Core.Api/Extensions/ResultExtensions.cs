@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using Microsoft.AspNetCore.Mvc;
+using Voxpop.Core.Application.Common;
 using Voxpop.Packages.Dispatcher.Extensions;
 using Voxpop.Packages.Dispatcher.Types;
 
@@ -21,6 +22,9 @@ public static class ResultExtensions
     {
         return error?.Code switch
         {
+            Errors.UserNotFoundCode => error.ToProblemDetails(HttpStatusCode.NotFound),
+            Errors.InvalidVoteStateCode => error.ToProblemDetails(HttpStatusCode.BadRequest),
+            Errors.PollVotingIsClosedCode => error.ToProblemDetails(HttpStatusCode.Forbidden),
             _ => new Error(string.Empty, "InternalServerError", "An unexpected error occurred")
                 .ToProblemDetails(HttpStatusCode.InternalServerError)
         };

@@ -8,7 +8,8 @@ using Voxpop.Core.Application.Common.Options;
 using Voxpop.Core.Application.Polls.Queries;
 using Voxpop.Core.Application.Profiles.Queries;
 using Voxpop.Core.Domain.Common.Interfaces;
-using Voxpop.Core.Domain.UserProfiles.Repositories;
+using Voxpop.Core.Domain.Profiles.Repositories;
+using Voxpop.Core.Domain.Votes.Repositories;
 using Voxpop.Core.Infrastructure.Identity;
 using Voxpop.Core.Infrastructure.Persistence.Common;
 using Voxpop.Core.Infrastructure.Persistence.Common.Dapper;
@@ -16,8 +17,9 @@ using Voxpop.Core.Infrastructure.Persistence.Common.Interceptors;
 using Voxpop.Core.Infrastructure.Persistence.Common.Migrations;
 using Voxpop.Core.Infrastructure.Persistence.Common.Repositories;
 using Voxpop.Core.Infrastructure.Persistence.Polls.Queries;
-using Voxpop.Core.Infrastructure.Persistence.UserProfiles.Queries;
-using Voxpop.Core.Infrastructure.Persistence.UserProfiles.Repositories;
+using Voxpop.Core.Infrastructure.Persistence.Profiles.Queries;
+using Voxpop.Core.Infrastructure.Persistence.Profiles.Repositories;
+using Voxpop.Core.Infrastructure.Persistence.Votes.Repositories;
 using Voxpop.Core.Infrastructure.Services;
 
 namespace Voxpop.Core.Infrastructure.Extensions;
@@ -28,10 +30,11 @@ public static class ServiceCollectionExtensions
     {
         services
             .AddDbContext<CoreDbContext>(options => options.UseNpgsql(connectionString))
-            .AddScoped<IUserProfileRepository, UserProfileRepository>()
-            .AddScoped<IUserProfileQueries, UserProfileQueries>()
-            .AddScoped<IPollQueries, PollQueries>()
             .AddScoped(typeof(IRepository<>), typeof(Repository<>))
+            .AddScoped<IProfileRepository, ProfileRepository>()
+            .AddScoped<IVoteRepository, VoteRepository>()
+            .AddScoped<IProfileQueries, ProfileQueries>()
+            .AddScoped<IPollQueries, PollQueries>()
             .AddScoped<ISqlConnectionFactory>(_ => new SqlConnectionFactory(connectionString))
             .AddScoped<IUnitOfWork, UnitOfWork>()
             .AddScoped<Migrator>()

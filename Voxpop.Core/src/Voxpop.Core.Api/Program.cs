@@ -1,5 +1,6 @@
 using Serilog;
 using Voxpop.Core.Api.Middlewares;
+using Voxpop.Core.Application.Common.Extensions;
 using Voxpop.Core.Application.Common.Options;
 using Voxpop.Core.Infrastructure.Extensions;
 using Voxpop.Core.Infrastructure.Persistence.Common.Migrations;
@@ -19,6 +20,7 @@ builder.Services
     .AddDispatcher()
     .AddPersistence(builder.Configuration.GetConnectionString("CoreDb")!)
     .AddAuth(builder.Configuration.GetSection("Jwt").Get<JwtOptions>()!)
+    .AddApplicationServices()
     .AddInfrastructureServices();
 
 var app = builder.Build();

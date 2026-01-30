@@ -14,7 +14,7 @@ public class PollQueries(ISqlConnectionFactory connectionFactory) : IPollQueries
 
         const string sql = """
                            WITH paged_polls AS (
-                               SELECT p.id, p.question, p.expires_at, p.created_at
+                               SELECT p.id, p.question, p.vote_mode, p.expires_at, p.is_closed, p.created_at
                                FROM polls p
                                WHERE not p.is_archived
                                ORDER BY p.created_at DESC
@@ -24,13 +24,15 @@ public class PollQueries(ISqlConnectionFactory connectionFactory) : IPollQueries
                            SELECT
                                pp.id          AS "Id",
                                pp.question    AS "Question",
+                               pp.vote_mode   AS "VoteMode",
                                pp.expires_at  AS "ExpiresAt",
-                               po.id          AS "OptionId",
-                               po.value       AS "OptionValue",
+                               pp.is_closed   AS "IsClosed",
                                pp.created_at  AS "CreatedAt",
+                               po.id          AS "OptionId",
+                               po.value       AS "OptionValue"
                            FROM paged_polls pp
                            JOIN poll_options po ON po.poll_id = pp.id
-                           ORDER BY pp.created_at DESC;
+                           ORDER BY pp.created_at DESC, po.order;
                            """;
 
         var result = await db.QueryAsync<GetPollsResult>(
@@ -44,13 +46,40 @@ public class PollQueries(ISqlConnectionFactory connectionFactory) : IPollQueries
         {
             if (!lookup.TryGetValue(poll.Id, out var pollDto))
             {
-                pollDto = new PollDto(poll.Id, poll.Question, poll.ExpiresAt, [], poll.CreatedAt);
+                pollDto = new PollDto(
+                    poll.Id, 
+                    poll.Question, 
+                    poll.VoteMode, 
+                    poll.ExpiresAt, 
+                    poll.IsClosed,
+                    poll.CreatedAt, []);
                 lookup.Add(poll.Id, pollDto);
             }
-            
+
             lookup[poll.Id].Options.Add(new PollOptionDto(poll.OptionId, poll.OptionValue));
         }
 
         return lookup.Values.ToList();
+    }
+
+    public async Task<VotingInfoDto> GetVotingInfoAsync(Guid pollId)
+    {
+        var db = connectionFactory.CreateConnection();
+
+        const string sql = """
+                           SELECT p.vote_mode as "VoteMode", 
+                                  p.expires_at as "ExpiresAt", 
+                                  p.is_closed as "IsClosed"
+                           FROM polls p
+                           WHERE p.id = @PollId and not p.is_archived
+                           LIMIT 1
+                           """;
+
+        var result =  await db.QuerySingleAsync<GetVotingInfoResult>(
+            sql,
+            new { PollId = pollId }
+        );
+        
+        return new VotingInfoDto(result.VoteMode, result.ExpiresAt, result.IsClosed);
     }
 }

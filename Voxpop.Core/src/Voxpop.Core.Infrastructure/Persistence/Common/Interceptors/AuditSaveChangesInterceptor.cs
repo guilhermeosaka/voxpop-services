@@ -48,6 +48,13 @@ public class AuditSaveChangesInterceptor(IRequestContext requestContext, IClock 
                     entry.Entity.ModifiedBy = userId;
                     entry.Entity.ModifiedAt = now;
                     break;
+            }
+        }
+
+        foreach (var entry in context.ChangeTracker.Entries<IArchivable>())
+        {
+            switch (entry.State)
+            {
                 case EntityState.Deleted:
                     entry.State = EntityState.Modified;
                     entry.Entity.IsArchived = true;

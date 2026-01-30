@@ -16,6 +16,7 @@ public class PollOptionConfiguration : IEntityTypeConfiguration<PollOption>
 
         builder.Property(up => up.Id).HasColumnName("id").IsRequired();
         builder.Property(up => up.PollId).HasColumnName("poll_id").IsRequired();
+        builder.Property(up => up.Order).HasColumnName("order").IsRequired();
         builder.Property(up => up.Value).HasColumnName("value").HasMaxLength(128).IsRequired();
     }
 }

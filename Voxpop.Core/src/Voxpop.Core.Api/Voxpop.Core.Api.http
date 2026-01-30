@@ -48,6 +48,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1Y2RlZTUzZ
 {
   "question": "EUA vai invadir a Groenlândia em 2026?",
   "expiresAt": "2026-06-01T00:00:00-03:00",
+  "voteMode": 1,
   "options": [
     {
       "value": "Sim"
@@ -80,6 +81,20 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1Y2RlZTUzZ
 ### GET /polls
 
 GET {{Voxpop.Core.HostAddress}}/api/polls?page=1&pageSize=2
+Accept: application/json
+Accept-Language: pt-BR,pt;q=0.9,en;q=0.8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1Y2RlZTUzZi0xNzA2LTQwNDQtOGRjZi00NDRkNTE4MThhNmQiLCJwaG9uZV9udW1iZXIiOiI1NTExOTQxNzU4NzQ0IiwiZXhwIjoxODY5NTUwMzU5LCJpc3MiOiJ2b3hwb3AtaWRlbnRpdHkiLCJhdWQiOiJ2b3hwb3AtYXBpIn0.cAKHfJogEPZFbgCEqAdypFGJmMtFqmmdVIBKTLGDsMY
+
+### PUT /polls/{id}/votes/{optionId}
+
+PUT {{Voxpop.Core.HostAddress}}/api/polls/e6f524e1-c88a-4a24-ad9e-e3b4eab39095/votes/5015ec54-49f1-418f-9b36-2a35da753e7b
+Accept: application/json
+Accept-Language: pt-BR,pt;q=0.9,en;q=0.8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1Y2RlZTUzZi0xNzA2LTQwNDQtOGRjZi00NDRkNTE4MThhNmQiLCJwaG9uZV9udW1iZXIiOiI1NTExOTQxNzU4NzQ0IiwiZXhwIjoxODY5NTUwMzU5LCJpc3MiOiJ2b3hwb3AtaWRlbnRpdHkiLCJhdWQiOiJ2b3hwb3AtYXBpIn0.cAKHfJogEPZFbgCEqAdypFGJmMtFqmmdVIBKTLGDsMY
+
+### DELETE /polls/{id}/votes/{optionId}
+
+DELETE {{Voxpop.Core.HostAddress}}/api/polls/e6f524e1-c88a-4a24-ad9e-e3b4eab39095/votes/5015ec54-49f1-418f-9b36-2a35da753e7b
 Accept: application/json
 Accept-Language: pt-BR,pt;q=0.9,en;q=0.8
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1Y2RlZTUzZi0xNzA2LTQwNDQtOGRjZi00NDRkNTE4MThhNmQiLCJwaG9uZV9udW1iZXIiOiI1NTExOTQxNzU4NzQ0IiwiZXhwIjoxODY5NTUwMzU5LCJpc3MiOiJ2b3hwb3AtaWRlbnRpdHkiLCJhdWQiOiJ2b3hwb3AtYXBpIn0.cAKHfJogEPZFbgCEqAdypFGJmMtFqmmdVIBKTLGDsMY

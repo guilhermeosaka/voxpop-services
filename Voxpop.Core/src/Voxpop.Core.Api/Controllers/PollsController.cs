@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using Voxpop.Core.Api.Extensions;
 using Voxpop.Core.Api.Requests;
 using Voxpop.Core.Application.Polls.Dtos;
-using Voxpop.Core.Application.Polls.Handlers.CreatePoll;
-using Voxpop.Core.Application.Polls.Handlers.GetPolls;
+using Voxpop.Core.Application.Polls.UseCases.CreatePoll;
+using Voxpop.Core.Application.Polls.UseCases.GetPolls;
+using Voxpop.Core.Application.Votes.UseCases.SubmitVote;
+using Voxpop.Core.Application.Votes.UseCases.WithdrawVote;
 using Voxpop.Core.Domain.Common;
 using Voxpop.Packages.Dispatcher.Interfaces;
 
@@ -21,6 +23,7 @@ public class PollsController(IDispatcher dispatcher) : ControllerBase
         var result = await dispatcher.Dispatch(new CreatePollCommand(
             request.Question,
             request.ExpiresAt,
+            request.VoteMode,
             request.Options
         ), ct);
 
@@ -37,6 +40,22 @@ public class PollsController(IDispatcher dispatcher) : ControllerBase
         var result =
             await dispatcher.Dispatch<GetPollsQuery, IReadOnlyList<PollDto>>(
                 new GetPollsQuery(request.Page, pageSize), ct);
+        
+        return result.ToActionResult();
+    }
+    
+    [HttpPut("{id:guid}/votes/{optionId:guid}")]
+    public async Task<IActionResult> SubmitVote(Guid id, Guid optionId, CancellationToken ct)
+    {
+        var result = await dispatcher.Dispatch(new SubmitVoteCommand(id, optionId), ct);
+        
+        return result.ToActionResult();
+    }
+    
+    [HttpDelete("{id:guid}/votes/{optionId:guid}")]
+    public async Task<IActionResult> WithdrawVote(Guid id, Guid optionId, CancellationToken ct)
+    {
+        var result = await dispatcher.Dispatch(new WithdrawVoteCommand(id, optionId), ct);
         
         return result.ToActionResult();
     }

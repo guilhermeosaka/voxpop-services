@@ -1,26 +1,30 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Voxpop.Core.Domain.Polls.Entities;
+using Voxpop.Core.Domain.Profiles.Entities;
 using Voxpop.Core.Domain.ReferenceData.Entities;
 using Voxpop.Core.Domain.ReferenceData.Entities.Translations;
-using Voxpop.Core.Domain.UserProfiles.Entities;
+using Voxpop.Core.Domain.Votes.Entities;
 using Voxpop.Core.Infrastructure.Persistence.Common.Interceptors;
 using Voxpop.Core.Infrastructure.Persistence.Polls.Configurations;
+using Voxpop.Core.Infrastructure.Persistence.Profiles.Configurations;
 using Voxpop.Core.Infrastructure.Persistence.ReferenceData.Configurations;
 using Voxpop.Core.Infrastructure.Persistence.ReferenceData.Configurations.Abstractions;
-using Voxpop.Core.Infrastructure.Persistence.UserProfiles.Configurations;
+using Voxpop.Core.Infrastructure.Persistence.Votes.Configurations;
 
 namespace Voxpop.Core.Infrastructure.Persistence.Common;
 
 public class CoreDbContext(DbContextOptions<CoreDbContext> options, AuditSaveChangesInterceptor auditInterceptor) : DbContext(options)
 {
-    public DbSet<UserProfile> UserProfiles { get; set; }
+    public DbSet<Profile> Profiles { get; set; }
     public DbSet<Poll> Polls { get; set; }
+    public DbSet<Vote> Votes { get; set; }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfiguration(new UserProfileConfiguration());
+        modelBuilder.ApplyConfiguration(new ProfileConfiguration());
         modelBuilder.ApplyConfiguration(new PollConfiguration());
         modelBuilder.ApplyConfiguration(new PollOptionConfiguration());
+        modelBuilder.ApplyConfiguration(new VoteConfiguration());
         
         modelBuilder.ApplyConfiguration(new ReferenceEntityConfiguration<Gender>("genders"));
         modelBuilder.ApplyConfiguration(new ReferenceEntityConfiguration<EducationLevel>("education_levels"));
