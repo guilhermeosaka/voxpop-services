@@ -16,8 +16,11 @@ public class SubmitVoteHandler(
 {
     public async Task<Result> Handle(SubmitVoteCommand request, CancellationToken ct)
     {
-        var votingInfo = await pollQueries.GetVotingInfoAsync(request.PollId);
+        var votingInfo = await pollQueries.FindVotingInfoAsync(request.PollId);
 
+        if (votingInfo == null)
+            return Errors.PollNotFound();
+        
         if (votingInfo.IsClosed && votingInfo.ExpiresAt > clock.UtcNow)
             return Errors.PollVotingIsClosed();
 

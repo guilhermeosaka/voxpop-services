@@ -14,7 +14,7 @@ public class WithdrawVoteHandler(IVoteRepository repository, IRequestContext req
         var vote = await repository.FindAsync(requestContext.UserId, request.PollId, request.OptionId);
 
         if (vote == null)
-            return Errors.InvalidVoteState();
+            return Errors.VoteNotFound();
         
         repository.Remove(vote);
         await unitOfWork.SaveChangesAsync(ct);

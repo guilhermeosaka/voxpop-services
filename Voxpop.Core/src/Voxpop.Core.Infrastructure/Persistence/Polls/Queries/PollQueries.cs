@@ -62,7 +62,7 @@ public class PollQueries(ISqlConnectionFactory connectionFactory) : IPollQueries
         return lookup.Values.ToList();
     }
 
-    public async Task<VotingInfoDto> GetVotingInfoAsync(Guid pollId)
+    public async Task<VotingInfoDto?> FindVotingInfoAsync(Guid pollId)
     {
         var db = connectionFactory.CreateConnection();
 
@@ -75,11 +75,11 @@ public class PollQueries(ISqlConnectionFactory connectionFactory) : IPollQueries
                            LIMIT 1
                            """;
 
-        var result =  await db.QuerySingleAsync<GetVotingInfoResult>(
+        var result =  await db.QuerySingleOrDefaultAsync<GetVotingInfoResult>(
             sql,
             new { PollId = pollId }
         );
-        
-        return new VotingInfoDto(result.VoteMode, result.ExpiresAt, result.IsClosed);
+
+        return result == null ? null : new VotingInfoDto(result.VoteMode, result.ExpiresAt, result.IsClosed);
     }
 }

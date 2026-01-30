@@ -307,6 +307,30 @@ namespace Voxpop.Core.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "reactions",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    created_by = table.Column<Guid>(type: "uuid", nullable: false),
+                    created_at = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    modified_by = table.Column<Guid>(type: "uuid", nullable: false),
+                    modified_at = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    user_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    poll_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    reaction_type = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_reactions", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_reactions_polls_poll_id",
+                        column: x => x.poll_id,
+                        principalTable: "polls",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "profiles",
                 columns: table => new
                 {
@@ -510,6 +534,16 @@ namespace Voxpop.Core.Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_reactions_poll_id",
+                table: "reactions",
+                column: "poll_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_reactions_user_id_poll_id",
+                table: "reactions",
+                columns: new[] { "user_id", "poll_id" });
+
+            migrationBuilder.CreateIndex(
                 name: "IX_religions_code",
                 table: "religions",
                 column: "code",
@@ -569,6 +603,9 @@ namespace Voxpop.Core.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "race_translations");
+
+            migrationBuilder.DropTable(
+                name: "reactions");
 
             migrationBuilder.DropTable(
                 name: "religion_translations");

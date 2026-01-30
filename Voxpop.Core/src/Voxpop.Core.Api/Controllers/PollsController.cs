@@ -5,9 +5,12 @@ using Voxpop.Core.Api.Requests;
 using Voxpop.Core.Application.Polls.Dtos;
 using Voxpop.Core.Application.Polls.UseCases.CreatePoll;
 using Voxpop.Core.Application.Polls.UseCases.GetPolls;
+using Voxpop.Core.Application.Reactions.UseCases.SubmitReaction;
+using Voxpop.Core.Application.Reactions.UseCases.WithdrawReaction;
 using Voxpop.Core.Application.Votes.UseCases.SubmitVote;
 using Voxpop.Core.Application.Votes.UseCases.WithdrawVote;
 using Voxpop.Core.Domain.Common;
+using Voxpop.Core.Domain.Votes.Enums;
 using Voxpop.Packages.Dispatcher.Interfaces;
 
 namespace Voxpop.Core.Api.Controllers;
@@ -56,6 +59,22 @@ public class PollsController(IDispatcher dispatcher) : ControllerBase
     public async Task<IActionResult> WithdrawVote(Guid id, Guid optionId, CancellationToken ct)
     {
         var result = await dispatcher.Dispatch(new WithdrawVoteCommand(id, optionId), ct);
+        
+        return result.ToActionResult();
+    }
+    
+    [HttpPut("{id:guid}/reactions/{reactionType}")]
+    public async Task<IActionResult> SubmitReaction(Guid id, ReactionType reactionType, CancellationToken ct)
+    {
+        var result = await dispatcher.Dispatch(new SubmitReactionCommand(id, reactionType), ct);
+        
+        return result.ToActionResult();
+    }
+    
+    [HttpDelete("{id:guid}/reactions/{reactionType}")]
+    public async Task<IActionResult> WithdrawReaction(Guid id, ReactionType reactionType, CancellationToken ct)
+    {
+        var result = await dispatcher.Dispatch(new WithdrawReactionCommand(id, reactionType), ct);
         
         return result.ToActionResult();
     }

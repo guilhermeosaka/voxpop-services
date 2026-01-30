@@ -12,7 +12,7 @@ public static class ResultExtensions
     {
         return result.IsSuccess ? new OkResult() : GetProblemDetails(result.Error);
     }
-    
+
     public static IActionResult ToActionResult<T>(this Result<T> result)
     {
         return result.IsSuccess ? new OkObjectResult(result.Value) : GetProblemDetails(result.Error);
@@ -23,6 +23,9 @@ public static class ResultExtensions
         return error?.Code switch
         {
             Errors.UserNotFoundCode => error.ToProblemDetails(HttpStatusCode.NotFound),
+            Errors.PollNotFoundCode => error.ToProblemDetails(HttpStatusCode.NotFound),
+            Errors.VoteNotFoundCode => error.ToProblemDetails(HttpStatusCode.NotFound),
+            Errors.ReactionNotFoundCode => error.ToProblemDetails(HttpStatusCode.NotFound),
             Errors.InvalidVoteStateCode => error.ToProblemDetails(HttpStatusCode.BadRequest),
             Errors.PollVotingIsClosedCode => error.ToProblemDetails(HttpStatusCode.Forbidden),
             _ => new Error(string.Empty, "InternalServerError", "An unexpected error occurred")

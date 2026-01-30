@@ -9,6 +9,7 @@ using Voxpop.Core.Application.Polls.Queries;
 using Voxpop.Core.Application.Profiles.Queries;
 using Voxpop.Core.Domain.Common.Interfaces;
 using Voxpop.Core.Domain.Profiles.Repositories;
+using Voxpop.Core.Domain.Reactions.Repositories;
 using Voxpop.Core.Domain.Votes.Repositories;
 using Voxpop.Core.Infrastructure.Identity;
 using Voxpop.Core.Infrastructure.Persistence.Common;
@@ -19,6 +20,7 @@ using Voxpop.Core.Infrastructure.Persistence.Common.Repositories;
 using Voxpop.Core.Infrastructure.Persistence.Polls.Queries;
 using Voxpop.Core.Infrastructure.Persistence.Profiles.Queries;
 using Voxpop.Core.Infrastructure.Persistence.Profiles.Repositories;
+using Voxpop.Core.Infrastructure.Persistence.Reactions.Repositories;
 using Voxpop.Core.Infrastructure.Persistence.Votes.Repositories;
 using Voxpop.Core.Infrastructure.Services;
 
@@ -33,6 +35,7 @@ public static class ServiceCollectionExtensions
             .AddScoped(typeof(IRepository<>), typeof(Repository<>))
             .AddScoped<IProfileRepository, ProfileRepository>()
             .AddScoped<IVoteRepository, VoteRepository>()
+            .AddScoped<IReactionRepository, ReactionRepository>()
             .AddScoped<IProfileQueries, ProfileQueries>()
             .AddScoped<IPollQueries, PollQueries>()
             .AddScoped<ISqlConnectionFactory>(_ => new SqlConnectionFactory(connectionString))

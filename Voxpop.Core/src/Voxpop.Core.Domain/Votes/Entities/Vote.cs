@@ -16,8 +16,5 @@ public class Vote(Guid id, Guid userId, Guid pollId, Guid optionId) : Entity(id)
 
     public static Vote Create(Guid userId, Guid pollId, Guid optionId) => new(Guid.NewGuid(), userId, pollId, optionId);
     
-    public void Update(Guid optionId)
-    {
-        OptionId = optionId;
-    }
+    public void Update(Guid optionId) => OptionId = optionId;
 }

@@ -211,6 +211,50 @@ namespace Voxpop.Core.Infrastructure.Migrations
                     b.ToTable("profiles", (string)null);
                 });
 
+            modelBuilder.Entity("Voxpop.Core.Domain.Reactions.Entities.Reaction", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uuid")
+                        .HasColumnName("created_by");
+
+                    b.Property<DateTimeOffset>("ModifiedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("modified_at");
+
+                    b.Property<Guid>("ModifiedBy")
+                        .HasColumnType("uuid")
+                        .HasColumnName("modified_by");
+
+                    b.Property<Guid>("PollId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("poll_id");
+
+                    b.Property<int>("ReactionType")
+                        .HasColumnType("integer")
+                        .HasColumnName("reaction_type");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PollId");
+
+                    b.HasIndex("UserId", "PollId");
+
+                    b.ToTable("reactions", (string)null);
+                });
+
             modelBuilder.Entity("Voxpop.Core.Domain.ReferenceData.Entities.City", b =>
                 {
                     b.Property<Guid>("Id")
@@ -715,6 +759,15 @@ namespace Voxpop.Core.Infrastructure.Migrations
                     b.HasOne("Voxpop.Core.Domain.ReferenceData.Entities.State", null)
                         .WithMany()
                         .HasForeignKey("StateId");
+                });
+
+            modelBuilder.Entity("Voxpop.Core.Domain.Reactions.Entities.Reaction", b =>
+                {
+                    b.HasOne("Voxpop.Core.Domain.Polls.Entities.Poll", null)
+                        .WithMany()
+                        .HasForeignKey("PollId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Voxpop.Core.Domain.Votes.Entities.Vote", b =>
