@@ -5,6 +5,7 @@ using Voxpop.Core.Application.Common.Options;
 using Voxpop.Core.Infrastructure.Extensions;
 using Voxpop.Core.Infrastructure.Persistence.Common.Migrations;
 using Voxpop.Packages.Dispatcher.Extensions;
+using Voxpop.Packages.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 

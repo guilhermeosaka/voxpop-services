@@ -6,5 +6,5 @@ public class ApplicationUser : IdentityUser<Guid>
 {
     public bool IsService { get; set; }
     public string? VerificationCode { get; set; }
-    public DateTime? VerificationCodeExpiresAt { get; set; }
+    public DateTimeOffset? VerificationCodeExpiresAt { get; set; }
 }

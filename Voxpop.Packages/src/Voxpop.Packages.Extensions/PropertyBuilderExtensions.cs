@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Voxpop.Core.Infrastructure.Extensions;
+namespace Voxpop.Packages.Extensions;
 
 public static class PropertyBuilderExtensions
 {

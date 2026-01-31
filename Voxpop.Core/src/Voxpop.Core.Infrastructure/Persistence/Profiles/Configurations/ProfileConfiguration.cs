@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Voxpop.Core.Domain.Profiles.Entities;
 using Voxpop.Core.Domain.ReferenceData.Entities;
-using Voxpop.Core.Infrastructure.Extensions;
+using Voxpop.Packages.Extensions;
 
 namespace Voxpop.Core.Infrastructure.Persistence.Profiles.Configurations;
 

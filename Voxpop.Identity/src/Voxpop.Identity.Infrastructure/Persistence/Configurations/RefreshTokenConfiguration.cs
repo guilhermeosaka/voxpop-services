@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Voxpop.Identity.Domain.Models;
+using Voxpop.Packages.Extensions;
 
 namespace Voxpop.Identity.Infrastructure.Persistence.Configurations;
 
@@ -18,7 +19,7 @@ public class RefreshTokenConfiguration : IEntityTypeConfiguration<RefreshToken>
         builder.Property(rt => rt.UserId).HasColumnName("user_id").IsRequired();
         builder.Property(rt => rt.TokenId).HasColumnName("token_id").IsRequired();
         builder.Property(rt => rt.TokenHash).HasColumnName("token_hash").IsRequired();
-        builder.Property(rt => rt.ExpiresAt).HasColumnName("expires_at").IsRequired();
+        builder.Property(rt => rt.ExpiresAt).HasColumnName("expires_at").WithUtcConverter().IsRequired();
         builder.Property(rt => rt.IsRevoked).HasColumnName("is_revoked").IsRequired();
     }
 }

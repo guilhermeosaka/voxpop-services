@@ -1,15 +1,21 @@
 ﻿using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using RabbitMQ.Client;
+using Twilio;
+using Voxpop.Identity.Application.Interfaces;
 using Voxpop.Identity.Application.Options;
+using Voxpop.Identity.Domain.Enums;
 using Voxpop.Identity.Infrastructure.Options;
 using Voxpop.Identity.Infrastructure.Persistence;
 using Voxpop.Identity.Infrastructure.Persistence.Entities;
 using Voxpop.Identity.Infrastructure.Persistence.Migrations;
+using Voxpop.Identity.Infrastructure.Services.ChannelServices;
 
 namespace Voxpop.Identity.Infrastructure.Extensions;
 
@@ -69,6 +75,25 @@ public static class ServiceCollectionExtensions
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.Key))
                     };
                 });
+
+            return services;
+        }
+
+        public IServiceCollection AddTwilio(TwilioOptions twilioOptions)
+        {
+            TwilioClient.Init(twilioOptions.AccountSid, twilioOptions.AuthToken);
+
+            return services;
+        }
+
+        public IServiceCollection AddInfrastructureServices(IWebHostEnvironment environment)
+        {
+            if (environment.IsDevelopment())
+                services.AddKeyedScoped<ICodeService, FakeSmsCodeService>(VerificationCodeChannel.Phone);
+            else
+                services.AddKeyedScoped<ICodeService, SmsCodeService>(VerificationCodeChannel.Phone);
+
+            services.AddKeyedScoped<ICodeService, EmailCodeService>(VerificationCodeChannel.Email);
 
             return services;
         }

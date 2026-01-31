@@ -3,7 +3,7 @@ using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Debugging;
 
-namespace Voxpop.Core.Infrastructure.Extensions;
+namespace Voxpop.Packages.Extensions;
 
 public static class HostBuilderExtensions
 {

@@ -8,7 +8,6 @@ using Voxpop.Packages.Dispatcher.Types;
 namespace Voxpop.Identity.Application.Handlers.Tokens.CreateToken;
 
 public class CreateTokenHandler(
-    CodeVerifier codeVerifier,
     IServiceProvider serviceProvider,
     ITokenGenerator tokenGenerator,
     RefreshTokenService refreshTokenService
@@ -16,11 +15,13 @@ public class CreateTokenHandler(
 {
     public async Task<Result<CreateTokenResult>> Handle(CreateTokenCommand request, CancellationToken ct)
     {
-        if (!await codeVerifier.VerifyAsync(request.Target, request.Channel, request.Code, ct))
+        var codeService = serviceProvider.GetRequiredKeyedService<ICodeService>(request.Channel);
+        
+        if (!await codeService.VerifyAsync(request.Target,request.Code, ct))
             return Errors.InvalidCode(request.Code);
         
         var userFinder = serviceProvider.GetRequiredKeyedService<IUserFinder>(request.Channel);
-        var user = await userFinder.FindAsync(request.Target);
+        var user = await userFinder.FindAsync(request.Target, ct);
 
         if (user == null)
             return Errors.UserNotFound(request.Target, request.Channel);

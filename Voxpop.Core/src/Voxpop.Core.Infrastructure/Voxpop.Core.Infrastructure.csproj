@@ -16,13 +16,10 @@
         </PackageReference>
         <PackageReference Include="Npgsql" Version="10.0.1" />
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.0" />
-        <PackageReference Include="Serilog.AspNetCore" Version="10.0.0" />
-        <PackageReference Include="Serilog.Enrichers.Environment" Version="3.0.1" />
-        <PackageReference Include="Serilog.Sinks.Console" Version="6.1.1" />
-        <PackageReference Include="Serilog.Sinks.Seq" Version="9.0.0" />
     </ItemGroup>
     
     <ItemGroup>
+      <ProjectReference Include="..\..\..\Voxpop.Packages\src\Voxpop.Packages.Extensions\Voxpop.Packages.Extensions.csproj" />
       <ProjectReference Include="..\Voxpop.Core.Application\Voxpop.Core.Application.csproj" />
       <ProjectReference Include="..\Voxpop.Core.Domain\Voxpop.Core.Domain.csproj" />
     </ItemGroup>

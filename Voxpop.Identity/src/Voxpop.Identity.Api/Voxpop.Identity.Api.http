@@ -4,7 +4,7 @@ POST {{Voxpop.Identity.HostAddress}}/api/users
 Content-Type: application/json
 
 {
-  "phoneNumber": "5511941758744"
+  "phoneNumber": "+5511941758744"
 }
 
 ### POST /verifications
@@ -13,7 +13,7 @@ POST {{Voxpop.Identity.HostAddress}}/api/codes
 Content-Type: application/json
 
 {
-  "target": "5511941758744",
+  "target": "+5511941758744",
   "channel": 1
 }
 
@@ -23,9 +23,9 @@ POST {{Voxpop.Identity.HostAddress}}/api/tokens
 Content-Type: application/json
 
 {
-  "target": "5511941758744",
+  "target": "+5511941758744",
   "channel": 1,
-  "code": "752399"
+  "code": "446858"
 }
 
 ### POST /tokens

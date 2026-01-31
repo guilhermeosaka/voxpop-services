@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Voxpop.Core.Domain.Polls.Entities;
-using Voxpop.Core.Infrastructure.Extensions;
+using Voxpop.Packages.Extensions;
 
 namespace Voxpop.Core.Infrastructure.Persistence.Polls.Configurations;
 

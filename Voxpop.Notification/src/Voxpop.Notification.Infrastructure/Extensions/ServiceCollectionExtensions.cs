@@ -1,4 +1,5 @@
-﻿using MassTransit;
+﻿using System.Net.Mime;
+using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
 using RabbitMQ.Client;
 using Voxpop.Contracts.Events;
@@ -33,7 +34,7 @@ public static class ServiceCollectionExtensions
                         b.ExchangeType = ExchangeType.Topic;
                     });
 
-                    e.DefaultContentType = new System.Net.Mime.ContentType("application/json");
+                    e.DefaultContentType = new ContentType("application/json");
                     e.UseRawJsonDeserializer();
 
                     e.ConfigureConsumer<SmsSendConsumer>(context);

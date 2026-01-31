@@ -8,20 +8,20 @@ public class VerificationCode(Guid id, string target, VerificationCodeChannel ch
     public string Target { get; private set; } = target;
     public VerificationCodeChannel Channel { get; private set; } = channel;
     public string CodeHash { get; private set; } = string.Empty;
-    public DateTime ExpiresAt { get; private set; }
-    public DateTime? UsedAt { get; private set; }
+    public DateTimeOffset ExpiresAt { get; private set; }
+    public DateTimeOffset? UsedAt { get; private set; }
 
-    public bool IsExpired => ExpiresAt <= DateTime.UtcNow;
+    public bool IsExpired => ExpiresAt <= DateTimeOffset.UtcNow;
     public bool IsConsumed => UsedAt.HasValue;
 
-    public void RefreshCode(string codeHash, TimeSpan expiresIn, DateTime? utcNow = null)
+    public void RefreshCode(string codeHash, TimeSpan expiresIn, DateTimeOffset? utcNow = null)
     {
         CodeHash = codeHash;
-        ExpiresAt = (utcNow ?? DateTime.UtcNow).Add(expiresIn);
+        ExpiresAt = (utcNow ?? DateTimeOffset.UtcNow).Add(expiresIn);
         UsedAt = null;
     }
 
-    public void Consume(DateTime? usedAt = null) => UsedAt = usedAt ?? DateTime.UtcNow;
+    public void Consume(DateTimeOffset? usedAt = null) => UsedAt = usedAt ?? DateTimeOffset.UtcNow;
 
     public static VerificationCode Create(string target, VerificationCodeChannel channel) =>
         new(Guid.NewGuid(), target, channel);

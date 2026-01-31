@@ -3,5 +3,4 @@
 public class VerificationCodeOptions
 {
     public TimeSpan ExpiresIn { get; init; }
-    public required string SmsMessage { get; init; }
 }

@@ -73,6 +73,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Notification.Service
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Notification.Infrastructure", "Voxpop.Notification\src\Voxpop.Notification.Infrastructure\Voxpop.Notification.Infrastructure.csproj", "{41657C4E-AA1F-45F4-A951-28F52B46901F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Packages.Extensions", "Voxpop.Packages\src\Voxpop.Packages.Extensions\Voxpop.Packages.Extensions.csproj", "{03CB04B8-D9B2-4138-A051-176478DCAD49}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -102,6 +104,7 @@ Global
 		{5C288390-0FC2-4216-8624-00177119EF39} = {DB956DE1-A3E4-4C09-A1E7-3A661D74E617}
 		{136032AA-4CC5-4A3C-B0CE-DDD583FD36D2} = {5C288390-0FC2-4216-8624-00177119EF39}
 		{41657C4E-AA1F-45F4-A951-28F52B46901F} = {5C288390-0FC2-4216-8624-00177119EF39}
+		{03CB04B8-D9B2-4138-A051-176478DCAD49} = {C0520DCE-FE32-44F9-8051-C255B99B139E}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{490F24B4-8127-4740-883A-FBDFA0B42AAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -168,5 +171,9 @@ Global
 		{41657C4E-AA1F-45F4-A951-28F52B46901F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{41657C4E-AA1F-45F4-A951-28F52B46901F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{41657C4E-AA1F-45F4-A951-28F52B46901F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03CB04B8-D9B2-4138-A051-176478DCAD49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03CB04B8-D9B2-4138-A051-176478DCAD49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03CB04B8-D9B2-4138-A051-176478DCAD49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03CB04B8-D9B2-4138-A051-176478DCAD49}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

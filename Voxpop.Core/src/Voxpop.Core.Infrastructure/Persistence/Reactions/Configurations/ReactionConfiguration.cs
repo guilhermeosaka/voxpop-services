@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Voxpop.Core.Domain.Polls.Entities;
 using Voxpop.Core.Domain.Reactions.Entities;
-using Voxpop.Core.Infrastructure.Extensions;
+using Voxpop.Packages.Extensions;
 
 namespace Voxpop.Core.Infrastructure.Persistence.Reactions.Configurations;
 

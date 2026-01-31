@@ -1,0 +1,11 @@
+﻿using Voxpop.Identity.Application.Interfaces;
+using Voxpop.Identity.Domain.Interfaces;
+using Voxpop.Identity.Domain.Models;
+
+namespace Voxpop.Identity.Application.Services.UserFinders;
+
+public class PhoneUserFinder(IUserRepository userRepository) : IUserFinder
+{
+    public Task<User?> FindAsync(string phoneNumber, CancellationToken ct = default) =>
+        userRepository.FindByPhoneNumberAsync(phoneNumber);
+}

@@ -4,5 +4,5 @@ namespace Voxpop.Identity.Application.Interfaces;
 
 public interface IUserFinder
 {
-    Task<User?> FindAsync(string target);
+    Task<User?> FindAsync(string target, CancellationToken ct = default);
 }
