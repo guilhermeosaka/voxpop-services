@@ -65,6 +65,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "postgres", "postgres", "{83
 		docker\postgres\001-create-dbs.sql = docker\postgres\001-create-dbs.sql
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Voxpop.Notification", "Voxpop.Notification", "{DB956DE1-A3E4-4C09-A1E7-3A661D74E617}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5C288390-0FC2-4216-8624-00177119EF39}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Notification.Service", "Voxpop.Notification\src\Voxpop.Notification.Service\Voxpop.Notification.Service.csproj", "{136032AA-4CC5-4A3C-B0CE-DDD583FD36D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxpop.Notification.Infrastructure", "Voxpop.Notification\src\Voxpop.Notification.Infrastructure\Voxpop.Notification.Infrastructure.csproj", "{41657C4E-AA1F-45F4-A951-28F52B46901F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +99,9 @@ Global
 		{2884FF7C-433B-4701-BDB0-5E7F742E467C} = {256375E5-2542-4304-A932-B26CA9DF14F6}
 		{5B4734FE-6292-472E-8951-ADACE1747D98} = {603979F1-0DBF-4BF6-9C50-BEB3D4495619}
 		{83CB245B-69E6-4738-81F1-2F2AD3508B65} = {5B4734FE-6292-472E-8951-ADACE1747D98}
+		{5C288390-0FC2-4216-8624-00177119EF39} = {DB956DE1-A3E4-4C09-A1E7-3A661D74E617}
+		{136032AA-4CC5-4A3C-B0CE-DDD583FD36D2} = {5C288390-0FC2-4216-8624-00177119EF39}
+		{41657C4E-AA1F-45F4-A951-28F52B46901F} = {5C288390-0FC2-4216-8624-00177119EF39}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{490F24B4-8127-4740-883A-FBDFA0B42AAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -149,5 +160,13 @@ Global
 		{2884FF7C-433B-4701-BDB0-5E7F742E467C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2884FF7C-433B-4701-BDB0-5E7F742E467C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2884FF7C-433B-4701-BDB0-5E7F742E467C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{136032AA-4CC5-4A3C-B0CE-DDD583FD36D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{136032AA-4CC5-4A3C-B0CE-DDD583FD36D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{136032AA-4CC5-4A3C-B0CE-DDD583FD36D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{136032AA-4CC5-4A3C-B0CE-DDD583FD36D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41657C4E-AA1F-45F4-A951-28F52B46901F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41657C4E-AA1F-45F4-A951-28F52B46901F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41657C4E-AA1F-45F4-A951-28F52B46901F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41657C4E-AA1F-45F4-A951-28F52B46901F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
