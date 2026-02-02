@@ -5,8 +5,13 @@
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER}" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
     volumes:
       - postgres_data:/var/lib/postgresql
       - ./docker/postgres:/docker-entrypoint-initdb.d
@@ -18,14 +23,14 @@
       - "5672:5672"
       - "15672:15672"
     environment:
-      RABBITMQ_DEFAULT_USER: guest
-      RABBITMQ_DEFAULT_PASS: guest
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
   
   seq:
     image: datalust/seq:2025.2
-    container_name: seq
+    restart: unless-stopped
     ports:
       - "5341:80"
     environment:
@@ -33,6 +38,53 @@
       SEQ_FIRSTRUN_NOAUTHENTICATION: "True"
     volumes:
       - seq_data:/data
+        
+  voxpop-core:
+    build:
+      context: .
+      dockerfile: Voxpop.Core/src/Voxpop.Core.Api/Dockerfile
+    ports:
+      - "5001:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
+
+      ConnectionStrings__CoreDb: Host=postgres;Database=core_db;Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
+
+      Jwt__Key: ${JWT_KEY}
+
+      Serilog__WriteTo__1__Args__serverUrl: http://seq:5341
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+      seq:
+        condition: service_started
+        
+  voxpop-identity:
+    build:
+      context: .
+      dockerfile: Voxpop.Identity/src/Voxpop.Identity.Api/Dockerfile
+    ports:
+      - "5002:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
+
+      ConnectionStrings__IdentityDb: Host=postgres;Database=identity_db;Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
+
+      Jwt__Key: ${JWT_KEY}
+
+      RabbitMq__HostName: rabbitmq
+      RabbitMq__UserName: ${RABBITMQ_USER}
+      RabbitMq__Password: ${RABBITMQ_PASSWORD}
+
+      Serilog__WriteTo__1__Args__serverUrl: http://seq:5341
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_started
+      seq:
+        condition: service_started
 
 volumes:
   postgres_data:

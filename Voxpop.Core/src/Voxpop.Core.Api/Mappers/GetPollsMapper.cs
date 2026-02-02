@@ -14,5 +14,5 @@ public static class GetPollsMapper
             p.ExpiresAt,
             p.IsClosed,
             p.CreatedAt,
-            p.Options.Select(o => new PollOptionSummaryDto(o.Id, o.Value)).ToList())).ToList());
+            p.Options.Select(o => new PollOptionSummaryDto(o.Id, o.Value, o.Votes)).ToList())).ToList());
 }

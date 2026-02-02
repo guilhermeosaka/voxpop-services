@@ -10,4 +10,5 @@ public record GetPollsResult(
     bool IsClosed,
     DateTime CreatedAt,
     Guid OptionId,
-    string OptionValue);
+    string OptionValue,
+    long OptionVotes);

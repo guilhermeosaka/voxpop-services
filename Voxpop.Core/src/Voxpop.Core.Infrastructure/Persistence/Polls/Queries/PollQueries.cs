@@ -30,9 +30,20 @@ public class PollQueries(ISqlConnectionFactory connectionFactory) : IPollQueries
                                pp.is_closed   AS "IsClosed",
                                pp.created_at  AS "CreatedAt",
                                po.id          AS "OptionId",
-                               po.value       AS "OptionValue"
+                               po.value       AS "OptionValue",
+                               COUNT(v.id)    AS "OptionVotes"
                            FROM paged_polls pp
                            JOIN poll_options po ON po.poll_id = pp.id
+                           LEFT JOIN votes v ON v.option_id = po.id
+                           GROUP BY pp.id,
+                                    pp.question,
+                                    pp.vote_mode,
+                                    pp.expires_at,
+                                    pp.is_closed,
+                                    pp.created_at,
+                                    po.id,
+                                    po.value,
+                                    po.order
                            ORDER BY pp.created_at DESC, po.order;
                            """;
 
@@ -57,7 +68,7 @@ public class PollQueries(ISqlConnectionFactory connectionFactory) : IPollQueries
                 lookup.Add(poll.Id, pollDto);
             }
 
-            lookup[poll.Id].Options.Add(new PollOptionSummary(poll.OptionId, poll.OptionValue));
+            lookup[poll.Id].Options.Add(new PollOptionSummary(poll.OptionId, poll.OptionValue, poll.OptionVotes));
         }
 
         return lookup.Values.ToList();

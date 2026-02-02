@@ -69,6 +69,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1Y2RlZTUzZ
 {
   "question": "China vai reunificar Taiwan?",
   "expiresAt": "2028-01-01T00:00:00-03:00",
+  "voteMode": 1,
   "options": [
     {
       "value": "Sim"
@@ -79,16 +80,51 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1Y2RlZTUzZ
   ]
 }
 
+### POST /polls
+
+POST {{Voxpop.Core.HostAddress}}/api/polls
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1Y2RlZTUzZi0xNzA2LTQwNDQtOGRjZi00NDRkNTE4MThhNmQiLCJwaG9uZV9udW1iZXIiOiI1NTExOTQxNzU4NzQ0IiwiZXhwIjoxODY5NTUwMzU5LCJpc3MiOiJ2b3hwb3AtaWRlbnRpdHkiLCJhdWQiOiJ2b3hwb3AtYXBpIn0.cAKHfJogEPZFbgCEqAdypFGJmMtFqmmdVIBKTLGDsMY
+
+{
+  "question": "Linguagens de programação favoritas?",
+  "expiresAt": "2028-01-01T00:00:00-03:00",
+  "voteMode": 2,
+  "options": [
+    {
+      "value": "C#"
+    },
+    {
+      "value": "Java"
+    },
+    {
+      "value": "Python"
+    },
+    {
+      "value": "C/C++"
+    },
+    {
+      "value": "JavaScript"
+    },
+    {
+      "value": "TypeScript"
+    },
+    {
+      "value": "Rust"
+    }
+  ]
+}
+
 ### GET /polls - List polls
 
-GET {{Voxpop.Core.HostAddress}}/api/polls?page=1&pageSize=2
+GET {{Voxpop.Core.HostAddress}}/api/polls?page=1&pageSize=50
 Accept: application/json
 Accept-Language: pt-BR,pt;q=0.9,en;q=0.8
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1Y2RlZTUzZi0xNzA2LTQwNDQtOGRjZi00NDRkNTE4MThhNmQiLCJwaG9uZV9udW1iZXIiOiI1NTExOTQxNzU4NzQ0IiwiZXhwIjoxODY5NTUwMzU5LCJpc3MiOiJ2b3hwb3AtaWRlbnRpdHkiLCJhdWQiOiJ2b3hwb3AtYXBpIn0.cAKHfJogEPZFbgCEqAdypFGJmMtFqmmdVIBKTLGDsMY
 
 ### PUT /polls/{id}/votes/{optionId}
 
-PUT {{Voxpop.Core.HostAddress}}/api/polls/edd0afcb-2264-485e-8890-7ff6373af225/votes/5314bf70-b9af-46cd-bef3-77a2e01db240
+PUT {{Voxpop.Core.HostAddress}}/api/polls/62380e1e-f65a-4c5e-a4ca-bc72383e3f2b/votes/4e77f7d5-e92f-4b25-85c4-7b78a895f8a7
 Accept: application/json
 Accept-Language: pt-BR,pt;q=0.9,en;q=0.8
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1Y2RlZTUzZi0xNzA2LTQwNDQtOGRjZi00NDRkNTE4MThhNmQiLCJwaG9uZV9udW1iZXIiOiI1NTExOTQxNzU4NzQ0IiwiZXhwIjoxODY5NTUwMzU5LCJpc3MiOiJ2b3hwb3AtaWRlbnRpdHkiLCJhdWQiOiJ2b3hwb3AtYXBpIn0.cAKHfJogEPZFbgCEqAdypFGJmMtFqmmdVIBKTLGDsMY

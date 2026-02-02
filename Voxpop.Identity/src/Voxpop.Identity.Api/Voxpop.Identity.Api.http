@@ -25,7 +25,7 @@ Content-Type: application/json
 {
   "target": "+5511941758744",
   "channel": 1,
-  "code": "446858"
+  "code": "123456"
 }
 
 ### POST /tokens

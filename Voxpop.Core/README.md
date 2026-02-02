@@ -42,3 +42,11 @@ dotnet ef migrations add Initial --project .\Voxpop.Core\src\Voxpop.Core.Infrast
 ```bash
 dotnet ef database update --project .\Voxpop.Core\src\Voxpop.Core.Infrastructure --startup-project .\Voxpop.Core\src\Voxpop.Core.Api
 ```
+
+## Testing Dockerfile
+
+To test if the Dockerfile builds correctly:
+
+```bash
+docker build -f .\Voxpop.Core\src\Voxpop.Core.Api\Dockerfile -t voxpop-core .
+```

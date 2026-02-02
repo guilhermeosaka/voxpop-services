@@ -26,7 +26,13 @@ public static class ServiceCollectionExtensions
         public IServiceCollection AddDb(string? connectionString)
         {
             services
-                .AddDbContext<IdentityDbContext>(options => options.UseNpgsql(connectionString))
+                .AddDbContext<IdentityDbContext>(options => options.UseNpgsql(connectionString, npgsql =>
+                {
+                    npgsql.EnableRetryOnFailure(
+                        maxRetryCount: 5,
+                        maxRetryDelay: TimeSpan.FromSeconds(5),
+                        errorCodesToAdd: null);
+                }))
                 .AddScoped<DbMigrator>()
                 .AddIdentity<ApplicationUser, IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<IdentityDbContext>()

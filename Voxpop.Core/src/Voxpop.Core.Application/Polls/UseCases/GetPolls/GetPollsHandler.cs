@@ -1,9 +1,9 @@
 ﻿using Voxpop.Core.Application.Polls.Models;
- using Voxpop.Core.Application.Polls.Queries;
- using Voxpop.Packages.Dispatcher.Interfaces;
- using Voxpop.Packages.Dispatcher.Types;
- 
- namespace Voxpop.Core.Application.Polls.UseCases.GetPolls;
+using Voxpop.Core.Application.Polls.Queries;
+using Voxpop.Packages.Dispatcher.Interfaces;
+using Voxpop.Packages.Dispatcher.Types;
+
+namespace Voxpop.Core.Application.Polls.UseCases.GetPolls;
  
  public class GetPollsHandler(IPollQueries queries) : IHandler<GetPollsQuery, IReadOnlyList<PollSummary>>
  {

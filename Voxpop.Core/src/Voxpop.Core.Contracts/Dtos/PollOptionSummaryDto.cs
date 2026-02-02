@@ -1,3 +1,3 @@
 ﻿namespace Voxpop.Core.Contracts.Dtos;
 
-public record PollOptionSummaryDto(Guid Id, string Value);
+public record PollOptionSummaryDto(Guid Id, string Value, long Votes);

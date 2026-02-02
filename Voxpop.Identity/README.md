@@ -42,3 +42,11 @@ dotnet ef migrations add Initial --project .\Voxpop.Identity\src\Voxpop.Identity
 ```bash
 dotnet ef database update --project .\Voxpop.Identity\src\Voxpop.Identity.Infrastructure --startup-project .\Voxpop.Identity\src\Voxpop.Identity.Api
 ```
+
+## Testing Dockerfile
+
+To test if the Dockerfile builds correctly:
+
+```bash
+docker build -f .\Voxpop.Identity\src\Voxpop.Identity.Api\Dockerfile -t voxpop-identity .
+```

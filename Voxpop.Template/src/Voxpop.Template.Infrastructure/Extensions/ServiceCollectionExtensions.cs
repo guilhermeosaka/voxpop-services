@@ -16,13 +16,19 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddPersistence(this IServiceCollection services, string? connectionString)
     {
         services
-            .AddDbContext<TemplateDbContext>(options => options.UseNpgsql(connectionString))
+            .AddDbContext<TemplateDbContext>(options => options.UseNpgsql(connectionString, npgsql =>
+            {
+                npgsql.EnableRetryOnFailure(
+                    maxRetryCount: 5,
+                    maxRetryDelay: TimeSpan.FromSeconds(5),
+                    errorCodesToAdd: null);
+            }))
             .AddScoped<ITemplateRepository, TemplateRepository>()
             .AddScoped<IUnitOfWork, UnitOfWork>();
 
         return services;
     }
-    
+
     public static IServiceCollection AddAuth(this IServiceCollection services, JwtOptions jwtOptions)
     {
         services

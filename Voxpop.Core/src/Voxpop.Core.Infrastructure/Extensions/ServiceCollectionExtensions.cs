@@ -31,7 +31,13 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddPersistence(this IServiceCollection services, string connectionString)
     {
         services
-            .AddDbContext<CoreDbContext>(options => options.UseNpgsql(connectionString))
+            .AddDbContext<CoreDbContext>(options => options.UseNpgsql(connectionString, npgsql =>
+            {
+                npgsql.EnableRetryOnFailure(
+                    maxRetryCount: 5,
+                    maxRetryDelay: TimeSpan.FromSeconds(5),
+                    errorCodesToAdd: null);
+            }))
             .AddScoped(typeof(IRepository<>), typeof(Repository<>))
             .AddScoped<IProfileRepository, ProfileRepository>()
             .AddScoped<IVoteRepository, VoteRepository>()
