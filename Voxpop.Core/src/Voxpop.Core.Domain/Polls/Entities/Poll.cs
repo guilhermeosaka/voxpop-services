@@ -1,6 +1,6 @@
-﻿using Voxpop.Core.Domain.Common.Entities;
+﻿using Voxpop.Core.Contracts.Enums;
+using Voxpop.Core.Domain.Common.Entities;
 using Voxpop.Core.Domain.Common.Interfaces;
-using Voxpop.Core.Domain.Polls.Enums;
 using Voxpop.Core.Domain.Polls.Exceptions;
 
 namespace Voxpop.Core.Domain.Polls.Entities;

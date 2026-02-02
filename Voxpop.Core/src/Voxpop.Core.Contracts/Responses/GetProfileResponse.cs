@@ -1,6 +1,8 @@
-﻿namespace Voxpop.Core.Application.Profiles.Dtos;
+﻿using Voxpop.Core.Contracts.Dtos;
 
-public record ProfileDto(
+namespace Voxpop.Core.Contracts.Responses;
+
+public record GetProfileResponse(
     PersonalInfoDto? PersonalInfo,
     LocationInfoDto? LocationInfo,
     ProfessionalInfoDto? ProfessionalInfo,

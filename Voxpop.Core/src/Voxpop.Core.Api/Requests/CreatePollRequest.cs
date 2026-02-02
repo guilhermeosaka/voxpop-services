@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Voxpop.Core.Application.Polls.UseCases.CreatePoll;
-using Voxpop.Core.Domain.Polls.Enums;
+using Voxpop.Core.Contracts.Enums;
 
 namespace Voxpop.Core.Api.Requests;
 

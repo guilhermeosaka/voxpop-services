@@ -1,7 +1,6 @@
 ﻿using Dapper;
-using Voxpop.Core.Application.Profiles.Dtos;
+using Voxpop.Core.Application.Profiles.Models;
 using Voxpop.Core.Application.Profiles.Queries;
-using Voxpop.Core.Application.ReferenceData.Dtos;
 using Voxpop.Core.Domain.Common;
 using Voxpop.Core.Infrastructure.Persistence.Common.Dapper;
 using Voxpop.Core.Infrastructure.Persistence.Profiles.Queries.Results;
@@ -10,7 +9,7 @@ namespace Voxpop.Core.Infrastructure.Persistence.Profiles.Queries;
 
 public class ProfileQueries(ISqlConnectionFactory connectionFactory) : IProfileQueries
 {   
-    public async Task<ProfileDto?> GetByUserIdAsync(Guid userId, string language)
+    public async Task<ProfileSummary?> GetByUserIdAsync(Guid userId, string language)
     {
         var db = connectionFactory.CreateConnection();
 
@@ -36,7 +35,7 @@ public class ProfileQueries(ISqlConnectionFactory connectionFactory) : IProfileQ
                                   COALESCE(r.name, r_en.name) AS "RaceName",
                                   COALESCE(e.id, e.id) AS "EthnicityId",
                                   COALESCE(e.name, e_en.name) AS "EthnicityName"
-                           FROM user_profiles up
+                           FROM profiles up
                            LEFT JOIN gender_translations g ON g.id = up.gender_id AND g.language = @Language
                            LEFT JOIN gender_translations g_en ON g_en.id = up.gender_id AND g_en.language = @DefaultLanguage
                            LEFT JOIN city_translations ci ON ci.id = up.city_id AND ci.language = @Language
@@ -68,29 +67,29 @@ public class ProfileQueries(ISqlConnectionFactory connectionFactory) : IProfileQ
         
         if (result == null) return null;
         
-        var personalInfo = new PersonalInfoDto(
+        var personalInfo = new PersonalInfoSummary(
             result.DateOfBirth,
-            new ReferenceDto(result.GenderId, result.GenderName)
+            new ReferenceInfoSummary(result.GenderId, result.GenderName)
         );
         
-        var locationInfo = new LocationInfoDto(
-            new ReferenceDto(result.CityId, result.CityName),
-            new ReferenceDto(result.StateId, result.StateName),
-            new ReferenceDto(result.CountryId, result.CountryName),
-            new ReferenceDto(result.ContinentId, result.ContinentName)
+        var locationInfo = new LocationInfoSummary(
+            new ReferenceInfoSummary(result.CityId, result.CityName),
+            new ReferenceInfoSummary(result.StateId, result.StateName),
+            new ReferenceInfoSummary(result.CountryId, result.CountryName),
+            new ReferenceInfoSummary(result.ContinentId, result.ContinentName)
         );
         
-        var professionalInfo = new ProfessionalInfoDto(
-            new ReferenceDto(result.EducationLevelId, result.EducationLevelName),
-            new ReferenceDto(result.OccupationId, result.OccupationName)
+        var professionalInfo = new ProfessionalInfoSummary(
+            new ReferenceInfoSummary(result.EducationLevelId, result.EducationLevelName),
+            new ReferenceInfoSummary(result.OccupationId, result.OccupationName)
         );
         
-        var culturalInfo = new CulturalInfoDto(
-            new ReferenceDto(result.ReligionId, result.ReligionName),
-            new ReferenceDto(result.RaceId, result.RaceName),
-            new ReferenceDto(result.EthnicityId, result.EthnicityName)
+        var culturalInfo = new CulturalInfoSummary(
+            new ReferenceInfoSummary(result.ReligionId, result.ReligionName),
+            new ReferenceInfoSummary(result.RaceId, result.RaceName),
+            new ReferenceInfoSummary(result.EthnicityId, result.EthnicityName)
         );
         
-        return new ProfileDto(personalInfo, locationInfo, professionalInfo, culturalInfo);
+        return new ProfileSummary(personalInfo, locationInfo, professionalInfo, culturalInfo);
     }
 }

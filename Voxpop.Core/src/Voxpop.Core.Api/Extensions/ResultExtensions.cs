@@ -13,9 +13,20 @@ public static class ResultExtensions
         return result.IsSuccess ? new OkResult() : GetProblemDetails(result.Error);
     }
 
-    public static IActionResult ToActionResult<T>(this Result<T> result)
+    public static IActionResult ToActionResult<T, TResponse>(this Result<T> result, Func<T, TResponse> map)
     {
-        return result.IsSuccess ? new OkObjectResult(result.Value) : GetProblemDetails(result.Error);
+        return result.IsSuccess ? new OkObjectResult(map(result.Value!)) : GetProblemDetails(result.Error);
+    }
+
+    public static IActionResult ToCreatedResult<T, TResponse>(
+        this Result<T> result, 
+        string routeName,
+        object routeValues, 
+        Func<T, TResponse> map)
+    {
+        return result.IsSuccess
+            ? new CreatedAtRouteResult(routeName, routeValues, map(result.Value!))
+            : GetProblemDetails(result.Error);
     }
 
     private static IActionResult GetProblemDetails(Error? error)

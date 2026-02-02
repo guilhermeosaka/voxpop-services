@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\..\..\Voxpop.Packages\src\Voxpop.Packages.Contracts\Voxpop.Packages.Contracts.csproj" />
         <ProjectReference Include="..\..\..\Voxpop.Packages\src\Voxpop.Packages.Dispatcher\Voxpop.Packages.Dispatcher.csproj" />
         <ProjectReference Include="..\Voxpop.Core.Domain\Voxpop.Core.Domain.csproj" />
     </ItemGroup>

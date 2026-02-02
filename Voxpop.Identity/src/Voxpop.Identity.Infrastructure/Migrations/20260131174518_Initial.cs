@@ -33,7 +33,7 @@ namespace Voxpop.Identity.Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     IsService = table.Column<bool>(type: "boolean", nullable: false),
                     VerificationCode = table.Column<string>(type: "text", nullable: true),
-                    VerificationCodeExpiresAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    VerificationCodeExpiresAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
                     UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
@@ -62,7 +62,7 @@ namespace Voxpop.Identity.Infrastructure.Migrations
                     user_id = table.Column<Guid>(type: "uuid", nullable: false),
                     token_id = table.Column<string>(type: "text", nullable: false),
                     token_hash = table.Column<string>(type: "text", nullable: false),
-                    expires_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    expires_at = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     is_revoked = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
@@ -78,8 +78,8 @@ namespace Voxpop.Identity.Infrastructure.Migrations
                     target = table.Column<string>(type: "text", nullable: false),
                     channel = table.Column<int>(type: "integer", nullable: false),
                     code_hash = table.Column<string>(type: "text", nullable: false),
-                    expires_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    used_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                    expires_at = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    used_at = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {

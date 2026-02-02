@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Voxpop.Core.Application.Votes.UseCases.SubmitVote.Strategies;
-using Voxpop.Core.Domain.Polls.Enums;
+using Voxpop.Core.Contracts.Enums;
 
 namespace Voxpop.Core.Application.Common.Extensions;
 

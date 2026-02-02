@@ -1,4 +1,4 @@
-﻿using Voxpop.Core.Domain.Polls.Enums;
+﻿using Voxpop.Core.Contracts.Enums;
 
 namespace Voxpop.Core.Application.Polls.Dtos;
 

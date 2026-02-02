@@ -1,4 +1,4 @@
-﻿namespace Voxpop.Core.Domain.Polls.Enums;
+﻿namespace Voxpop.Core.Contracts.Enums;
 
 public enum VoteMode
 {

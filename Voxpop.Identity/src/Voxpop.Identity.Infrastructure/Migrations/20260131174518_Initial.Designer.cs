@@ -12,7 +12,7 @@ using Voxpop.Identity.Infrastructure.Persistence;
 namespace Voxpop.Identity.Infrastructure.Migrations
 {
     [DbContext(typeof(IdentityDbContext))]
-    [Migration("20260127202531_Initial")]
+    [Migration("20260131174518_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -162,7 +162,7 @@ namespace Voxpop.Identity.Infrastructure.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<DateTime>("ExpiresAt")
+                    b.Property<DateTimeOffset>("ExpiresAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("expires_at");
 
@@ -207,7 +207,7 @@ namespace Voxpop.Identity.Infrastructure.Migrations
                         .HasColumnType("text")
                         .HasColumnName("code_hash");
 
-                    b.Property<DateTime>("ExpiresAt")
+                    b.Property<DateTimeOffset>("ExpiresAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("expires_at");
 
@@ -216,7 +216,7 @@ namespace Voxpop.Identity.Infrastructure.Migrations
                         .HasColumnType("text")
                         .HasColumnName("target");
 
-                    b.Property<DateTime?>("UsedAt")
+                    b.Property<DateTimeOffset?>("UsedAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("used_at");
 
@@ -287,7 +287,7 @@ namespace Voxpop.Identity.Infrastructure.Migrations
                     b.Property<string>("VerificationCode")
                         .HasColumnType("text");
 
-                    b.Property<DateTime?>("VerificationCodeExpiresAt")
+                    b.Property<DateTimeOffset?>("VerificationCodeExpiresAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");

@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Voxpop.Core.Application.Polls.Dtos;
+using Voxpop.Core.Application.Polls.Models;
 using Voxpop.Core.Application.Polls.Queries;
 using Voxpop.Core.Infrastructure.Persistence.Common.Dapper;
 using Voxpop.Core.Infrastructure.Persistence.Polls.Queries.Results;
@@ -8,7 +9,7 @@ namespace Voxpop.Core.Infrastructure.Persistence.Polls.Queries;
 
 public class PollQueries(ISqlConnectionFactory connectionFactory) : IPollQueries
 {
-    public async Task<IReadOnlyList<PollDto>> GetPollsAsync(int page, int pageSize, CancellationToken ct = default)
+    public async Task<IReadOnlyList<PollSummary>> GetPollsAsync(int page, int pageSize, CancellationToken ct = default)
     {
         var db = connectionFactory.CreateConnection();
 
@@ -40,13 +41,13 @@ public class PollQueries(ISqlConnectionFactory connectionFactory) : IPollQueries
             new { Page = page, PageSize = pageSize }
         );
 
-        var lookup = new Dictionary<Guid, PollDto>();
+        var lookup = new Dictionary<Guid, PollSummary>();
 
         foreach (var poll in result)
         {
             if (!lookup.TryGetValue(poll.Id, out var pollDto))
             {
-                pollDto = new PollDto(
+                pollDto = new PollSummary(
                     poll.Id, 
                     poll.Question, 
                     poll.VoteMode, 
@@ -56,7 +57,7 @@ public class PollQueries(ISqlConnectionFactory connectionFactory) : IPollQueries
                 lookup.Add(poll.Id, pollDto);
             }
 
-            lookup[poll.Id].Options.Add(new PollOptionDto(poll.OptionId, poll.OptionValue));
+            lookup[poll.Id].Options.Add(new PollOptionSummary(poll.OptionId, poll.OptionValue));
         }
 
         return lookup.Values.ToList();

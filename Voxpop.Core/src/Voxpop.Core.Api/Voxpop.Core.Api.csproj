@@ -24,6 +24,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\..\Voxpop.Packages\src\Voxpop.Packages.Contracts\Voxpop.Packages.Contracts.csproj" />
       <ProjectReference Include="..\Voxpop.Core.Application\Voxpop.Core.Application.csproj" />
       <ProjectReference Include="..\Voxpop.Core.Infrastructure\Voxpop.Core.Infrastructure.csproj" />
     </ItemGroup>
