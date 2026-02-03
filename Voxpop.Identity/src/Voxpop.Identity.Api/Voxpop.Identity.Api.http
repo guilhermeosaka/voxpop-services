@@ -25,5 +25,5 @@ PUT {{Voxpop.Identity.HostAddress}}/tokens
 Content-Type: application/json
 
 {
-  "token": "eSfXF9Oe00mi1DZYfteSl9kJ/QrDwYMRM3hxd1b2G0IlSrezXqLOqzFlk+08iqN2fAjiMY973pI+vJU9ZvXeXg=="
+  "token": "01KGJ979ZT40W38WK99VV9WWB7.qZAHQaNgqn2dicBLcUCqB5h7bvqWQWi9B4Ehr3eUh0EuamFoBMa1l/rx24OCtL9JrAIhNc0OsS1aZ3vDj4nSJA=="
 }

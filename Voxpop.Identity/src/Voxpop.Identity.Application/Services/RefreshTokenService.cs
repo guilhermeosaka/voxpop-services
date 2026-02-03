@@ -22,14 +22,19 @@ public class RefreshTokenService(
         return newToken;
     }
     
-    public async Task<(Guid? userId, string? token)> RefreshAsync(string token, CancellationToken ct = default)
+    public async Task<(Guid? UserId, string? Token)> RefreshAsync(string token, CancellationToken ct = default)
     {
-        var tokenId = hasher.Hash(token)[..16];
+        var (tokenId, secret) = Parse(token);
+        
+        if (tokenId == null || secret == null)
+            return (null, null);
+        
+        var refreshToken = await refreshTokenRepository.GetByTokenId(tokenId);
 
-        var refreshTokens = await refreshTokenRepository.GetAllActiveByTokenId(tokenId);
-        var refreshToken = refreshTokens.FirstOrDefault(rt => hasher.Verify(rt.TokenHash, token));
-
-        if (refreshToken == null)
+        if (refreshToken == null || 
+            refreshToken.IsExpired || 
+            refreshToken.IsRevoked ||
+            !hasher.Verify(refreshToken.TokenHash, secret))
             return (null, null);
 
         refreshToken.Revoke();
@@ -41,17 +46,38 @@ public class RefreshTokenService(
         return (refreshToken.UserId, newToken);
     }
 
-    private (string token, RefreshToken refreshToken) GenerateRefreshToken(Guid userId)
+    private (string Token, RefreshToken RefreshToken) GenerateRefreshToken(Guid userId)
     {
         var newToken = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
         var newTokenHash = hasher.Hash(newToken);
+        var tokenId = Ulid.NewUlid().ToString();
 
         var newRefreshToken = RefreshToken.Create(
             userId, 
-            newTokenHash[..16], 
+            tokenId, 
             newTokenHash,
             DateTime.UtcNow + options.Value.ExpiresIn);
 
-        return (newToken, newRefreshToken);
+        return ($"{tokenId}.{newToken}", newRefreshToken);
+    }
+    
+    private static (string? TokenId, string? Secret) Parse(string refreshToken)
+    {
+        if (string.IsNullOrWhiteSpace(refreshToken))
+            return (null, null);
+
+        var dotIndex = refreshToken.IndexOf('.');
+        if (dotIndex <= 0 || dotIndex == refreshToken.Length - 1)
+            return (null, null);
+
+        var span = refreshToken.AsSpan();
+
+        var tokenIdSpan = span[..dotIndex];
+        var secretSpan  = span[(dotIndex + 1)..];
+
+        if (tokenIdSpan.Length > 64 || secretSpan.Length < 32)
+            return (null, null);
+
+        return (tokenIdSpan.ToString(), secretSpan.ToString());
     }
 }

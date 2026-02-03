@@ -6,10 +6,8 @@ namespace Voxpop.Identity.Infrastructure.Persistence.Repositories;
 
 public class RefreshTokenRepository(IdentityDbContext dbContext) : IRefreshTokenRepository
 {
-    public async Task<IReadOnlyList<RefreshToken>> GetAllActiveByTokenId(string tokenId) =>
-        await dbContext.RefreshTokens.Where(rt => rt.TokenId == tokenId && 
-                                                  rt.ExpiresAt > DateTime.UtcNow && 
-                                                  !rt.IsRevoked).ToListAsync();
+    public async Task<RefreshToken?> GetByTokenId(string tokenId) =>
+        await dbContext.RefreshTokens.FirstOrDefaultAsync(rt => rt.TokenId == tokenId);
 
     public async Task AddAsync(RefreshToken refreshToken) => await dbContext.RefreshTokens.AddAsync(refreshToken);
 }

@@ -13,7 +13,7 @@ public class RefreshTokenConfiguration : IEntityTypeConfiguration<RefreshToken>
         
         builder.HasKey(rt => rt.Id);
         
-        builder.HasIndex(rt => new { rt.TokenId, rt.ExpiresAt });
+        builder.HasIndex(rt => rt.TokenId).IsUnique();
         
         builder.Property(rt => rt.Id).HasColumnName("id");
         builder.Property(rt => rt.UserId).HasColumnName("user_id").IsRequired();
