@@ -2,9 +2,4 @@
 
 namespace Voxpop.Identity.Infrastructure.Persistence.Entities;
 
-public class ApplicationUser : IdentityUser<Guid>
-{
-    public bool IsService { get; set; }
-    public string? VerificationCode { get; set; }
-    public DateTimeOffset? VerificationCodeExpiresAt { get; set; }
-}
+public class ApplicationUser : IdentityUser<Guid>;

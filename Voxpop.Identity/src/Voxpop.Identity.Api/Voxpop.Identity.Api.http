@@ -1,15 +1,6 @@
-### POST /users 
-
-POST {{Voxpop.Identity.HostAddress}}/users
-Content-Type: application/json
-
-{
-  "phoneNumber": "+5511941758744"
-}
-
 ### POST /verifications
 
-POST {{Voxpop.Identity.HostAddress}}/codes
+POST {{Voxpop.Identity.HostAddress}}/codes/otp
 Content-Type: application/json
 
 {
@@ -19,7 +10,7 @@ Content-Type: application/json
 
 ### POST /tokens
 
-POST {{Voxpop.Identity.HostAddress}}/tokens
+POST {{Voxpop.Identity.HostAddress}}/tokens/otp
 Content-Type: application/json
 
 {

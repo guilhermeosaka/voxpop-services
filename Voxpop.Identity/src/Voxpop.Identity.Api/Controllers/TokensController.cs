@@ -13,7 +13,7 @@ namespace Voxpop.Identity.Api.Controllers;
 public class TokensController(IDispatcher dispatcher) : ControllerBase
 {
     [AllowAnonymous]
-    [HttpPost]
+    [HttpPost("otp")]
     public async Task<IActionResult> Create([FromBody] CreateTokenRequest request, CancellationToken ct)
     {
         var result =

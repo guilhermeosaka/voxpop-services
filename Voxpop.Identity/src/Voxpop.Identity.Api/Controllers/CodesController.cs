@@ -12,7 +12,7 @@ namespace Voxpop.Identity.Api.Controllers;
 public class CodesController(IDispatcher dispatcher) : ControllerBase
 {
     [AllowAnonymous]
-    [HttpPost]
+    [HttpPost("otp")]
     public async Task<IActionResult> Create([FromBody] CreateCodeRequest request, CancellationToken ct)
     {
         var result = await dispatcher.Dispatch(new CreateCodeCommand(request.Target, request.Channel), ct);

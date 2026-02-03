@@ -13,7 +13,8 @@ public class UserRepository(UserManager<ApplicationUser> userManager) : IUserRep
         {
             Id = Guid.NewGuid(),
             UserName = user.PhoneNumber,
-            PhoneNumber = user.PhoneNumber
+            PhoneNumber = user.PhoneNumber,
+            PhoneNumberConfirmed = user.PhoneNumberConfirmed
         };
 
         await userManager.CreateAsync(applicationUser);

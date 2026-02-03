@@ -17,6 +17,7 @@ public class JwtGenerator(IOptions<JwtOptions> options) : ITokenGenerator
         {
             new(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
             new(JwtRegisteredClaimNames.PhoneNumber, user.PhoneNumber),
+            new(JwtRegisteredClaimNames.PhoneNumberVerified, user.PhoneNumberConfirmed.ToString(), ClaimValueTypes.Boolean)
         };
 
         if (!string.IsNullOrEmpty(user.Email))

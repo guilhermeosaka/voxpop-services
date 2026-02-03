@@ -245,9 +245,6 @@ namespace Voxpop.Identity.Infrastructure.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
 
-                    b.Property<bool>("IsService")
-                        .HasColumnType("boolean");
-
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("boolean");
 
@@ -280,12 +277,6 @@ namespace Voxpop.Identity.Infrastructure.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
-
-                    b.Property<string>("VerificationCode")
-                        .HasColumnType("text");
-
-                    b.Property<DateTimeOffset?>("VerificationCodeExpiresAt")
-                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
