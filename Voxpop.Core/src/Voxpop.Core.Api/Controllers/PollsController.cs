@@ -19,7 +19,7 @@ namespace Voxpop.Core.Api.Controllers;
 
 [ApiController]
 [Authorize]
-[Route("/api/[controller]")]
+[Route("[controller]")]
 [ProducesResponseType(StatusCodes.Status500InternalServerError)]
 public class PollsController(IDispatcher dispatcher) : ControllerBase
 {

@@ -1,6 +1,8 @@
-﻿using Voxpop.Core.Application.Common.Interfaces;
+﻿using Voxpop.Core.Application.Common;
+using Voxpop.Core.Application.Common.Interfaces;
 using Voxpop.Core.Domain.Votes.Entities;
 using Voxpop.Core.Domain.Votes.Repositories;
+using Voxpop.Packages.Dispatcher.Types;
 
 namespace Voxpop.Core.Application.Votes.UseCases.SubmitVote.Strategies;
 
@@ -9,9 +11,12 @@ public class SingleChoiceStrategy(
     IRequestContext requestContext,
     IUnitOfWork unitOfWork) : ISubmitVoteStrategy
 {
-    public async Task SubmitVote(SubmitVoteCommand request, CancellationToken ct = default)
+    public async Task<Result> SubmitVote(SubmitVoteCommand request, CancellationToken ct = default)
     {
-        var userId = requestContext.UserId;
+        if (!requestContext.UserId.HasValue)
+            return Errors.UserUnauthorized();
+        
+        var userId = requestContext.UserId.Value;
         
         var vote = await repository.FindAsync(userId, request.PollId);
 
@@ -21,5 +26,7 @@ public class SingleChoiceStrategy(
             vote.Update(request.OptionId);
 
         await unitOfWork.SaveChangesAsync(ct);
+        
+        return Result.Success();
     }
 }

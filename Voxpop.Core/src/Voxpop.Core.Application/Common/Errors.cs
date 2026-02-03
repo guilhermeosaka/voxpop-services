@@ -6,9 +6,6 @@ public static class Errors
 {
     public const string UserNotFoundCode = "User.NotFound";
     public static Error UserNotFound() => new(UserNotFoundCode, "User not found", "User not found.");
-
-    public const string InvalidVoteStateCode = "Vote.InvalidState";
-    public static Error InvalidVoteState() => new(InvalidVoteStateCode, "Invalid vote state", "Vote is not in a valid state.");
     
     public const string VoteNotFoundCode = "Vote.NotFound";
     public static Error VoteNotFound() => new(VoteNotFoundCode, "Vote not found", "Vote not found.");
@@ -21,4 +18,7 @@ public static class Errors
     
     public const string ReactionNotFoundCode = "Reaction.NotFound";
     public static Error ReactionNotFound() => new(ReactionNotFoundCode, "Reaction not found", "Reaction not found.");
+    
+    public const string UnauthorizedUserCode = "User.Unauthorized";
+    public static Error UserUnauthorized() => new(UnauthorizedUserCode, "User unauthorized", "User is not authorized.");
 }

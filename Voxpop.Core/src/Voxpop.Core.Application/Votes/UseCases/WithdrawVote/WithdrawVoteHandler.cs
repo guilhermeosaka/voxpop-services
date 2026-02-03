@@ -11,7 +11,10 @@ public class WithdrawVoteHandler(IVoteRepository repository, IRequestContext req
 {
     public async Task<Result> Handle(WithdrawVoteCommand request, CancellationToken ct)
     {
-        var vote = await repository.FindAsync(requestContext.UserId, request.PollId, request.OptionId);
+        if (!requestContext.UserId.HasValue)
+            return Errors.UserUnauthorized();
+        
+        var vote = await repository.FindAsync(requestContext.UserId.Value, request.PollId, request.OptionId);
 
         if (vote == null)
             return Errors.VoteNotFound();

@@ -31,7 +31,11 @@ public class AuditSaveChangesInterceptor(IRequestContext requestContext, IClock 
 
         context.ChangeTracker.DetectChanges();
 
-        var userId = requestContext.UserId;
+        if (!requestContext.UserId.HasValue)
+            return;
+        
+        var userId = requestContext.UserId.Value;
+        
         var now = clock.UtcNow;
 
         foreach (var entry in context.ChangeTracker.Entries<IAuditable>())

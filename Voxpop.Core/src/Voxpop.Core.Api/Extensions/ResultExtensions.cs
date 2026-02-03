@@ -37,7 +37,7 @@ public static class ResultExtensions
             Errors.PollNotFoundCode => error.ToProblemDetails(HttpStatusCode.NotFound),
             Errors.VoteNotFoundCode => error.ToProblemDetails(HttpStatusCode.NotFound),
             Errors.ReactionNotFoundCode => error.ToProblemDetails(HttpStatusCode.NotFound),
-            Errors.InvalidVoteStateCode => error.ToProblemDetails(HttpStatusCode.BadRequest),
+            Errors.UnauthorizedUserCode => error.ToProblemDetails(HttpStatusCode.Unauthorized),
             Errors.PollVotingIsClosedCode => error.ToProblemDetails(HttpStatusCode.Forbidden),
             _ => new Error(string.Empty, "InternalServerError", "An unexpected error occurred")
                 .ToProblemDetails(HttpStatusCode.InternalServerError)

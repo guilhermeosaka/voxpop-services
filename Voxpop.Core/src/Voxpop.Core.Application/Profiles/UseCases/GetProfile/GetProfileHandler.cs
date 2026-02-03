@@ -12,7 +12,10 @@ public class GetProfileHandler(IProfileQueries queries, IRequestContext requestC
 {
     public async Task<Result<ProfileSummary>> Handle(GetProfileQuery request, CancellationToken ct)
     {
-        var user = await queries.GetByUserIdAsync(requestContext.UserId, request.Language);
+        if (!requestContext.UserId.HasValue)
+            return Errors.UserUnauthorized();
+        
+        var user = await queries.GetByUserIdAsync(requestContext.UserId.Value, request.Language);
 
         if (user == null)
             return Errors.UserNotFound();

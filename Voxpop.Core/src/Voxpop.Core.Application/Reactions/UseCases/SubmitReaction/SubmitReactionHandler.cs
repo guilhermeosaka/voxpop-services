@@ -18,14 +18,17 @@ public class SubmitReactionHandler(
 {
     public async Task<Result> Handle(SubmitReactionCommand request, CancellationToken ct)
     {
-        var votingInfo = await pollQueries.FindVotingInfoAsync(request.PollId);
+        if (!requestContext.UserId.HasValue)
+            return Errors.UserUnauthorized();
+
+        var userId = requestContext.UserId.Value;
+        
+        var votingInfo = await pollQueries.FindVotingInfoAsync(request.PollId, ct);
 
         if (votingInfo == null)
             return Errors.PollNotFound();
-
-        var userId = requestContext.UserId;
         
-        var reaction = await repository.FindAsync(requestContext.UserId, request.PollId);
+        var reaction = await repository.FindAsync(userId, request.PollId);
         
         if (reaction == null)
             await repository.AddAsync(Reaction.Create(userId, request.PollId, request.ReactionType));

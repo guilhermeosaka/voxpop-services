@@ -9,4 +9,5 @@ public record PollSummaryDto(
     DateTimeOffset? ExpiresAt,
     bool IsClosed,
     DateTimeOffset? CreatedAt,
+    bool HasCreated,
     List<PollOptionSummaryDto> Options);

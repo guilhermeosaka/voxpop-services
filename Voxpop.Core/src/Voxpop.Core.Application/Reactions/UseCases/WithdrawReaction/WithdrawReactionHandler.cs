@@ -14,7 +14,10 @@ public class WithdrawReactionHandler(
 {
     public async Task<Result> Handle(WithdrawReactionCommand request, CancellationToken ct)
     {
-        var reaction = await repository.FindAsync(requestContext.UserId, request.PollId, request.ReactionType);
+        if (!requestContext.UserId.HasValue)
+            return Errors.UserUnauthorized();
+        
+        var reaction = await repository.FindAsync(requestContext.UserId.Value, request.PollId, request.ReactionType);
 
         if (reaction == null)
             return Errors.ReactionNotFound();

@@ -9,7 +9,7 @@ using Voxpop.Packages.Dispatcher.Interfaces;
 namespace Voxpop.Identity.Api.Controllers;
 
 [ApiController]
-[Route("/api/[controller]")]
+[Route("[controller]")]
 public class TokensController(IDispatcher dispatcher) : ControllerBase
 {
     [AllowAnonymous]

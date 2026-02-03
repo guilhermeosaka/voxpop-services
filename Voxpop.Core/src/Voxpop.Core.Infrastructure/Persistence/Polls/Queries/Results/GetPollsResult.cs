@@ -9,6 +9,8 @@ public record GetPollsResult(
     DateTime? ExpiresAt,
     bool IsClosed,
     DateTime CreatedAt,
+    bool HasCreated,
     Guid OptionId,
     string OptionValue,
-    long OptionVotes);
+    long OptionVotes,
+    bool OptionHasVoted);

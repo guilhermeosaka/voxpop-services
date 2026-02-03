@@ -1,6 +1,6 @@
 ### POST /users 
 
-POST {{Voxpop.Identity.HostAddress}}/api/users
+POST {{Voxpop.Identity.HostAddress}}/users
 Content-Type: application/json
 
 {
@@ -9,7 +9,7 @@ Content-Type: application/json
 
 ### POST /verifications
 
-POST {{Voxpop.Identity.HostAddress}}/api/codes
+POST {{Voxpop.Identity.HostAddress}}/codes
 Content-Type: application/json
 
 {
@@ -19,7 +19,7 @@ Content-Type: application/json
 
 ### POST /tokens
 
-POST {{Voxpop.Identity.HostAddress}}/api/tokens
+POST {{Voxpop.Identity.HostAddress}}/tokens
 Content-Type: application/json
 
 {
@@ -30,7 +30,7 @@ Content-Type: application/json
 
 ### POST /tokens
 
-PUT {{Voxpop.Identity.HostAddress}}/api/tokens
+PUT {{Voxpop.Identity.HostAddress}}/tokens
 Content-Type: application/json
 
 {

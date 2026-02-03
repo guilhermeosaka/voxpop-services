@@ -1,4 +1,5 @@
-﻿using Voxpop.Core.Application.Common.Interfaces;
+﻿using Voxpop.Core.Application.Common;
+using Voxpop.Core.Application.Common.Interfaces;
 using Voxpop.Core.Domain.Profiles.Entities;
 using Voxpop.Core.Domain.Profiles.Repositories;
 using Voxpop.Packages.Dispatcher.Interfaces;
@@ -14,7 +15,10 @@ public class SaveProfileHandler(
 {
     public async Task<Result> Handle(SaveProfileCommand request, CancellationToken ct)
     {
-        var userId = requestContext.UserId;
+        if (!requestContext.UserId.HasValue)
+            return Errors.UserUnauthorized();
+        
+        var userId = requestContext.UserId.Value;
         
         var profile = await repository.FindByUserIdAsync(userId);
 
