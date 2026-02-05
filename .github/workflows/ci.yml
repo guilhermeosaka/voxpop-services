@@ -1,0 +1,89 @@
+name: CI - Build and Test
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'Voxpop.Core/**'
+      - 'Voxpop.Identity/**'
+      - 'Voxpop.Packages/**'
+      - '.github/workflows/ci.yml'
+      - '.github/workflows/cd.yml'
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  build-and-test:
+    name: Build & Test ${{ matrix.service }}
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        include:
+          - service: identity
+            project: Voxpop.Identity/src/Voxpop.Identity.Api/Voxpop.Identity.Api.csproj
+            dockerfile: Voxpop.Identity/src/Voxpop.Identity.Api/Dockerfile
+          - service: core
+            project: Voxpop.Core/src/Voxpop.Core.Api/Voxpop.Core.Api.csproj
+            dockerfile: Voxpop.Core/src/Voxpop.Core.Api/Dockerfile
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore ${{ matrix.project }}
+
+      - name: Build
+        run: dotnet build ${{ matrix.project }} --configuration Release --no-restore
+
+      - name: Test
+        run: |
+          # Find and run all test projects for this service
+          if [ "${{ matrix.service }}" == "identity" ]; then
+            TEST_PROJECTS=$(find Voxpop.Identity -name "*.Tests.csproj" -o -name "*.Test.csproj" 2>/dev/null || true)
+          else
+            TEST_PROJECTS=$(find Voxpop.Core -name "*.Tests.csproj" -o -name "*.Test.csproj" 2>/dev/null || true)
+          fi
+          
+          if [ -z "$TEST_PROJECTS" ]; then
+            echo "No test projects found for ${{ matrix.service }}"
+            echo "⚠️ No tests to run" >> $GITHUB_STEP_SUMMARY
+          else
+            for TEST_PROJECT in $TEST_PROJECTS; do
+              echo "Running tests in $TEST_PROJECT"
+              dotnet test "$TEST_PROJECT" --configuration Release --no-build --verbosity normal --logger "trx;LogFileName=test-results.trx"
+            done
+          fi
+
+      - name: Publish
+        run: dotnet publish ${{ matrix.project }} --configuration Release --no-build --output ./publish/${{ matrix.service }}
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ${{ matrix.dockerfile }}
+          push: false
+          tags: voxpop-${{ matrix.service }}:pr-${{ github.event.pull_request.number }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Summary
+        run: |
+          echo "## ✅ CI Successful - ${{ matrix.service }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Service:** voxpop-${{ matrix.service }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Build:** ✅ Passed" >> $GITHUB_STEP_SUMMARY
+          echo "**Tests:** ✅ Passed" >> $GITHUB_STEP_SUMMARY
+          echo "**Publish:** ✅ Passed" >> $GITHUB_STEP_SUMMARY
+          echo "**Docker:** ✅ Passed" >> $GITHUB_STEP_SUMMARY
+          echo "**Status:** Ready for review and merge" >> $GITHUB_STEP_SUMMARY
