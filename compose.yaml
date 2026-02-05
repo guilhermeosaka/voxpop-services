@@ -61,20 +61,13 @@
 
       Jwt__Key: ${JWT_KEY}
 
-      RabbitMq__HostName: rabbitmq
-      RabbitMq__UserName: ${RABBITMQ_USER}
-      RabbitMq__Password: ${RABBITMQ_PASSWORD}
-
       Serilog__WriteTo__1__Args__serverUrl: http://seq:5341
     depends_on:
       postgres:
         condition: service_healthy
-      rabbitmq:
-        condition: service_started
       seq:
         condition: service_started
 
 volumes:
   postgres_data:
-  rabbitmq_data:
   seq_data:
