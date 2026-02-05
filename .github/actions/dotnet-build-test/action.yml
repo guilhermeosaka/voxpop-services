@@ -1,0 +1,66 @@
+name: '.NET Build & Test'
+description: 'Build, test, and publish a .NET project'
+
+inputs:
+  project:
+    description: 'Path to the .csproj file'
+    required: true
+  service-name:
+    description: 'Name of the service (for output paths)'
+    required: true
+  dotnet-version:
+    description: '.NET SDK version'
+    required: false
+    default: '10.0.x'
+  configuration:
+    description: 'Build configuration'
+    required: false
+    default: 'Release'
+
+runs:
+  using: composite
+  steps:
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ inputs.dotnet-version }}
+
+    - name: Restore dependencies
+      shell: bash
+      run: dotnet restore "${{ inputs.project }}"
+
+    - name: Build
+      shell: bash
+      run: dotnet build "${{ inputs.project }}" --configuration ${{ inputs.configuration }} --no-restore
+
+    - name: Discover and run tests
+      shell: bash
+      run: |
+        # Get the service root directory from the project path
+        PROJECT_DIR=$(dirname "${{ inputs.project }}")
+        SERVICE_ROOT=$(dirname "$PROJECT_DIR")
+        
+        # Find all test projects in the service directory
+        TEST_PROJECTS=$(find "$SERVICE_ROOT" -name "*.Tests.csproj" -o -name "*.Test.csproj" 2>/dev/null || true)
+        
+        if [ -z "$TEST_PROJECTS" ]; then
+          echo "⚠️ No test projects found for ${{ inputs.service-name }}"
+          echo "⚠️ No tests to run" >> $GITHUB_STEP_SUMMARY
+        else
+          for TEST_PROJECT in $TEST_PROJECTS; do
+            echo "Running tests in $TEST_PROJECT"
+            dotnet test "$TEST_PROJECT" \
+              --configuration ${{ inputs.configuration }} \
+              --no-build \
+              --verbosity normal \
+              --logger "trx;LogFileName=test-results.trx"
+          done
+        fi
+
+    - name: Publish
+      shell: bash
+      run: |
+        dotnet publish "${{ inputs.project }}" \
+          --configuration ${{ inputs.configuration }} \
+          --no-build \
+          --output ./publish/${{ inputs.service-name }}

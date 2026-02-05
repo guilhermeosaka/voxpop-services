@@ -1,0 +1,142 @@
+name: CD - Deploy to ECS
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'Voxpop.Core/**'
+      - 'Voxpop.Identity/**'
+      - 'Voxpop.Packages/**'
+      - '.github/workflows/cd.yml'
+
+permissions:
+  id-token: write # Required for AWS OIDC
+  contents: read
+
+env:
+  AWS_REGION: us-east-1
+  ECS_CLUSTER: voxpop-beta
+
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            shared:
+              - 'Voxpop.Packages/**'
+              - '.github/workflows/**'
+            identity:
+              - 'Voxpop.Identity/**'
+            core:
+              - 'Voxpop.Core/**'
+
+      - id: set-matrix
+        name: Generate deployment matrix
+        run: |
+          SHARED="${{ steps.filter.outputs.shared }}"
+          IDENTITY="${{ steps.filter.outputs.identity }}"
+          CORE="${{ steps.filter.outputs.core }}"
+
+          echo "Changes: shared=$SHARED, identity=$IDENTITY, core=$CORE"
+
+          # Use jq for declarative matrix generation
+          MATRIX=$(jq -c \
+            --argjson shared "$SHARED" \
+            --argjson identity "$IDENTITY" \
+            --argjson core "$CORE" \
+            'if $shared then .services
+             else .services | map(select(
+               (.name == "identity" and $identity) or 
+               (.name == "core" and $core)
+             ))
+             end | map({
+               service: .name,
+               ecr_repository: ("voxpop-" + .name),
+               dockerfile: .dockerfile,
+               ecs_service: ("voxpop-" + .name + "-beta"),
+               container_name: ("voxpop-" + .name)
+             })' \
+            .github/services.json)
+
+          echo "Generated matrix: $MATRIX"
+          echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
+
+  deploy:
+    needs: changes
+    if: ${{ needs.changes.outputs.matrix != '[]' }}
+    name: Deploy ${{ matrix.service }}
+    runs-on: ubuntu-latest
+    
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJson(needs.changes.outputs.matrix) }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Create ECR repository if it doesn't exist
+        continue-on-error: true
+        run: |
+          aws ecr describe-repositories --repository-names ${{ matrix.ecr_repository }} --region ${{ env.AWS_REGION }} || \
+          aws ecr create-repository --repository-name ${{ matrix.ecr_repository }} --region ${{ env.AWS_REGION }}
+
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -f ${{ matrix.dockerfile }} -t $ECR_REGISTRY/${{ matrix.ecr_repository }}:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/${{ matrix.ecr_repository }}:$IMAGE_TAG
+          echo "image=$ECR_REGISTRY/${{ matrix.ecr_repository }}:$IMAGE_TAG" >> $GITHUB_OUTPUT
+
+      - name: Download current task definition
+        run: |
+          aws ecs describe-task-definition \
+            --task-definition ${{ matrix.ecs_service }} \
+            --query taskDefinition \
+            --region ${{ env.AWS_REGION }} > task-definition.json
+
+      - name: Fill in the new image ID in the Amazon ECS task definition
+        id: task-def
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: task-definition.json
+          container-name: ${{ matrix.container_name }}
+          image: ${{ steps.build-image.outputs.image }}
+
+      - name: Deploy Amazon ECS task definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ${{ steps.task-def.outputs.task-definition }}
+          service: ${{ matrix.ecs_service }}
+          cluster: ${{ env.ECS_CLUSTER }}
+          wait-for-service-stability: true
+
+      - name: Summary
+        run: |
+          echo "## 🚀 ECS Deployment Successful - ${{ matrix.service }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Image:** ${{ steps.build-image.outputs.image }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Cluster:** ${{ env.ECS_CLUSTER }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Service:** ${{ matrix.ecs_service }}" >> $GITHUB_STEP_SUMMARY

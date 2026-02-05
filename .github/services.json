@@ -1,0 +1,16 @@
+{
+  "services": [
+    {
+      "name": "identity",
+      "path": "Voxpop.Identity",
+      "project": "Voxpop.Identity/src/Voxpop.Identity.Api/Voxpop.Identity.Api.csproj",
+      "dockerfile": "Voxpop.Identity/src/Voxpop.Identity.Api/Dockerfile"
+    },
+    {
+      "name": "core",
+      "path": "Voxpop.Core",
+      "project": "Voxpop.Core/src/Voxpop.Core.Api/Voxpop.Core.Api.csproj",
+      "dockerfile": "Voxpop.Core/src/Voxpop.Core.Api/Dockerfile"
+    }
+  ]
+}

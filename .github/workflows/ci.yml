@@ -1,0 +1,92 @@
+name: CI - Build and Test
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'Voxpop.Core/**'
+      - 'Voxpop.Identity/**'
+      - 'Voxpop.Packages/**'
+      - '.github/workflows/ci.yml'
+      - '.github/workflows/cd.yml'
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            shared:
+              - 'Voxpop.Packages/**'
+              - '.github/workflows/**'
+            identity:
+              - 'Voxpop.Identity/**'
+            core:
+              - 'Voxpop.Core/**'
+
+      - id: set-matrix
+        name: Generate build matrix
+        run: |
+          SHARED="${{ steps.filter.outputs.shared }}"
+          IDENTITY="${{ steps.filter.outputs.identity }}"
+          CORE="${{ steps.filter.outputs.core }}"
+
+          echo "Changes: shared=$SHARED, identity=$IDENTITY, core=$CORE"
+
+          # Use jq for declarative matrix generation
+          MATRIX=$(jq -c \
+            --argjson shared "$SHARED" \
+            --argjson identity "$IDENTITY" \
+            --argjson core "$CORE" \
+            'if $shared then .services
+             else .services | map(select(
+               (.name == "identity" and $identity) or 
+               (.name == "core" and $core)
+             ))
+             end' \
+            .github/services.json)
+
+          echo "Generated matrix: $MATRIX"
+          echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
+
+  build-and-test:
+    needs: changes
+    if: ${{ needs.changes.outputs.matrix != '[]' }}
+    name: Build & Test ${{ matrix.name }}
+    runs-on: ubuntu-latest
+    
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJson(needs.changes.outputs.matrix) }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build & Test
+        uses: ./.github/actions/dotnet-build-test
+        with:
+          project: ${{ matrix.project }}
+          service-name: ${{ matrix.name }}
+
+      - name: Summary
+        run: |
+          echo "## ✅ CI Successful - ${{ matrix.name }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Service:** voxpop-${{ matrix.name }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Build:** ✅ Passed" >> $GITHUB_STEP_SUMMARY
+          echo "**Tests:** ✅ Passed" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "ℹ️ Docker image will be built during deployment (CD workflow)" >> $GITHUB_STEP_SUMMARY
