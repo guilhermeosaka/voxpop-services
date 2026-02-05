@@ -22,7 +22,8 @@ builder.Services
     .AddPersistence(builder.Configuration.GetConnectionString("CoreDb")!)
     .AddAuth(builder.Configuration.GetSection("Jwt").Get<JwtOptions>()!)
     .AddApplicationServices()
-    .AddInfrastructureServices();
+    .AddInfrastructureServices()
+    .AddHealthChecks();
 
 builder.Services.AddCors(options =>
 {
@@ -41,6 +42,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
     app.UseCors("DevCors");
 }
+
+app.MapHealthChecks("/health");
 
 using (var scope = app.Services.CreateScope())
 {

@@ -17,7 +17,8 @@ builder.Services
     .AddSwaggerGen()
     .AddDispatcher()
     .AddPersistence(builder.Configuration.GetConnectionString("TemplateDb"))
-    .AddAuth(builder.Configuration.GetSection("Jwt").Get<JwtOptions>()!);
+    .AddAuth(builder.Configuration.GetSection("Jwt").Get<JwtOptions>()!)
+    .AddHealthChecks();
 
 var app = builder.Build();
 
@@ -26,6 +27,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.MapHealthChecks("/health");
 
 app
     .UseSerilogRequestLogging()

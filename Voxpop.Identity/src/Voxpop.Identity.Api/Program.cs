@@ -46,7 +46,8 @@ builder.Services
     .AddApplicationServices()
     .AddInfrastructureServices(builder.Environment)
     .AddAuthentication(builder.Configuration.GetSection("Jwt").Get<JwtOptions>()!)
-    .AddAuthorization();
+    .AddAuthorization()
+    .AddHealthChecks();
 
 builder.Services.AddCors(options =>
 {
@@ -65,6 +66,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
     app.UseCors("DevCors");
 }
+
+app.MapHealthChecks("/health");
 
 using (var scope = app.Services.CreateScope())
 {

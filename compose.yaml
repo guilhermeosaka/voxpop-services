@@ -15,18 +15,6 @@
     volumes:
       - postgres_data:/var/lib/postgresql
       - ./docker/postgres:/docker-entrypoint-initdb.d
-
-  rabbitmq:
-    image: rabbitmq:4.2.2-management
-    restart: unless-stopped
-    ports:
-      - "5672:5672"
-      - "15672:15672"
-    environment:
-      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
-      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
-    volumes:
-      - rabbitmq_data:/var/lib/rabbitmq
   
   seq:
     image: datalust/seq:2025.2
