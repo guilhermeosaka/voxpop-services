@@ -51,9 +51,13 @@ using (var scope = app.Services.CreateScope())
     await dbInitializer.MigrateAsync();
 }
 
+if (app.Environment.IsProduction())
+{
+    app.UseHttpsRedirection();
+}
+
 app
     .UseSerilogRequestLogging()
-    .UseHttpsRedirection()
     .UseAuthentication()
     .UseAuthorization()
     .UseMiddleware<ErrorHandlerMiddleware>();

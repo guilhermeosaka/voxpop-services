@@ -75,7 +75,10 @@ using (var scope = app.Services.CreateScope())
     await migrator.MigrateAsync();
 }
 
-app.UseHttpsRedirection();
+if (app.Environment.IsProduction())
+{
+    app.UseHttpsRedirection();
+}
 
 app.UseAuthentication();
 app.UseAuthorization();

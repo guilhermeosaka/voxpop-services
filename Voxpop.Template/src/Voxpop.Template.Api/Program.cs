@@ -30,9 +30,13 @@ if (app.Environment.IsDevelopment())
 
 app.MapHealthChecks("/health");
 
+if (app.Environment.IsProduction())
+{
+    app.UseHttpsRedirection();
+}
+
 app
     .UseSerilogRequestLogging()
-    .UseHttpsRedirection()
     .UseAuthentication()
     .UseAuthorization()
     .UseMiddleware<ErrorHandlerMiddleware>();
