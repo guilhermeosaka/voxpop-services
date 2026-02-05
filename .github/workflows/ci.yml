@@ -16,74 +16,77 @@ permissions:
   pull-requests: write
 
 jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            shared:
+              - 'Voxpop.Packages/**'
+              - '.github/workflows/**'
+            identity:
+              - 'Voxpop.Identity/**'
+            core:
+              - 'Voxpop.Core/**'
+
+      - id: set-matrix
+        name: Generate build matrix
+        run: |
+          SHARED="${{ steps.filter.outputs.shared }}"
+          IDENTITY="${{ steps.filter.outputs.identity }}"
+          CORE="${{ steps.filter.outputs.core }}"
+
+          echo "Changes: shared=$SHARED, identity=$IDENTITY, core=$CORE"
+
+          # Use jq for declarative matrix generation
+          MATRIX=$(jq -c \
+            --argjson shared "$SHARED" \
+            --argjson identity "$IDENTITY" \
+            --argjson core "$CORE" \
+            'if $shared then .services
+             else .services | map(select(
+               (.name == "identity" and $identity) or 
+               (.name == "core" and $core)
+             ))
+             end' \
+            .github/services.json)
+
+          echo "Generated matrix: $MATRIX"
+          echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
+
   build-and-test:
-    name: Build & Test ${{ matrix.service }}
+    needs: changes
+    if: ${{ needs.changes.outputs.matrix != '[]' }}
+    name: Build & Test ${{ matrix.name }}
     runs-on: ubuntu-latest
     
     strategy:
+      fail-fast: false
       matrix:
-        include:
-          - service: identity
-            project: Voxpop.Identity/src/Voxpop.Identity.Api/Voxpop.Identity.Api.csproj
-            dockerfile: Voxpop.Identity/src/Voxpop.Identity.Api/Dockerfile
-          - service: core
-            project: Voxpop.Core/src/Voxpop.Core.Api/Voxpop.Core.Api.csproj
-            dockerfile: Voxpop.Core/src/Voxpop.Core.Api/Dockerfile
+        include: ${{ fromJson(needs.changes.outputs.matrix) }}
     
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+      - name: Build & Test
+        uses: ./.github/actions/dotnet-build-test
         with:
-          dotnet-version: '10.0.x'
-
-      - name: Restore dependencies
-        run: dotnet restore ${{ matrix.project }}
-
-      - name: Build
-        run: dotnet build ${{ matrix.project }} --configuration Release --no-restore
-
-      - name: Test
-        run: |
-          # Find and run all test projects for this service
-          if [ "${{ matrix.service }}" == "identity" ]; then
-            TEST_PROJECTS=$(find Voxpop.Identity -name "*.Tests.csproj" -o -name "*.Test.csproj" 2>/dev/null || true)
-          else
-            TEST_PROJECTS=$(find Voxpop.Core -name "*.Tests.csproj" -o -name "*.Test.csproj" 2>/dev/null || true)
-          fi
-          
-          if [ -z "$TEST_PROJECTS" ]; then
-            echo "No test projects found for ${{ matrix.service }}"
-            echo "⚠️ No tests to run" >> $GITHUB_STEP_SUMMARY
-          else
-            for TEST_PROJECT in $TEST_PROJECTS; do
-              echo "Running tests in $TEST_PROJECT"
-              dotnet test "$TEST_PROJECT" --configuration Release --no-build --verbosity normal --logger "trx;LogFileName=test-results.trx"
-            done
-          fi
-
-      - name: Publish
-        run: dotnet publish ${{ matrix.project }} --configuration Release --no-build --output ./publish/${{ matrix.service }}
-
-      - name: Build Docker image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          file: ${{ matrix.dockerfile }}
-          push: false
-          tags: voxpop-${{ matrix.service }}:pr-${{ github.event.pull_request.number }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          project: ${{ matrix.project }}
+          service-name: ${{ matrix.name }}
 
       - name: Summary
         run: |
-          echo "## ✅ CI Successful - ${{ matrix.service }}" >> $GITHUB_STEP_SUMMARY
+          echo "## ✅ CI Successful - ${{ matrix.name }}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**Service:** voxpop-${{ matrix.service }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Service:** voxpop-${{ matrix.name }}" >> $GITHUB_STEP_SUMMARY
           echo "**Build:** ✅ Passed" >> $GITHUB_STEP_SUMMARY
           echo "**Tests:** ✅ Passed" >> $GITHUB_STEP_SUMMARY
-          echo "**Publish:** ✅ Passed" >> $GITHUB_STEP_SUMMARY
-          echo "**Docker:** ✅ Passed" >> $GITHUB_STEP_SUMMARY
-          echo "**Status:** Ready for review and merge" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "ℹ️ Docker image will be built during deployment (CD workflow)" >> $GITHUB_STEP_SUMMARY

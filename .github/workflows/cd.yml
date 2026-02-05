@@ -19,65 +19,88 @@ env:
   ECS_CLUSTER: voxpop-beta
 
 jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            shared:
+              - 'Voxpop.Packages/**'
+              - '.github/workflows/**'
+            identity:
+              - 'Voxpop.Identity/**'
+            core:
+              - 'Voxpop.Core/**'
+
+      - id: set-matrix
+        name: Generate deployment matrix
+        run: |
+          SHARED="${{ steps.filter.outputs.shared }}"
+          IDENTITY="${{ steps.filter.outputs.identity }}"
+          CORE="${{ steps.filter.outputs.core }}"
+
+          echo "Changes: shared=$SHARED, identity=$IDENTITY, core=$CORE"
+
+          # Use jq for declarative matrix generation
+          MATRIX=$(jq -c \
+            --argjson shared "$SHARED" \
+            --argjson identity "$IDENTITY" \
+            --argjson core "$CORE" \
+            'if $shared then .services
+             else .services | map(select(
+               (.name == "identity" and $identity) or 
+               (.name == "core" and $core)
+             ))
+             end | map({
+               service: .name,
+               ecr_repository: ("voxpop-" + .name),
+               dockerfile: .dockerfile,
+               ecs_service: ("voxpop-" + .name + "-beta"),
+               container_name: ("voxpop-" + .name)
+             })' \
+            .github/services.json)
+
+          echo "Generated matrix: $MATRIX"
+          echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
+
   deploy:
+    needs: changes
+    if: ${{ needs.changes.outputs.matrix != '[]' }}
     name: Deploy ${{ matrix.service }}
     runs-on: ubuntu-latest
     
     strategy:
+      fail-fast: false
       matrix:
-        include:
-          - service: identity
-            ecr_repository: voxpop-identity
-            dockerfile: Voxpop.Identity/src/Voxpop.Identity.Api/Dockerfile
-            ecs_service: voxpop-identity-beta
-            container_name: voxpop-identity
-            service_path: Voxpop.Identity/**
-          - service: core
-            ecr_repository: voxpop-core
-            dockerfile: Voxpop.Core/src/Voxpop.Core.Api/Dockerfile
-            ecs_service: voxpop-core-beta
-            container_name: voxpop-core
-            service_path: Voxpop.Core/**
+        include: ${{ fromJson(needs.changes.outputs.matrix) }}
     
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 2
-
-      - name: Check if service changed
-        id: check_changes
-        run: |
-          # Check if this specific service has changes
-          if git diff --name-only HEAD^ HEAD | grep -q "${{ matrix.service_path }}"; then
-            echo "changed=true" >> $GITHUB_OUTPUT
-            echo "Service ${{ matrix.service }} has changes, will deploy"
-          else
-            echo "changed=false" >> $GITHUB_OUTPUT
-            echo "Service ${{ matrix.service }} has no changes, skipping deployment"
-          fi
 
       - name: Configure AWS credentials
-        if: steps.check_changes.outputs.changed == 'true'
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Login to Amazon ECR
-        if: steps.check_changes.outputs.changed == 'true'
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
       - name: Create ECR repository if it doesn't exist
-        if: steps.check_changes.outputs.changed == 'true'
         continue-on-error: true
         run: |
           aws ecr describe-repositories --repository-names ${{ matrix.ecr_repository }} --region ${{ env.AWS_REGION }} || \
           aws ecr create-repository --repository-name ${{ matrix.ecr_repository }} --region ${{ env.AWS_REGION }}
 
       - name: Build, tag, and push image to Amazon ECR
-        if: steps.check_changes.outputs.changed == 'true'
         id: build-image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
@@ -88,42 +111,13 @@ jobs:
           echo "image=$ECR_REGISTRY/${{ matrix.ecr_repository }}:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
       - name: Download current task definition
-        if: steps.check_changes.outputs.changed == 'true'
         run: |
           aws ecs describe-task-definition \
             --task-definition ${{ matrix.ecs_service }} \
             --query taskDefinition \
             --region ${{ env.AWS_REGION }} > task-definition.json
 
-      - name: Inject secrets into task definition
-        if: steps.check_changes.outputs.changed == 'true'
-        id: inject-secrets
-        run: |
-          # Read the current task definition
-          TASK_DEF=$(cat task-definition.json)
-          
-          # Get current environment variables
-          CURRENT_ENV=$(echo $TASK_DEF | jq -r '.containerDefinitions[0].environment')
-          
-          # Add/update DB_PASSWORD and RABBITMQ_PASSWORD as secrets
-          # Note: We're adding them as environment variables here, but in production
-          # you should use ECS secrets from AWS Secrets Manager
-          UPDATED_ENV=$(echo $CURRENT_ENV | jq \
-            --arg db_pass "${{ secrets.DB_PASSWORD }}" \
-            --arg rmq_pass "${{ secrets.RABBITMQ_PASSWORD }}" \
-            'map(if .name == "DB_PASSWORD" then .value = $db_pass elif .name == "RABBITMQ_PASSWORD" then .value = $rmq_pass else . end) | 
-            if any(.name == "DB_PASSWORD") then . else . + [{"name": "DB_PASSWORD", "value": $db_pass}] end |
-            if any(.name == "RABBITMQ_PASSWORD") then . else . + [{"name": "RABBITMQ_PASSWORD", "value": $rmq_pass}] end')
-          
-          # Update the task definition with new environment variables
-          echo $TASK_DEF | jq \
-            --argjson env "$UPDATED_ENV" \
-            '.containerDefinitions[0].environment = $env' > task-definition-updated.json
-          
-          mv task-definition-updated.json task-definition.json
-
       - name: Fill in the new image ID in the Amazon ECS task definition
-        if: steps.check_changes.outputs.changed == 'true'
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
@@ -132,7 +126,6 @@ jobs:
           image: ${{ steps.build-image.outputs.image }}
 
       - name: Deploy Amazon ECS task definition
-        if: steps.check_changes.outputs.changed == 'true'
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
@@ -141,18 +134,9 @@ jobs:
           wait-for-service-stability: true
 
       - name: Summary
-        if: steps.check_changes.outputs.changed == 'true'
         run: |
           echo "## 🚀 ECS Deployment Successful - ${{ matrix.service }}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "**Image:** ${{ steps.build-image.outputs.image }}" >> $GITHUB_STEP_SUMMARY
           echo "**Cluster:** ${{ env.ECS_CLUSTER }}" >> $GITHUB_STEP_SUMMARY
           echo "**Service:** ${{ matrix.ecs_service }}" >> $GITHUB_STEP_SUMMARY
-          echo "**Secrets:** DB_PASSWORD and RABBITMQ_PASSWORD injected" >> $GITHUB_STEP_SUMMARY
-
-      - name: Skipped Summary
-        if: steps.check_changes.outputs.changed == 'false'
-        run: |
-          echo "## ⏭️ Deployment Skipped - ${{ matrix.service }}" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "No changes detected for this service" >> $GITHUB_STEP_SUMMARY

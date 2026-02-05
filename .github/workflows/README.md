@@ -6,9 +6,22 @@ This repository uses GitHub Actions for Continuous Integration and Continuous De
 
 ### 1. CI Workflow (`ci.yml`)
 - **Trigger**: Pull requests to `main`
-- **Purpose**: Build and validate Docker images for both services
-- **Actions**: Builds both `voxpop-identity` and `voxpop-core` services
-- **No deployment**: Only validates that code builds successfully
+- **Purpose**: Validate code quality and ensure services build successfully
+- **Smart Building**: Only builds services that have changed
+- **Actions**:
+  - Detects changed services using path filters
+  - Restores .NET dependencies
+  - Builds only affected services (`voxpop-identity` and/or `voxpop-core`)
+  - Runs unit tests (if test projects exist)
+  - Publishes .NET applications
+- **No Docker build**: Docker images are built once in CD workflow
+- **No deployment**: Only validates that code is ready to merge
+
+**How it works:**
+- Changes to `Voxpop.Identity/**` → Builds Identity only
+- Changes to `Voxpop.Core/**` → Builds Core only
+- Changes to `Voxpop.Packages/**` → Builds ALL services (shared dependency)
+- Changes to docs only → Skips build entirely
 
 ### 2. CD Workflow (`cd.yml`)
 - **Trigger**: Push to `main` branch (after PR merge)
@@ -20,39 +33,98 @@ This repository uses GitHub Actions for Continuous Integration and Continuous De
   - Deploys to ECS cluster
 - **Smart deployment**: Only deploys services that have changed
 
+### Workflow Philosophy: Build Once
+
+**Why CI doesn't build Docker images:**
+- Avoids duplicate builds (faster feedback)
+- CD builds the Docker image once and deploys it
+- CI validates .NET code compiles and tests pass
+- Dockerfile validation happens in CD (rare to change)
+
+**Direct pushes to main:**
+- CD workflow runs automatically (no CI)
+- Use for hotfixes or when working solo
+- For team collaboration, use PRs to get CI validation
+
+## Architecture
+
+### Service Registry (`.github/services.json`)
+All service configurations are centralized in a single JSON file:
+
+```json
+{
+  "services": [
+    {
+      "name": "identity",
+      "path": "Voxpop.Identity",
+      "project": "Voxpop.Identity/src/Voxpop.Identity.Api/Voxpop.Identity.Api.csproj",
+      "dockerfile": "Voxpop.Identity/src/Voxpop.Identity.Api/Dockerfile"
+    }
+  ]
+}
+```
+
+**To add a new service:**
+1. Add entry to `services.json`
+2. Add path filter in `ci.yml` and `cd.yml`
+3. That's it! No bash scripting required.
+
+### Reusable Components
+
+#### `.github/actions/dotnet-build-test`
+Composite action that encapsulates:
+- .NET SDK setup
+- Dependency restoration
+- Build
+- Test discovery and execution
+- Publish
+
+**Benefits**: Consistent build logic across CI/CD workflows.
+
 ## Required GitHub Secrets
 
-Before the workflows can run, you need to add these secrets to your repository:
+Before the workflows can run, you need to add this secret to your repository:
 
 ### How to Add Secrets
 
 1. Go to https://github.com/guilhermeosaka/voxpop/settings/secrets/actions
 2. Click **"New repository secret"**
-3. Add each of the following secrets:
+3. Add the following secret:
 
-### Secret 1: AWS_ROLE_ARN
+### AWS_ROLE_ARN
 - **Name**: `AWS_ROLE_ARN`
-- **Value**: `arn:aws:iam::303155796105:role/voxpop-beta-github-actions-role`
-- **Purpose**: Allows GitHub Actions to authenticate with AWS using OIDC
+- **Value**: Get this from your Terraform output:
+  ```bash
+  cd voxpop.infra/envs/beta
+  terraform output -raw github_actions_role_arn
+  ```
+- **Purpose**: Allows GitHub Actions to authenticate with AWS using OIDC (no long-lived credentials needed)
 
-### Secret 2: DB_PASSWORD
-- **Name**: `DB_PASSWORD`
-- **Value**: Your RDS database password (same as used in Terraform)
-- **Purpose**: Injected into ECS containers for database authentication
-- **⚠️ Important**: This must match the password you used when deploying infrastructure with Terraform
+> **Note**: Database credentials are managed by Terraform and injected as environment variables into ECS tasks via AWS Secrets Manager. You do NOT need to add them as GitHub secrets.
 
-### Secret 3: RABBITMQ_PASSWORD
-- **Name**: `RABBITMQ_PASSWORD`
-- **Value**: Your RabbitMQ password
-- **Purpose**: Injected into ECS containers for message broker authentication
-- **Note**: Only required if RabbitMQ is enabled in your infrastructure
+## Configuration Management
+
+### How .NET Apps Get Their Configuration
+
+Your .NET applications read configuration from `appsettings.json`, but Terraform overrides these values using environment variables:
+
+**Terraform sets these using AWS Secrets Manager + Environment Variables:**
+- `ConnectionStrings__IdentityDb` → **Secret** (Full connection string injected from Secrets Manager)
+- `ConnectionStrings__CoreDb` → **Secret** (Full connection string injected from Secrets Manager)
+
+**.NET automatically merges environment variables** using the `Section__Key` naming convention (double underscore).
+
+**To update credentials:**
+1. Update your Terraform variables in `voxpop.infra/envs/beta/terraform.tfvars`
+2. Run `terraform apply`
+3. Redeploy your services (or let CD workflow handle it on next merge)
 
 ## How It Works
 
 ### On Pull Request:
 1. Developer creates a PR
-2. CI workflow runs automatically
-3. Both services are built to verify code compiles
+2. CI workflow detects changed services
+3. Only affected services are built to verify code compiles
 4. PR shows build status ✅ or ❌
 5. No deployment happens
 
@@ -61,12 +133,10 @@ Before the workflows can run, you need to add these secrets to your repository:
 2. CD workflow runs automatically
 3. Detects which services changed
 4. Builds and pushes Docker images to ECR
-5. Updates ECS task definitions with:
-   - New Docker image
-   - Secrets (DB_PASSWORD, RABBITMQ_PASSWORD)
-   - Environment variables from Terraform
-6. Deploys to ECS cluster
-7. Waits for service stability
+5. Downloads current ECS task definition (which has Terraform-managed environment variables)
+6. Updates task definition with new Docker image
+7. Deploys to ECS cluster
+8. Waits for service stability
 
 ## Deployment Architecture
 
@@ -77,7 +147,7 @@ Before the workflows can run, you need to add these secrets to your repository:
          │
          ▼
 ┌─────────────────┐
-│  CI Workflow    │  ← Builds both services
+│  CI Workflow    │  ← Builds changed services only
 │  (ci.yml)       │  ← No deployment
 └─────────────────┘
 
@@ -147,20 +217,20 @@ aws logs tail /ecs/voxpop-core-beta --follow --region us-east-1
 
 ### Build Fails
 - Check the GitHub Actions logs for error details
-- Verify Dockerfile paths are correct
+- Verify Dockerfile paths are correct in `services.json`
 - Ensure all dependencies are available
 
 ### Deployment Fails
-- Verify all three secrets are set correctly
+- Verify `AWS_ROLE_ARN` secret is set correctly in GitHub
 - Check AWS permissions for the OIDC role
 - Verify ECS cluster and services exist
 - Check CloudWatch logs for container errors
 
 ### Service Unhealthy After Deployment
 - Check CloudWatch logs for application errors
-- Verify database connection (DB_PASSWORD is correct)
-- Verify RabbitMQ connection (if enabled)
+- Verify database credentials in Terraform (`voxpop.infra/envs/beta/terraform.tfvars`)
 - Check security groups allow traffic
+- Verify environment variables are set correctly in ECS task definition
 
 ## Rollback
 
@@ -183,7 +253,7 @@ aws ecs update-service \
 
 ## Next Steps
 
-1. ✅ Add the three required secrets to GitHub
+1. ✅ Add the `AWS_ROLE_ARN` secret to GitHub (get value from Terraform output)
 2. ✅ Create a test PR to verify CI workflow
 3. ✅ Merge PR to verify CD workflow
 4. ✅ Monitor deployment in AWS console
@@ -192,7 +262,7 @@ aws ecs update-service \
 ## Security Notes
 
 - Never commit secrets to the repository
-- Secrets are encrypted in GitHub
-- Secrets are injected at deployment time
-- Consider migrating to AWS Secrets Manager for production
-- Rotate passwords regularly
+- Database credentials are managed in Terraform (not in GitHub)
+- GitHub only needs `AWS_ROLE_ARN` for OIDC authentication (no long-lived AWS credentials)
+- Consider migrating to AWS Secrets Manager for production environments
+- Rotate passwords regularly in Terraform and redeploy
