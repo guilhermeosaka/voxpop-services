@@ -83,13 +83,13 @@ Composite action that encapsulates:
 
 ## Required GitHub Secrets
 
-Before the workflows can run, you need to add this secret to your repository:
+The CD workflow uses **environment-specific secrets** from the `beta` GitHub environment.
 
 ### How to Add Secrets
 
-1. Go to https://github.com/guilhermeosaka/voxpop/settings/secrets/actions
-2. Click **"New repository secret"**
-3. Add the following secret:
+1. Go to https://github.com/guilhermeosaka/voxpop/settings/environments
+2. Click on the **`beta`** environment (or create it if it doesn't exist)
+3. Under "Environment secrets", add the following:
 
 ### AWS_ROLE_ARN
 - **Name**: `AWS_ROLE_ARN`
@@ -100,24 +100,7 @@ Before the workflows can run, you need to add this secret to your repository:
   ```
 - **Purpose**: Allows GitHub Actions to authenticate with AWS using OIDC (no long-lived credentials needed)
 
-> **Note**: Database credentials are managed by Terraform and injected as environment variables into ECS tasks via AWS Secrets Manager. You do NOT need to add them as GitHub secrets.
-
-## Configuration Management
-
-### How .NET Apps Get Their Configuration
-
-Your .NET applications read configuration from `appsettings.json`, but Terraform overrides these values using environment variables:
-
-**Terraform sets these using AWS Secrets Manager + Environment Variables:**
-- `ConnectionStrings__IdentityDb` → **Secret** (Full connection string injected from Secrets Manager)
-- `ConnectionStrings__CoreDb` → **Secret** (Full connection string injected from Secrets Manager)
-
-**.NET automatically merges environment variables** using the `Section__Key` naming convention (double underscore).
-
-**To update credentials:**
-1. Update your Terraform variables in `voxpop.infra/envs/beta/terraform.tfvars`
-2. Run `terraform apply`
-3. Redeploy your services (or let CD workflow handle it on next merge)
+> **Note**: Database credentials are managed by Terraform and stored in AWS Secrets Manager. They are automatically injected into ECS tasks. You do NOT need to add them as GitHub secrets.
 
 ## How It Works
 
@@ -133,7 +116,7 @@ Your .NET applications read configuration from `appsettings.json`, but Terraform
 2. CD workflow runs automatically
 3. Detects which services changed
 4. Builds and pushes Docker images to ECR
-5. Downloads current ECS task definition (which has Terraform-managed environment variables)
+5. Downloads current ECS task definition (which has Terraform-managed secrets from AWS Secrets Manager)
 6. Updates task definition with new Docker image
 7. Deploys to ECS cluster
 8. Waits for service stability

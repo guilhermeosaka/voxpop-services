@@ -74,6 +74,7 @@ jobs:
     if: ${{ needs.changes.outputs.matrix != '[]' }}
     name: Deploy ${{ matrix.service }}
     runs-on: ubuntu-latest
+    environment: beta  # Use GitHub environment for environment-specific secrets
     
     strategy:
       fail-fast: false
@@ -140,3 +141,10 @@ jobs:
           echo "**Image:** ${{ steps.build-image.outputs.image }}" >> $GITHUB_STEP_SUMMARY
           echo "**Cluster:** ${{ env.ECS_CLUSTER }}" >> $GITHUB_STEP_SUMMARY
           echo "**Service:** ${{ matrix.ecs_service }}" >> $GITHUB_STEP_SUMMARY
+
+      - name: Skipped Summary
+        if: steps.check_changes.outputs.changed == 'false'
+        run: |
+          echo "## ⏭️ Deployment Skipped - ${{ matrix.service }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "No changes detected for this service" >> $GITHUB_STEP_SUMMARY
