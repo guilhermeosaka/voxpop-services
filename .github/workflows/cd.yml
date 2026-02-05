@@ -142,9 +142,4 @@ jobs:
           echo "**Cluster:** ${{ env.ECS_CLUSTER }}" >> $GITHUB_STEP_SUMMARY
           echo "**Service:** ${{ matrix.ecs_service }}" >> $GITHUB_STEP_SUMMARY
 
-      - name: Skipped Summary
-        if: steps.check_changes.outputs.changed == 'false'
-        run: |
-          echo "## ⏭️ Deployment Skipped - ${{ matrix.service }}" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "No changes detected for this service" >> $GITHUB_STEP_SUMMARY
+
