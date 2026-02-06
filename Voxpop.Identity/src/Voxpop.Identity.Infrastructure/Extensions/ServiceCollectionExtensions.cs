@@ -94,7 +94,7 @@ public static class ServiceCollectionExtensions
 
         public IServiceCollection AddInfrastructureServices(IWebHostEnvironment environment)
         {
-            if (environment.IsDevelopment())
+            if (!environment.IsProduction())
                 services.AddKeyedScoped<ICodeService, FakeSmsCodeService>(VerificationCodeChannel.Phone);
             else
                 services.AddKeyedScoped<ICodeService, SmsCodeService>(VerificationCodeChannel.Phone);
