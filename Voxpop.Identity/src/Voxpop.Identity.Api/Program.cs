@@ -53,7 +53,9 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("DevCors", policy =>
         policy
-            .WithOrigins("http://localhost:3000")
+            .SetIsOriginAllowed(origin => 
+                origin.StartsWith("http://localhost") || 
+                origin.EndsWith(".vercel.app"))
             .AllowAnyHeader()
             .AllowAnyMethod());
 });
