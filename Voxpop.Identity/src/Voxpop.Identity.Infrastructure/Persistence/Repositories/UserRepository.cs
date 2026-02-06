@@ -11,7 +11,7 @@ public class UserRepository(UserManager<ApplicationUser> userManager) : IUserRep
     {
         var applicationUser = new ApplicationUser
         {
-            Id = Guid.NewGuid(),
+            Id = user.Id,
             UserName = user.PhoneNumber,
             PhoneNumber = user.PhoneNumber,
             PhoneNumberConfirmed = user.PhoneNumberConfirmed
