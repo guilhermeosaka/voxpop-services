@@ -10,7 +10,16 @@ namespace Voxpop.Core.Application.Polls.UseCases.GetPolls;
  {
      public async Task<Result<IReadOnlyList<PollSummary>>> Handle(GetPollsQuery query, CancellationToken ct)
      {
-         var result = await queries.GetPollsAsync(query.Page, query.PageSize, requestContext.UserId, ct);
+         var result = await queries.GetPollsAsync(
+             query.Page,
+             query.PageSize,
+             query.SortBy,
+             requestContext.UserId,
+             query.CreatedByMe,
+             query.Status,
+             query.VoteMode,
+             query.VotedByMe,
+             ct);
          return result.ToList();
      }
  }

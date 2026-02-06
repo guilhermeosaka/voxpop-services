@@ -56,7 +56,14 @@ public class PollsController(IDispatcher dispatcher) : ControllerBase
 
         var result =
             await dispatcher.Dispatch<GetPollsQuery, IReadOnlyList<PollSummary>>(
-                new GetPollsQuery(request.Page, pageSize), ct);
+                new GetPollsQuery(
+                    request.Page,
+                    pageSize,
+                    request.SortBy,
+                    request.CreatedByMe,
+                    request.Status,
+                    request.VoteMode,
+                    request.VotedByMe), ct);
 
         return result.ToActionResult(GetPollsMapper.ToResponse);
     }
