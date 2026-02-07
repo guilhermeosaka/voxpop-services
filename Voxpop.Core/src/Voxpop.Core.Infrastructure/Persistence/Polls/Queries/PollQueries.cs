@@ -113,7 +113,8 @@ public class PollQueries(ISqlConnectionFactory connectionFactory) : IPollQueries
                            p.is_closed,
                            p.created_at,
                            p.created_by = @UserId as has_created,
-                           COALESCE(pvc.total_votes, 0) as total_votes
+                           COALESCE(pvc.total_votes, 0) as total_votes,
+                           ROW_NUMBER() OVER (ORDER BY {orderByClause}) AS row_number
                        FROM polls p
                        LEFT JOIN poll_vote_counts pvc ON pvc.poll_id = p.id
                        {votedByMeJoinClause}
@@ -148,8 +149,9 @@ public class PollQueries(ISqlConnectionFactory connectionFactory) : IPollQueries
                             po.id,
                             po.value,
                             po.order,
-                            uv.id
-                   ORDER BY pp.created_at DESC, po.order;
+                            uv.id,
+                            pp.row_number
+                   ORDER BY pp.row_number;
                    """;
 
         var result = await db.QueryAsync<GetPollsResult>(sql, parameters);

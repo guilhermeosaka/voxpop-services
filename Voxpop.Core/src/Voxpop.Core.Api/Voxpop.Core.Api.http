@@ -129,6 +129,13 @@ Accept: application/json
 Accept-Language: pt-BR,pt;q=0.9,en;q=0.8
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1Y2RlZTUzZi0xNzA2LTQwNDQtOGRjZi00NDRkNTE4MThhNmQiLCJwaG9uZV9udW1iZXIiOiI1NTExOTQxNzU4NzQ0IiwiZXhwIjoxODY5NTUwMzU5LCJpc3MiOiJ2b3hwb3AtaWRlbnRpdHkiLCJhdWQiOiJ2b3hwb3AtYXBpIn0.cAKHfJogEPZFbgCEqAdypFGJmMtFqmmdVIBKTLGDsMY
 
+### GET /polls - List polls with sorting
+
+GET {{Voxpop.Core.HostAddress}}/polls?page=1&pageSize=50&sortBy=3
+Accept: application/json
+Accept-Language: pt-BR,pt;q=0.9,en;q=0.8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1Y2RlZTUzZi0xNzA2LTQwNDQtOGRjZi00NDRkNTE4MThhNmQiLCJwaG9uZV9udW1iZXIiOiI1NTExOTQxNzU4NzQ0IiwiZXhwIjoxODY5NTUwMzU5LCJpc3MiOiJ2b3hwb3AtaWRlbnRpdHkiLCJhdWQiOiJ2b3hwb3AtYXBpIn0.cAKHfJogEPZFbgCEqAdypFGJmMtFqmmdVIBKTLGDsMY
+
 ### PUT /polls/{id}/votes/{optionId}
 
 PUT {{Voxpop.Core.HostAddress}}/polls/62380e1e-f65a-4c5e-a4ca-bc72383e3f2b/votes/4e77f7d5-e92f-4b25-85c4-7b78a895f8a7
