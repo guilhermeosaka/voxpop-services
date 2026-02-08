@@ -93,7 +93,7 @@ public class PollQueries(ISqlConnectionFactory connectionFactory) : IPollQueries
                    WITH poll_vote_counts AS (
                        SELECT
                            po.poll_id,
-                           COUNT(DISTINCT v.id) as total_votes
+                           COUNT(DISTINCT v.user_id) as total_votes
                        FROM poll_options po
                        LEFT JOIN votes v ON v.option_id = po.id
                        GROUP BY po.poll_id
@@ -131,6 +131,7 @@ public class PollQueries(ISqlConnectionFactory connectionFactory) : IPollQueries
                        pp.is_closed         AS "IsClosed",
                        pp.created_at        AS "CreatedAt",
                        pp.has_created       AS "HasCreated",
+                       pp.total_votes       AS "TotalVotes",
                        po.id                AS "OptionId",
                        po.value             AS "OptionValue",
                        COUNT(v.id)          AS "OptionVotes",
@@ -146,6 +147,7 @@ public class PollQueries(ISqlConnectionFactory connectionFactory) : IPollQueries
                             pp.is_closed,
                             pp.created_at,
                             pp.has_created,
+                            pp.total_votes,
                             po.id,
                             po.value,
                             po.order,
@@ -170,6 +172,7 @@ public class PollQueries(ISqlConnectionFactory connectionFactory) : IPollQueries
                     poll.IsClosed,
                     poll.CreatedAt,
                     poll.HasCreated,
+                    poll.TotalVotes,
                     []);
                 lookup.Add(poll.Id, pollDto);
             }

@@ -10,6 +10,7 @@ public record GetPollsResult(
     bool IsClosed,
     DateTime CreatedAt,
     bool HasCreated,
+    long TotalVotes,
     Guid OptionId,
     string OptionValue,
     long OptionVotes,

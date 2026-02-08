@@ -28,6 +28,7 @@
       - seq_data:/data
         
   voxpop-core:
+    restart: unless-stopped
     build:
       context: .
       dockerfile: Voxpop.Core/src/Voxpop.Core.Api/Dockerfile
@@ -49,6 +50,7 @@
         condition: service_started
         
   voxpop-identity:
+    restart: unless-stopped
     build:
       context: .
       dockerfile: Voxpop.Identity/src/Voxpop.Identity.Api/Dockerfile

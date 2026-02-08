@@ -10,4 +10,5 @@ public record PollSummaryDto(
     bool IsClosed,
     DateTimeOffset? CreatedAt,
     bool HasCreated,
+    long TotalVotes,
     List<PollOptionSummaryDto> Options);
