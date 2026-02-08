@@ -41,11 +41,11 @@ public class PollQueries(ISqlConnectionFactory connectionFactory) : IPollQueries
         if (votedByMe.HasValue && userId.HasValue)
         {
             votedByMeJoinClause = votedByMe.Value
-                ? "JOIN votes uv ON uv.poll_id = p.id AND uv.user_id = @UserId"
-                : "LEFT JOIN votes uv ON uv.poll_id = p.id AND uv.user_id = @UserId";
+                ? "JOIN user_voted_polls uvp ON uvp.poll_id = p.id"
+                : "LEFT JOIN user_voted_polls uvp ON uvp.poll_id = p.id";
             
             if (!votedByMe.Value)
-                whereConditions.Add("uv.id IS NULL");
+                whereConditions.Add("uvp.id IS NULL");
         }
 
         if (status.HasValue)
@@ -155,7 +155,7 @@ public class PollQueries(ISqlConnectionFactory connectionFactory) : IPollQueries
                             pp.row_number
                    ORDER BY pp.row_number, po.order;
                    """;
-
+        
         var result = await db.QueryAsync<GetPollsResult>(sql, parameters);
 
         var lookup = new Dictionary<Guid, PollSummary>();
