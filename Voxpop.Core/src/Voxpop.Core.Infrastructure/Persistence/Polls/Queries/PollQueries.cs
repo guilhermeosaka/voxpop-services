@@ -151,7 +151,7 @@ public class PollQueries(ISqlConnectionFactory connectionFactory) : IPollQueries
                             po.order,
                             uv.id,
                             pp.row_number
-                   ORDER BY pp.row_number;
+                   ORDER BY pp.row_number, po.order;
                    """;
 
         var result = await db.QueryAsync<GetPollsResult>(sql, parameters);
