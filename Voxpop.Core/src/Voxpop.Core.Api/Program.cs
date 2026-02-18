@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Serilog;
 using Voxpop.Core.Api.Middlewares;
 using Voxpop.Core.Application.Common.Extensions;
@@ -11,7 +12,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseLogger(builder.Configuration);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(
+            new JsonStringEnumConverter()
+        );
+    });
 
 builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("Jwt"));
 
@@ -29,8 +36,8 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("DevCors", policy =>
         policy
-            .SetIsOriginAllowed(origin => 
-                origin.StartsWith("http://localhost") || 
+            .SetIsOriginAllowed(origin =>
+                origin.StartsWith("http://localhost") ||
                 origin.EndsWith(".vercel.app"))
             .AllowAnyHeader()
             .AllowAnyMethod());
