@@ -11,7 +11,13 @@ public class CreatePollHandler(IRepository<Poll> repository, IUnitOfWork unitOfW
 {
     public async Task<Result<Guid>> Handle(CreatePollCommand request, CancellationToken ct)
     {
-        var poll = Poll.Create(request.Question, request.ExpiresAt, request.VoteMode);
+        var poll = Poll.Create(
+            request.Question, 
+            request.ExpiresAt, 
+            request.VoteMode, 
+            request.Access,
+            request.ResultsAccess, 
+            request.ResultsVisibility);
 
         foreach (var option in request.Options)
             poll.AddOption(option.Value);

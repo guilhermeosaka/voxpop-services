@@ -16,5 +16,6 @@ public static class GetPollsMapper
             p.CreatedAt,
             p.HasCreated,
             p.TotalVotes,
+            p.ResultsAreVisible,
             p.Options.Select(o => new PollOptionSummaryDto(o.Id, o.Value, o.Votes, o.HasVoted)).ToList())).ToList());
 }

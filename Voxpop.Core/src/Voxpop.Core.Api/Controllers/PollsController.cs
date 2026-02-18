@@ -32,6 +32,9 @@ public class PollsController(IDispatcher dispatcher) : ControllerBase
                 request.Question,
                 request.ExpiresAt,
                 request.VoteMode,
+                request.Access,
+                request.ResultsAccess,
+                request.ResultsVisibility,
                 request.Options
             ), ct);
 

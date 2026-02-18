@@ -9,4 +9,10 @@ public record CreatePollRequest(
     DateTimeOffset? ExpiresAt,
     [EnumDataType(typeof(VoteMode))]
     VoteMode VoteMode,
+    [EnumDataType(typeof(PollAccess))]
+    PollAccess Access,
+    [EnumDataType(typeof(PollResultsAccess))]
+    PollResultsAccess ResultsAccess,
+    [EnumDataType(typeof(PollResultsVisibility))]
+    PollResultsVisibility ResultsVisibility,
     IReadOnlyList<CreatePollOptionDto> Options);

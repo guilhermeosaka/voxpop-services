@@ -27,6 +27,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1Y2RlZTUzZ
   "question": "Em quem você vai votar em 2026?",
   "expiresAt": "2027-01-01T00:00:00-03:00",
   "voteMode": 1,
+  "access": 1,
+  "resultsAccess": 1,
+  "resultsVisibility": 1,
   "options": [
     {
       "value": "Ciro Gomes"
@@ -50,6 +53,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1Y2RlZTUzZ
   "question": "EUA vai invadir a Groenlândia em 2026?",
   "expiresAt": "2026-06-01T00:00:00-03:00",
   "voteMode": 1,
+  "access": 1,
+  "resultsAccess": 1,
+  "resultsVisibility": 1,
   "options": [
     {
       "value": "Sim"
@@ -70,6 +76,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1Y2RlZTUzZ
   "question": "China vai reunificar Taiwan?",
   "expiresAt": "2028-01-01T00:00:00-03:00",
   "voteMode": 1,
+  "access": 1,
+  "resultsAccess": 1,
+  "resultsVisibility": 1,
   "options": [
     {
       "value": "Sim"
@@ -90,6 +99,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1Y2RlZTUzZ
   "question": "Linguagens de programação favoritas?",
   "expiresAt": "2028-01-01T00:00:00-03:00",
   "voteMode": 2,
+  "access": 1,
+  "resultsAccess": 1,
+  "resultsVisibility": 1,
   "options": [
     {
       "value": "C#"
@@ -124,6 +136,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1Y2RlZTUzZ
 {
   "question": "1 + 1 x (1 + 1)?",
   "voteMode": 1,
+  "access": 1,
+  "resultsAccess": 1,
+  "resultsVisibility": 1,
   "options": [
     {
       "value": "1"

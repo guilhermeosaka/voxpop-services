@@ -5,7 +5,14 @@ using Voxpop.Core.Domain.Polls.Exceptions;
 
 namespace Voxpop.Core.Domain.Polls.Entities;
 
-public class Poll(Guid id, string question, DateTimeOffset? expiresAt, VoteMode voteMode)
+public class Poll(
+    Guid id, 
+    string question, 
+    DateTimeOffset? expiresAt, 
+    VoteMode voteMode,
+    PollAccess access,
+    PollResultsAccess resultsAccess,
+    PollResultsVisibility resultsVisibility)
     : Entity(id), IAuditable, IArchivable, IAggregateRoot
 {
     private readonly List<PollOption> _options = [];
@@ -19,13 +26,23 @@ public class Poll(Guid id, string question, DateTimeOffset? expiresAt, VoteMode 
     public DateTimeOffset? ArchivedAt { get; set; }
 
     public string Question { get; private set; } = question;
-    public VoteMode VoteMode { get; private set; } = voteMode;
     public DateTimeOffset? ExpiresAt { get; private set; } = expiresAt;
+    public VoteMode VoteMode { get; private set; } = voteMode;
     public bool IsClosed { get; private set; }
+    public PollAccess Access { get; private set; } = access;
+    public PollResultsAccess ResultsAccess { get; private set; } = resultsAccess;
+    public PollResultsVisibility ResultsVisibility { get; private set; } = resultsVisibility;
+    
     public IReadOnlyCollection<PollOption> Options => _options;
 
-    public static Poll Create(string question, DateTimeOffset? expiresAt, VoteMode voteMode) =>
-        new(Guid.NewGuid(), question, expiresAt, voteMode);
+    public static Poll Create(
+        string question, 
+        DateTimeOffset? expiresAt, 
+        VoteMode voteMode,
+        PollAccess access,
+        PollResultsAccess resultsAccess,
+        PollResultsVisibility resultsVisibility) =>
+        new(Guid.NewGuid(), question, expiresAt, voteMode, access, resultsAccess, resultsVisibility);
 
     public void AddOption(string value)
     {

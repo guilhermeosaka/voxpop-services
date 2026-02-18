@@ -1,3 +1,3 @@
 ﻿namespace Voxpop.Core.Application.Polls.Models;
 
-public record PollOptionSummary(Guid Id, string Value, long Votes, bool HasVoted);
+public record PollOptionSummary(Guid Id, string Value, long? Votes, bool HasVoted);

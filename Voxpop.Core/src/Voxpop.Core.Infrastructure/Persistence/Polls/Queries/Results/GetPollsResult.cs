@@ -11,7 +11,8 @@ public record GetPollsResult(
     DateTime CreatedAt,
     bool HasCreated,
     long TotalVotes,
+    bool ResultsAreVisible,
     Guid OptionId,
     string OptionValue,
-    long OptionVotes,
+    long? OptionVotes,
     bool OptionHasVoted);

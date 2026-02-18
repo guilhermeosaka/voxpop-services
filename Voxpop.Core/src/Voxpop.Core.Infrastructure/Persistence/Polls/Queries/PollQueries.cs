@@ -30,7 +30,11 @@ public class PollQueries(ISqlConnectionFactory connectionFactory) : IPollQueries
 
         #region WHERE clause
 
-        var whereConditions = new List<string> { "not p.is_archived" };
+        var whereConditions = new List<string>
+        {
+            "not p.is_archived",
+            "(p.access = 'public' OR p.created_by = @UserId)"
+        };
         var votedByMeJoinClause = string.Empty;
 
         if (createdByMe.HasValue && userId.HasValue)
@@ -40,12 +44,7 @@ public class PollQueries(ISqlConnectionFactory connectionFactory) : IPollQueries
 
         if (votedByMe.HasValue && userId.HasValue)
         {
-            votedByMeJoinClause = votedByMe.Value
-                ? "JOIN user_voted_polls uvp ON uvp.poll_id = p.id"
-                : "LEFT JOIN user_voted_polls uvp ON uvp.poll_id = p.id";
-            
-            if (!votedByMe.Value)
-                whereConditions.Add("uvp.id IS NULL");
+            whereConditions.Add(votedByMe.Value ? "uvp.poll_id IS NOT NULL" : "uvp.poll_id IS NULL");
         }
 
         if (status.HasValue)
@@ -67,6 +66,8 @@ public class PollQueries(ISqlConnectionFactory connectionFactory) : IPollQueries
             parameters.Add("@VoteMode", (int)voteMode.Value);
         }
 
+        var whereClause = string.Join(" AND ", whereConditions);
+
         #endregion
 
         #region ORDER BY clause
@@ -85,7 +86,25 @@ public class PollQueries(ISqlConnectionFactory connectionFactory) : IPollQueries
             _ => defaultSort
         };
 
-        var whereClause = string.Join(" AND ", whereConditions);
+        #endregion
+
+        #region ResultsAreVisible clause
+
+        var resultsAccessConditions = new List<string>
+        {
+            "p.results_access = 'Anyone'",
+            "(p.results_access = 'Voters' AND uvp.poll_id IS NOT NULL)"
+        };
+        
+        var resultsVisibilityConditions = new List<string>
+        {
+            "p.results_visibility = 'RealTime'",
+            "(p.results_visibility = 'AfterCloses' AND (p.is_closed OR (p.expires_at IS NOT NULL AND p.expires_at <= NOW())))"
+        };
+        
+        var resultsAccessClause = string.Join(" OR ", resultsAccessConditions);
+        var resultsVisibilityClause = string.Join(" OR ", resultsVisibilityConditions);
+        var resultsAreVisibleClause = $"p.created_by = @UserId OR ({resultsAccessClause}) AND ({resultsVisibilityClause})";
 
         #endregion
 
@@ -109,14 +128,19 @@ public class PollQueries(ISqlConnectionFactory connectionFactory) : IPollQueries
                            p.id,
                            p.question,
                            p.vote_mode,
+                           p.results_access,
+                           p.results_visibility,
                            p.expires_at,
                            p.is_closed,
                            p.created_at,
                            p.created_by = @UserId as has_created,
+                           uvp.poll_id IS NOT NULL as has_voted,
                            COALESCE(pvc.total_votes, 0) as total_votes,
+                           ({resultsAreVisibleClause}) as results_are_visible,
                            ROW_NUMBER() OVER (ORDER BY {orderByClause}) AS row_number
                        FROM polls p
                        LEFT JOIN poll_vote_counts pvc ON pvc.poll_id = p.id
+                       LEFT JOIN user_voted_polls uvp ON uvp.poll_id = p.id
                        {votedByMeJoinClause}
                        WHERE {whereClause}
                        ORDER BY {orderByClause}
@@ -124,21 +148,25 @@ public class PollQueries(ISqlConnectionFactory connectionFactory) : IPollQueries
                        OFFSET (@Page - 1) * @PageSize
                    )
                    SELECT
-                       pp.id                AS "Id",
-                       pp.question          AS "Question",
-                       pp.vote_mode         AS "VoteMode",
-                       pp.expires_at        AS "ExpiresAt",
-                       pp.is_closed         AS "IsClosed",
-                       pp.created_at        AS "CreatedAt",
-                       pp.has_created       AS "HasCreated",
-                       pp.total_votes       AS "TotalVotes",
-                       po.id                AS "OptionId",
-                       po.value             AS "OptionValue",
-                       COUNT(v.id)          AS "OptionVotes",
-                       uv.id IS NOT NULL    AS "OptionHasVoted"
+                       pp.id                  AS "Id",
+                       pp.question            AS "Question",
+                       pp.vote_mode           AS "VoteMode",
+                       pp.expires_at          AS "ExpiresAt",
+                       pp.is_closed           AS "IsClosed",
+                       pp.created_at          AS "CreatedAt",
+                       pp.has_created         AS "HasCreated",
+                       pp.total_votes         AS "TotalVotes",
+                       pp.results_are_visible AS "ResultsAreVisible",
+                       po.id                  AS "OptionId",
+                       po.value               AS "OptionValue",
+                       CASE 
+                        WHEN pp.results_are_visible THEN COUNT(v.id) 
+                        ELSE NULL 
+                       END                    AS "OptionVotes",
+                       uv.id IS NOT NULL      AS "OptionHasVoted"
                    FROM paged_polls pp
                    JOIN poll_options po ON po.poll_id = pp.id
-                   LEFT JOIN votes v ON v.option_id = po.id
+                   LEFT JOIN votes v ON pp.results_are_visible AND v.option_id = po.id
                    LEFT JOIN votes uv ON uv.option_id = po.id AND uv.user_id = @UserId
                    GROUP BY pp.id,
                             pp.question,
@@ -148,6 +176,7 @@ public class PollQueries(ISqlConnectionFactory connectionFactory) : IPollQueries
                             pp.created_at,
                             pp.has_created,
                             pp.total_votes,
+                            pp.results_are_visible,
                             po.id,
                             po.value,
                             po.order,
@@ -155,7 +184,7 @@ public class PollQueries(ISqlConnectionFactory connectionFactory) : IPollQueries
                             pp.row_number
                    ORDER BY pp.row_number, po.order;
                    """;
-        
+
         var result = await db.QueryAsync<GetPollsResult>(sql, parameters);
 
         var lookup = new Dictionary<Guid, PollSummary>();
@@ -173,6 +202,7 @@ public class PollQueries(ISqlConnectionFactory connectionFactory) : IPollQueries
                     poll.CreatedAt,
                     poll.HasCreated,
                     poll.TotalVotes,
+                    poll.ResultsAreVisible,
                     []);
                 lookup.Add(poll.Id, pollDto);
             }

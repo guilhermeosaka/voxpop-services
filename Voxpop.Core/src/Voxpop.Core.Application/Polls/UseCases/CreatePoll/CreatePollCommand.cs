@@ -6,4 +6,7 @@ public record CreatePollCommand(
     string Question,
     DateTimeOffset? ExpiresAt,
     VoteMode VoteMode,
+    PollAccess Access,
+    PollResultsAccess ResultsAccess,
+    PollResultsVisibility ResultsVisibility,
     IReadOnlyList<CreatePollOptionDto> Options);

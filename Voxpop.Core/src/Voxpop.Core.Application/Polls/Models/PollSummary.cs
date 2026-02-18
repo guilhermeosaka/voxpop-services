@@ -11,4 +11,5 @@ public record PollSummary(
     DateTimeOffset? CreatedAt,
     bool HasCreated,
     long TotalVotes,
+    bool ResultsAreVisible,
     List<PollOptionSummary> Options);

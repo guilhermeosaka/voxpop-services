@@ -17,6 +17,7 @@ public class VoteConfiguration : IEntityTypeConfiguration<Vote>
         builder.Property(up => up.Id).HasColumnName("id").IsRequired();
         builder.Property(up => up.UserId).HasColumnName("user_id").IsRequired();
         builder.Property(up => up.PollId).HasColumnName("poll_id").IsRequired();
+        builder.Property(up => up.SlotIndex).HasColumnName("slot_index").IsRequired();
         builder.Property(up => up.OptionId).HasColumnName("option_id").IsRequired();
         builder.Property(up => up.CreatedBy).HasColumnName("created_by").IsRequired();
         builder.Property(up => up.CreatedAt).HasColumnName("created_at").WithUtcConverter().IsRequired();
@@ -25,6 +26,8 @@ public class VoteConfiguration : IEntityTypeConfiguration<Vote>
         
         builder.HasOne<Poll>().WithMany().HasForeignKey(up => up.PollId);
         builder.HasOne<PollOption>().WithMany().HasForeignKey(up => up.OptionId);
+
+        builder.HasIndex(v => new { v.PollId, v.UserId, v.SlotIndex }).IsUnique();
 
         builder.HasIndex(v => new { v.UserId, v.PollId });
     }

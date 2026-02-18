@@ -15,8 +15,11 @@ public class PollConfiguration : IEntityTypeConfiguration<Poll>
         
         builder.Property(up => up.Id).HasColumnName("id").IsRequired();
         builder.Property(up => up.Question).HasColumnName("question").HasMaxLength(512).IsRequired();
-        builder.Property(up => up.VoteMode).HasColumnName("vote_mode").IsRequired();
         builder.Property(up => up.ExpiresAt).HasColumnName("expires_at").WithUtcConverter().IsRequired(false);
+        builder.Property(up => up.VoteMode).HasColumnName("vote_mode").IsRequired().HasConversion<string>().HasMaxLength(20).IsUnicode(false);
+        builder.Property(up => up.Access).HasColumnName("access").IsRequired().HasConversion<string>().HasMaxLength(20).IsUnicode(false);
+        builder.Property(up => up.ResultsAccess).HasColumnName("results_access").IsRequired().HasConversion<string>().HasMaxLength(20).IsUnicode(false);
+        builder.Property(up => up.ResultsVisibility).HasColumnName("results_visibility").IsRequired().HasConversion<string>().HasMaxLength(20).IsUnicode(false);
         builder.Property(up => up.IsClosed).HasColumnName("is_closed").IsRequired();
         builder.Property(up => up.CreatedBy).HasColumnName("created_by").IsRequired();
         builder.Property(up => up.CreatedAt).HasColumnName("created_at").WithUtcConverter().IsRequired();

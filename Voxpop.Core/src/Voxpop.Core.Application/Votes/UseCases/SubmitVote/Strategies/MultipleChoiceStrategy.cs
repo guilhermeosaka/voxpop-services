@@ -21,7 +21,7 @@ public class MultipleChoiceStrategy(
         var vote = await repository.FindAsync(userId, request.PollId, request.OptionId);
 
         if (vote == null)
-            await repository.AddAsync(Vote.Create(userId, request.PollId, request.OptionId));
+            await repository.AddAsync(Vote.Create(userId, request.PollId, request.OptionId, request.OptionId));
 
         await unitOfWork.SaveChangesAsync(ct);
         
