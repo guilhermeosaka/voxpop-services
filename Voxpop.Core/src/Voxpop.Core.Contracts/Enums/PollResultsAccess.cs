@@ -3,6 +3,6 @@
 public enum PollResultsAccess
 {
     Anyone = 1,
-    Creator = 2,
-    Voters = 3
+    Voters = 2,
+    Creator = 3
 }

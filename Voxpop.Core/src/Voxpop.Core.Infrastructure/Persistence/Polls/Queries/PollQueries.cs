@@ -33,7 +33,7 @@ public class PollQueries(ISqlConnectionFactory connectionFactory) : IPollQueries
         var whereConditions = new List<string>
         {
             "not p.is_archived",
-            "(p.access = 'public' OR p.created_by = @UserId)"
+            "(p.access = 'Public' OR p.created_by = @UserId)"
         };
         var votedByMeJoinClause = string.Empty;
 
